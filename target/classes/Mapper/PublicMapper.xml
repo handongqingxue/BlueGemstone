@@ -6,6 +6,9 @@
 	<select id="getVarChangeAvgValue" resultType="java.lang.Float">
 		select avg(value) value from VarChange where name=#{name} and createTime&lt;#{time} and updated=0
 	</select>
+	<select id="selectVarChangeLineData" resultType="blueGemstone.entity.VarChange">
+		select createTime,value from VarChange order by createtime
+	</select>
 	<insert id="insertVarChange" parameterType="blueGemstone.entity.VarChange">
 		insert into VarChange (id,name,value,createTime,state,updated,memo) values(#{id},#{name},#{value},#{createTime},#{state},0,#{memo})
 	</insert>

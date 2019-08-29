@@ -2,6 +2,7 @@ package blueGemstone.service.serviceImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -102,5 +103,12 @@ public class PublicServiceImpl implements PublicService {
 			publicDao.updateVarChange(VarChange.YAQIANG,time);
 		}
 		return count;
+	}
+
+	@Override
+	public List<VarChange> selectVarChangeLineData() {
+		// TODO Auto-generated method stub
+		
+		return publicDao.selectVarChangeLineData();
 	}
 }

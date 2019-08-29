@@ -1,9 +1,16 @@
 package blueGemstone.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import blueGemstone.entity.VarChange;
 import blueGemstone.service.PublicService;
 
 @Controller
@@ -53,6 +60,33 @@ public class MainController {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@RequestMapping("/selectVarChangeLineData")
+	@ResponseBody
+	public Map<String,Object> selectVarChangeLineData() {
+		
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		List<VarChange> vcList=publicService.selectVarChangeLineData();
+		
+		if(vcList.size()>0) {
+			jsonMap.put("message", "ok");
+			List<String> createTimeList=new ArrayList<String>();
+			List<Float> valueList=new ArrayList<Float>();
+			for (VarChange varChange : vcList) {
+				createTimeList.add(varChange.getCreateTime());
+				valueList.add(varChange.getValue());
+			}
+			jsonMap.put("createTimeList", createTimeList);
+			jsonMap.put("valueList", valueList);
+			jsonMap.put("listSize", createTimeList.size());
+		}
+		else {
+			jsonMap.put("message", "no");
+		}
+		
+		return jsonMap;
 	}
 
 }

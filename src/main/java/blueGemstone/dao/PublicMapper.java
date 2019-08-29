@@ -1,5 +1,7 @@
 package blueGemstone.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import blueGemstone.entity.VarAvgChange;
@@ -16,5 +18,7 @@ public interface PublicMapper {
 	float getVarChangeAvgValue(@Param("name") String name, @Param("time") String time);
 
 	int updateVarChange(@Param("name") String name, @Param("time") String time);
+
+	List<VarChange> selectVarChangeLineData();
 
 }
