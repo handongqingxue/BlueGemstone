@@ -1,11 +1,20 @@
 package blueGemstone.dao;
 
-import blueGemstone.entity.Data1;
+import org.apache.ibatis.annotations.Param;
+
+import blueGemstone.entity.VarAvgChange;
+import blueGemstone.entity.VarChange;
 
 public interface PublicMapper {
 
 	int select();
 
-	int insertData1(Data1 data1);
+	int insertVarChange(VarChange varChange);
+
+	int insertVarAvgChange(VarAvgChange varAvgChange);
+
+	float getVarChangeAvgValue(@Param("name") String name, @Param("time") String time);
+
+	int updateVarChange(@Param("name") String name, @Param("time") String time);
 
 }

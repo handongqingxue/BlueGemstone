@@ -11,7 +11,13 @@
 <script type="text/javascript" src="<%=basePath %>resource/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 $(function(){
-	$.post("../main/insertData1",
+	$.post("../main/insertVarChange",
+		function(){
+		
+		}
+	,"json");
+	
+	$.post("../main/insertVarAvgChange",
 		function(){
 		
 		}

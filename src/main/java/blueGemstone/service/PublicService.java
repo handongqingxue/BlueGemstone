@@ -2,8 +2,8 @@ package blueGemstone.service;
 
 public interface PublicService {
 
-	void select();
+	int insertVarChange();
 
-	int insertData1();
+	int insertVarAvgChange();
 
 }

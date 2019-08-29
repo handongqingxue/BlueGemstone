@@ -13,10 +13,10 @@ public class MainController {
 	@Autowired
 	private PublicService publicService;
 	
-	@RequestMapping("/select")
-	public String select() {
-		publicService.select();
-		return "NewFile";
+	@RequestMapping("/goMain")
+	public String goMain() {
+		
+		return "main";
 	}
 	
 	@RequestMapping("/goInsertData")
@@ -25,14 +25,29 @@ public class MainController {
 		return "insertData";
 	}
 	
-	@RequestMapping("/insertData1")
-	public void insertData1() {
+	@RequestMapping("/insertVarChange")
+	public void insertVarChange() {
 		
 		while (true) {
 			try {
-				int i=publicService.insertData1();
-				System.out.println("insert...........");
-				Thread.sleep(2*60*1000);
+				Thread.sleep(2*1000);
+				int i=publicService.insertVarChange();
+				System.out.println("insertVarChange...........");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@RequestMapping("/insertVarAvgChange")
+	public void insertVarAvgChange() {
+		
+		while (true) {
+			try {
+				Thread.sleep(10*60*1000);
+				int i=publicService.insertVarAvgChange();
+				System.out.println("insertVarAvgChange...........");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
