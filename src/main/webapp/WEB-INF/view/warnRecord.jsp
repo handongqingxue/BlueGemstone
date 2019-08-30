@@ -5,24 +5,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<%@include file="inc/reportJs.jsp"%>
+<script type="text/javascript">
+var path='<%=basePath %>';
+$(function(){
+	tab1=$("#tab1").datagrid({
+		title:"报警记录报表",
+		url:"selectWarnRecordReportData",
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"createTime",title:"时间",width:200},
+            {field:"value",title:"数值",width:200},
+            {field:"state",title:"状态",width:200,formatter:function(value,row){
+            	var str;
+            	if(value==0)
+            		str="正常";
+            	else if(value==1)
+            		str="上限报警";
+            	else if(value==2)
+            		str="下限报警";
+            	return str;
+	        }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{createTime:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"createTime",colspan:3});
+				data.total=0;
+			}
+		}
+	});
+});
+</script>
 </head>
 <body>
-<jsp:include page="inc/echarts.jsp"></jsp:include>
-<div id="main3" style="width:800px;height:400px;overflow-x:auto;overflow-y:hidden;">
-	<div id="chart3_div" style="height:400px;"></div>
-</div>
-<script type="text/javascript">
-require(
-    [
-        'echarts',
-        'echarts/chart/line',   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
-        'echarts/chart/bar'
-    ],
-    function (ec) {
-    	var url="selectWarnRecordLineData";
-    	initVarChangeLine(ec,url,"chart3_div");
-    }
-);
-</script>
+<table id="tab1">
+</table>
 </body>
 </html>

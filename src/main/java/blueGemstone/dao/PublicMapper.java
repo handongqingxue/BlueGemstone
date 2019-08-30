@@ -20,11 +20,13 @@ public interface PublicMapper {
 
 	int updateVarChange(@Param("name") String name, @Param("time") String time);
 
-	List<VarChange> selectVarChangeLineData();
+	List<VarChange> selectVarChangeLineData(@Param("name") String name);
 
-	List<VarAvgChange> selectVarAvgChangeLineData();
+	List<VarChange> selectVarChangeReportData(@Param("name") String name);
 
-	List<WarnRecord> selectWarnRecordLineData();
+	List<VarAvgChange> selectVarAvgChangeLineData(String name);
+
+	List<WarnRecord> selectWarnRecordReportData();
 
 	int insertWarnRecord(WarnRecord warnRecord);
 

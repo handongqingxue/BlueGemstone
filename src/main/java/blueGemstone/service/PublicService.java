@@ -14,10 +14,12 @@ public interface PublicService {
 	
 	int insertWarnRecord(VarChange varChange);
 
-	List<VarChange> selectVarChangeLineData();
+	List<VarChange> selectVarChangeLineData(String name);
 
-	List<VarAvgChange> selectVarAvgChangeLineData();
+	List<VarChange> selectVarChangeReportData(String yaqiang);
 
-	List<WarnRecord> selectWarnRecordLineData();
+	List<VarAvgChange> selectVarAvgChangeLineData(String name);
+
+	List<WarnRecord> selectWarnRecordReportData();
 
 }

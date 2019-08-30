@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 public class VarChange implements Serializable {
 
-	public static final String YAQIANG="ѹǿ";
-	
 	private String id;
 	private String name;
 	private Float value;

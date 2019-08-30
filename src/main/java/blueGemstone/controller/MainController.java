@@ -14,6 +14,7 @@ import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
 import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
+import blueGemstone.util.Constant;
 
 @Controller
 @RequestMapping("/main")
@@ -32,6 +33,12 @@ public class MainController {
 	public String goVarChange() {
 		
 		return "varChangeLine";
+	}
+	
+	@RequestMapping("/goVarChangeReport")
+	public String goVarChangeReport() {
+		
+		return "varChangeReport";
 	}
 	
 	@RequestMapping("/goWarnRecord")
@@ -82,7 +89,7 @@ public class MainController {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		List<VarChange> vcList=publicService.selectVarChangeLineData();
+		List<VarChange> vcList=publicService.selectVarChangeLineData(Constant.BAO_HE_ZHENG_QI_YA_LI);
 		
 		if(vcList.size()>0) {
 			jsonMap.put("message", "ok");
@@ -103,13 +110,27 @@ public class MainController {
 		return jsonMap;
 	}
 	
+	@RequestMapping("/selectVarChangeReportData")
+	@ResponseBody
+	public Map<String,Object> selectVarChangeReportData() {
+		
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		List<VarChange> vcList=publicService.selectVarChangeReportData(Constant.BAO_HE_ZHENG_QI_YA_LI);
+		
+		jsonMap.put("total", vcList.size());
+		jsonMap.put("rows", vcList);
+		
+		return jsonMap;
+	}
+	
 	@RequestMapping("/selectVarAvgChangeLineData")
 	@ResponseBody
 	public Map<String,Object> selectVarAvgChangeLineData() {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		List<VarAvgChange> vacList=publicService.selectVarAvgChangeLineData();
+		List<VarAvgChange> vacList=publicService.selectVarAvgChangeLineData(Constant.BAO_HE_ZHENG_QI_YA_LI);
 		
 		if(vacList.size()>0) {
 			jsonMap.put("message", "ok");
@@ -130,29 +151,16 @@ public class MainController {
 		return jsonMap;
 	}
 	
-	@RequestMapping("/selectWarnRecordLineData")
+	@RequestMapping("/selectWarnRecordReportData")
 	@ResponseBody
-	public Map<String,Object> selectWarnRecordLineData() {
+	public Map<String,Object> selectWarnRecordReportData() {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		List<WarnRecord> wrList=publicService.selectWarnRecordLineData();
+		List<WarnRecord> wrList=publicService.selectWarnRecordReportData();
 		
-		if(wrList.size()>0) {
-			jsonMap.put("message", "ok");
-			List<String> createTimeList=new ArrayList<String>();
-			List<Float> valueList=new ArrayList<Float>();
-			for (WarnRecord warnRecord : wrList) {
-				createTimeList.add(warnRecord.getCreateTime());
-				valueList.add(warnRecord.getValue());
-			}
-			jsonMap.put("createTimeList", createTimeList);
-			jsonMap.put("valueList", valueList);
-			jsonMap.put("listSize", createTimeList.size());
-		}
-		else {
-			jsonMap.put("message", "no");
-		}
+		jsonMap.put("total", wrList.size());
+		jsonMap.put("rows", wrList);
 		
 		return jsonMap;
 	}

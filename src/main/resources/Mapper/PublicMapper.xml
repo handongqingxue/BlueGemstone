@@ -7,13 +7,16 @@
 		select avg(value) value from VarChange where name=#{name} and createTime&lt;#{time} and updated=0
 	</select>
 	<select id="selectVarChangeLineData" resultType="blueGemstone.entity.VarChange">
-		select convert(varchar(12),CreateTime,108) createTime,value from VarChange order by createtime
+		select convert(varchar(12),CreateTime,108) createTime,value from VarChange where name=#{name} order by createtime
+	</select>
+	<select id="selectVarChangeReportData" resultType="blueGemstone.entity.VarChange">
+		select convert(varchar,CreateTime,120) createTime,value,state from VarChange where name=#{name} order by createtime
 	</select>
 	<select id="selectVarAvgChangeLineData" resultType="blueGemstone.entity.VarAvgChange">
-		select convert(varchar(12),CreateTime,108) createTime,value from VarAvgChange order by createtime
+		select convert(varchar(12),CreateTime,108) createTime,value from VarAvgChange where name=#{name} order by createtime
 	</select>
-	<select id="selectWarnRecordLineData" resultType="blueGemstone.entity.WarnRecord">
-		select convert(varchar(12),CreateTime,108) createTime,value from WarnRecord order by createtime
+	<select id="selectWarnRecordReportData" resultType="blueGemstone.entity.WarnRecord">
+		select convert(varchar,CreateTime,120) createTime,value,state from WarnRecord order by createtime
 	</select>
 	<insert id="insertVarChange" parameterType="blueGemstone.entity.VarChange">
 		insert into VarChange (id,name,value,createTime,state,updated,memo) values(#{id},#{name},#{value},#{createTime},#{state},0,#{memo})

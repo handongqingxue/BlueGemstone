@@ -15,7 +15,7 @@ function initIframe(flag){
 		$("#iframe1").attr("src","goVarChangeLine");
 	}
 	else if(flag==2){
-		
+		$("#iframe1").attr("src","goVarChangeReport");
 	}
 	else if(flag==3){
 		$("#iframe1").attr("src","goWarnRecord");

@@ -14,6 +14,7 @@ import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
 import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
+import blueGemstone.util.Constant;
 
 @Service
 public class PublicServiceImpl implements PublicService {
@@ -58,7 +59,7 @@ public class PublicServiceImpl implements PublicService {
 		
 		VarChange varChange=new VarChange();
 		varChange.setId(UUID.randomUUID().toString().replace("-", ""));
-		varChange.setName(VarChange.YAQIANG);
+		varChange.setName(Constant.BAO_HE_ZHENG_QI_YA_LI);
 		Random random = new Random();
 		float value = random.nextInt(100);
 		System.out.println("value==="+value);
@@ -85,9 +86,9 @@ public class PublicServiceImpl implements PublicService {
 		
 		VarAvgChange varAvgChange=new VarAvgChange();
 		varAvgChange.setId(UUID.randomUUID().toString().replace("-", ""));
-		varAvgChange.setName(VarChange.YAQIANG);
+		varAvgChange.setName(Constant.BAO_HE_ZHENG_QI_YA_LI);
 		String time = timeSDF.format(new Date());
-		float avgValue = publicDao.getVarChangeAvgValue(VarChange.YAQIANG,time);
+		float avgValue = publicDao.getVarChangeAvgValue(Constant.BAO_HE_ZHENG_QI_YA_LI,time);
 		System.out.println("avgValue==="+avgValue);
 		varAvgChange.setValue(avgValue);
 		varAvgChange.setCreateTime(timeSDF.format(new Date()));
@@ -100,28 +101,35 @@ public class PublicServiceImpl implements PublicService {
 		
 		int count=publicDao.insertVarAvgChange(varAvgChange);
 		if(count>0) {
-			publicDao.updateVarChange(VarChange.YAQIANG,time);
+			publicDao.updateVarChange(Constant.BAO_HE_ZHENG_QI_YA_LI,time);
 		}
 		return count;
 	}
 
 	@Override
-	public List<VarChange> selectVarChangeLineData() {
+	public List<VarChange> selectVarChangeLineData(String name) {
 		// TODO Auto-generated method stub
 		
-		return publicDao.selectVarChangeLineData();
+		return publicDao.selectVarChangeLineData(name);
 	}
 
 	@Override
-	public List<VarAvgChange> selectVarAvgChangeLineData() {
+	public List<VarChange> selectVarChangeReportData(String name) {
 		// TODO Auto-generated method stub
-		return publicDao.selectVarAvgChangeLineData();
+		
+		return publicDao.selectVarChangeReportData(name);
 	}
 
 	@Override
-	public List<WarnRecord> selectWarnRecordLineData() {
+	public List<VarAvgChange> selectVarAvgChangeLineData(String name) {
 		// TODO Auto-generated method stub
-		return publicDao.selectWarnRecordLineData();
+		return publicDao.selectVarAvgChangeLineData(name);
+	}
+
+	@Override
+	public List<WarnRecord> selectWarnRecordReportData() {
+		// TODO Auto-generated method stub
+		return publicDao.selectWarnRecordReportData();
 	}
 
 	@Override
