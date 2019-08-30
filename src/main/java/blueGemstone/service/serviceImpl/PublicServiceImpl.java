@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import blueGemstone.dao.PublicMapper;
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
+import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
-import blueGemstone.util.StringUtils;
 
 @Service
 public class PublicServiceImpl implements PublicService {
@@ -58,25 +58,25 @@ public class PublicServiceImpl implements PublicService {
 		
 		VarChange varChange=new VarChange();
 		varChange.setId(UUID.randomUUID().toString().replace("-", ""));
-		varChange.setName("ѹǿ");
+		varChange.setName(VarChange.YAQIANG);
 		Random random = new Random();
 		float value = random.nextInt(100);
 		System.out.println("value==="+value);
 		varChange.setValue(value);
 		varChange.setCreateTime(timeSDF.format(new Date()));
-		if(value>80)
+		if(value>80) {
 			varChange.setState(1);
-		else if(value<20)
+			insertWarnRecord(varChange);
+		}
+		else if(value<20) {
 			varChange.setState(2);
+			insertWarnRecord(varChange);
+		}
 		else
 			varChange.setState(0);
 		
 		int count=publicDao.insertVarChange(varChange);
 		return count;
-	}
-	
-	public static void main(String[] args) {
-		System.out.println(new Random().nextInt(100));
 	}
 
 	@Override
@@ -110,5 +110,36 @@ public class PublicServiceImpl implements PublicService {
 		// TODO Auto-generated method stub
 		
 		return publicDao.selectVarChangeLineData();
+	}
+
+	@Override
+	public List<VarAvgChange> selectVarAvgChangeLineData() {
+		// TODO Auto-generated method stub
+		return publicDao.selectVarAvgChangeLineData();
+	}
+
+	@Override
+	public List<WarnRecord> selectWarnRecordLineData() {
+		// TODO Auto-generated method stub
+		return publicDao.selectWarnRecordLineData();
+	}
+
+	@Override
+	public int insertWarnRecord(VarChange varChange) {
+		// TODO Auto-generated method stub
+		
+		WarnRecord warnRecord=new WarnRecord();
+		warnRecord.setId(UUID.randomUUID().toString().replace("-", ""));
+		warnRecord.setName(varChange.getName());
+		warnRecord.setValue(varChange.getValue());
+		warnRecord.setState(varChange.getState());
+		warnRecord.setCreateTime(varChange.getCreateTime());
+		warnRecord.setMemo(varChange.getMemo());
+		
+		return publicDao.insertWarnRecord(warnRecord);
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(new Random().nextInt(100));
 	}
 }
