@@ -28,6 +28,18 @@ public class MainController {
 		return "main";
 	}
 	
+	@RequestMapping("/goVarChangeLine")
+	public String goVarChange() {
+		
+		return "varChangeLine";
+	}
+	
+	@RequestMapping("/goWarnRecord")
+	public String goWarnRecord() {
+		
+		return "warnRecord";
+	}
+	
 	@RequestMapping("/goInsertData")
 	public String goInsertData() {
 		
