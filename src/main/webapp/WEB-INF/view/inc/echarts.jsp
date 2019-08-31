@@ -20,18 +20,22 @@ require.config({
     }
 });
 
-function initVarChangeLine(ec,url,chartDiv){
+function initVarChangeLine(ec,url,chartDiv,createTimeList,listSize,seriesArr){
    	$.post(url,
   			function(data){
    			//console.log(data.message);
    			//console.log(data.createTimeList);
+  				var series=[];
+  				for(var i=0;i<seriesArr.length;i++){
+  					series.push({name:data[seriesArr[i].name],type:'line',stack: '总量',data:data[seriesArr[i].data]});
+  				}
                var myChart = ec.init(document.getElementById(chartDiv));
                option = {
                	    tooltip : {
                	        trigger: 'axis'
                	    },
                	    legend: {
-               	        data:['压强']
+               	        data:['压强','aaa']
                	    },
                	    toolbox: {
                	        show : true,
@@ -49,7 +53,7 @@ function initVarChangeLine(ec,url,chartDiv){
                	            type : 'category',
                	            boundaryGap : false,
                	            //data : ['周一','周二','周三','周四','周五','周六','周日']
-               	            data : data.createTimeList
+               	            data : data[createTimeList]
                	        }
                	    ],
                	    yAxis : [
@@ -57,20 +61,23 @@ function initVarChangeLine(ec,url,chartDiv){
                	            type : 'value'
                	        }
                	    ],
+               	 	series:series
+               	    /*
                	    series : [
                	        {
                	            name:'压强',
                	            type:'line',
                	            stack: '总量',
                	            //data:[120, 132, 101, 134, 90, 230, 210]
-               	        	data:data.valueList
+               	        	data:data[valueList]
                	        }
                	    ]
+               	    */
                	};
                myChart.setOption(option);
                
-               if(data.listSize>30)
-               	document.getElementById(chartDiv).style.width = data.listSize*15+'px';
+               if(data[listSize]>30)
+               	document.getElementById(chartDiv).style.width = data[listSize]*15+'px';
                myChart.resize();//直接加这句即可
                myChart.setOption(option,true);
    		}

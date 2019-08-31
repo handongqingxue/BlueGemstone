@@ -89,8 +89,24 @@ public class MainController {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		List<VarChange> vcList=publicService.selectVarChangeLineData(Constant.BAO_HE_ZHENG_QI_YA_LI);
+		for(int i=0;i<Constant.PIN_LV_TYPE.length;i++) {
+
+			List<VarChange> vcList=publicService.selectVarChangeLineData(Constant.PIN_LV_TYPE[i]);
+			List<String> pinLvCTList=new ArrayList<String>();
+			List<Float> valueList=new ArrayList<Float>();
+			for (VarChange varChange : vcList) {
+				pinLvCTList.add(varChange.getCreateTime());
+				valueList.add(varChange.getValue());
+			}
+			if(i==0) {
+				jsonMap.put("pinLvCTList", pinLvCTList);
+				jsonMap.put("pinLvListSize", pinLvCTList.size());
+			}
+			jsonMap.put("pinLvName"+(i+1), Constant.PIN_LV_TYPE[i]);
+			jsonMap.put("pinLvValueList"+(i+1), valueList);
+		}
 		
+		/*
 		if(vcList.size()>0) {
 			jsonMap.put("message", "ok");
 			List<String> createTimeList=new ArrayList<String>();
@@ -106,6 +122,7 @@ public class MainController {
 		else {
 			jsonMap.put("message", "no");
 		}
+		*/
 		
 		return jsonMap;
 	}

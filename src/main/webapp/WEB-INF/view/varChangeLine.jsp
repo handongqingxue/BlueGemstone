@@ -23,9 +23,15 @@ require(
     ],
     function (ec) {
     	var url1="selectVarChangeLineData";
-    	initVarChangeLine(ec,url1,"chart_div");
+    	var seriesArr=[];
+    	for(var i=0;i<10;i++){
+	    	seriesArr[i]=new Array();
+	    	seriesArr[i]["name"]="pinLvName"+(i+1);
+	    	seriesArr[i]["data"]="pinLvValueList"+(i+1);
+    	}
+    	initVarChangeLine(ec,url1,"chart_div","pinLvCTList","pinLvListSize",seriesArr);
     	var url2="selectVarAvgChangeLineData";
-    	initVarChangeLine(ec,url2,"chart2_div");
+    	//initVarChangeLine(ec,url2,"chart2_div");
     }
 );
 </script>

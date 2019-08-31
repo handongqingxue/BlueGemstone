@@ -32,8 +32,10 @@ function initIframe(flag){
 </head>
 <body>
 <iframe id="iframe1" src="goVarChangeLine" style="width:800px;height: 800px;display: block;"></iframe>
+<!-- 
 <iframe id="iframe2" src="goVarChangeReport" style="width:800px;height: 800px;display: block;"></iframe>
 <iframe id="iframe3" src="goWarnRecord" style="width:800px;height: 800px;display: block;"></iframe>
+ -->
 <!-- 
 <iframe src="goWarnRecord" style="width:800px;height: 800px;"></iframe>
  -->
