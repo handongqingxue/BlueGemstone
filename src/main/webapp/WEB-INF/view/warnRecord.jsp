@@ -9,12 +9,36 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
+	$.post("selectConstantData",
+		function(data){
+			nameCbb=$("#name_cbb").combobox({
+				width:200,
+				valueField:"value",
+				textField:"text",
+				data:data.rows
+			});
+		}
+	,"json");
+	
+	$("#search_but").linkbutton({
+		iconCls:"icon-search",
+		onClick:function(){
+			var name=nameCbb.combobox("getValue");
+			tab1.datagrid("reload",{"name":name});
+		}
+	});
+		
 	tab1=$("#tab1").datagrid({
 		title:"报警记录报表",
 		url:"selectWarnRecordReportData",
+		toolbar:"#toolbar",
 		pagination:true,
 		pageSize:10,
 		columns:[[
+			{field:"id",title:"序号",formatter:function(value,row,index){
+	            return index;
+	        }},
+			{field:"name",title:"记录点",width:200},
 			{field:"createTime",title:"时间",width:200},
             {field:"value",title:"数值",width:200},
             {field:"state",title:"状态",width:200,formatter:function(value,row){
@@ -40,6 +64,10 @@ $(function(){
 </script>
 </head>
 <body>
+<div id="toolbar">
+	记录点：<select id="name_cbb"></select>
+	<a id="search_but">搜索</a>
+</div>
 <table id="tab1">
 </table>
 </body>

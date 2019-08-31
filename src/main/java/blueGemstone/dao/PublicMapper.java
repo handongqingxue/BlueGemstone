@@ -26,7 +26,7 @@ public interface PublicMapper {
 
 	List<VarAvgChange> selectVarAvgChangeLineData(String name);
 
-	List<WarnRecord> selectWarnRecordReportData();
+	List<WarnRecord> selectWarnRecordReportData(@Param("name") String name);
 
 	int insertWarnRecord(WarnRecord warnRecord);
 

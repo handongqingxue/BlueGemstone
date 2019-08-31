@@ -12,20 +12,28 @@
 <script type="text/javascript">
 function initIframe(flag){
 	if(flag==1){
-		$("#iframe1").attr("src","goVarChangeLine");
+		$("#iframe1").css("display","block");
+		$("#iframe2").css("display","none");
+		$("#iframe3").css("display","none");
 	}
 	else if(flag==2){
-		$("#iframe1").attr("src","goVarChangeReport");
+		$("#iframe1").css("display","none");
+		$("#iframe2").css("display","block");
+		$("#iframe3").css("display","none");
 	}
 	else if(flag==3){
-		$("#iframe1").attr("src","goWarnRecord");
+		$("#iframe1").css("display","none");
+		$("#iframe2").css("display","none");
+		$("#iframe3").css("display","block");
 	}
 }
 </script>
 <title>Insert title here</title>
 </head>
 <body>
-<iframe id="iframe1" src="goVarChangeLine" style="width:800px;height: 800px;"></iframe>
+<iframe id="iframe1" src="goVarChangeLine" style="width:800px;height: 800px;display: block;"></iframe>
+<iframe id="iframe2" src="goVarChangeReport" style="width:800px;height: 800px;display: block;"></iframe>
+<iframe id="iframe3" src="goWarnRecord" style="width:800px;height: 800px;display: block;"></iframe>
 <!-- 
 <iframe src="goWarnRecord" style="width:800px;height: 800px;"></iframe>
  -->

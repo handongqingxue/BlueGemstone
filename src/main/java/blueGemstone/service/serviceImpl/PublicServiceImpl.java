@@ -135,9 +135,9 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public List<WarnRecord> selectWarnRecordReportData() {
+	public List<WarnRecord> selectWarnRecordReportData(String name) {
 		// TODO Auto-generated method stub
-		return publicDao.selectWarnRecordReportData();
+		return publicDao.selectWarnRecordReportData(name);
 	}
 
 	@Override

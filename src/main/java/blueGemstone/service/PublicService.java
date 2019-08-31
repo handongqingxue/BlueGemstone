@@ -20,6 +20,6 @@ public interface PublicService {
 
 	List<VarAvgChange> selectVarAvgChangeLineData(String name);
 
-	List<WarnRecord> selectWarnRecordReportData();
+	List<WarnRecord> selectWarnRecordReportData(String name);
 
 }

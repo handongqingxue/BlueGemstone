@@ -153,11 +153,11 @@ public class MainController {
 	
 	@RequestMapping("/selectWarnRecordReportData")
 	@ResponseBody
-	public Map<String,Object> selectWarnRecordReportData() {
+	public Map<String,Object> selectWarnRecordReportData(String name) {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		List<WarnRecord> wrList=publicService.selectWarnRecordReportData();
+		List<WarnRecord> wrList=publicService.selectWarnRecordReportData(name);
 		
 		jsonMap.put("total", wrList.size());
 		jsonMap.put("rows", wrList);
