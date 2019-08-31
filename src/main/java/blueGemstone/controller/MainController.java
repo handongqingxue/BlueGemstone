@@ -1,9 +1,12 @@
 package blueGemstone.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +33,12 @@ public class MainController {
 	}
 	
 	@RequestMapping("/goVarChangeLine")
-	public String goVarChange() {
+	public String goVarChange(HttpServletRequest request) {
+		
+		request.setAttribute("varTypeLength", Constant.VAR_TYPE.length);
+		for(int i=0;i<Constant.VAR_TYPE.length;i++) {
+			request.setAttribute("varType"+(i+1)+"Length", Constant.VAR_TYPE[i].length);
+		}
 		
 		return "varChangeLine";
 	}
@@ -89,21 +97,23 @@ public class MainController {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		for(int i=0;i<Constant.PIN_LV_TYPE.length;i++) {
-
-			List<VarChange> vcList=publicService.selectVarChangeLineData(Constant.PIN_LV_TYPE[i]);
-			List<String> pinLvCTList=new ArrayList<String>();
-			List<Float> valueList=new ArrayList<Float>();
-			for (VarChange varChange : vcList) {
-				pinLvCTList.add(varChange.getCreateTime());
-				valueList.add(varChange.getValue());
+		for(int i=0;i<Constant.VAR_TYPE.length;i++) {
+			for(int j=0;j<Constant.VAR_TYPE[i].length;j++) {
+	
+				List<VarChange> vcList=publicService.selectVarChangeLineData(Constant.VAR_TYPE[i][j]);
+				List<String> createList=new ArrayList<String>();
+				List<Float> valueList=new ArrayList<Float>();
+				for (VarChange varChange : vcList) {
+					createList.add(varChange.getCreateTime());
+					valueList.add(varChange.getValue());
+				}
+				if(j==0) {
+					jsonMap.put("createList"+(i+1), createList);
+					jsonMap.put("listSize"+(i+1), createList.size());
+				}
+				jsonMap.put("name"+(i+1)+"_"+(j+1), Constant.VAR_TYPE[i][j]);
+				jsonMap.put("valueList"+(i+1)+"_"+(j+1), valueList);
 			}
-			if(i==0) {
-				jsonMap.put("pinLvCTList", pinLvCTList);
-				jsonMap.put("pinLvListSize", pinLvCTList.size());
-			}
-			jsonMap.put("pinLvName"+(i+1), Constant.PIN_LV_TYPE[i]);
-			jsonMap.put("pinLvValueList"+(i+1), valueList);
 		}
 		
 		/*

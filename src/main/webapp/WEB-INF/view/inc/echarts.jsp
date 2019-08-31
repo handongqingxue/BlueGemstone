@@ -23,12 +23,12 @@ require.config({
 function initVarChangeLine(ec,url,chartDiv,createTimeList,listSize,seriesArr){
    	$.post(url,
   			function(data){
-   			//console.log(data.message);
    			//console.log(data.createTimeList);
   				var series=[];
   				for(var i=0;i<seriesArr.length;i++){
   					series.push({name:data[seriesArr[i].name],type:'line',stack: '总量',data:data[seriesArr[i].data]});
   				}
+  	   			console.log(data);
                var myChart = ec.init(document.getElementById(chartDiv));
                option = {
                	    tooltip : {

@@ -237,4 +237,16 @@ public class Constant {
 			HAN_YANG_LIANG_BIAO2
 	};
 	
+	/**
+	 * 存放常量类型数组
+	 */
+	public static final String[][] VAR_TYPE=new String[][] {
+			PIN_LV_TYPE,
+			YA_LI_TYPE,
+			WEN_DU_TYPE,
+			LIU_LIANG_TYPE,
+			YE_WEI_TYPE,
+			HAN_YANG_LIANG_TYPE
+	};
+	
 }
