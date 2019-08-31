@@ -57,26 +57,30 @@ public class PublicServiceImpl implements PublicService {
 	public int insertVarChange() {
 		// TODO Auto-generated method stub
 		
-		VarChange varChange=new VarChange();
-		varChange.setId(UUID.randomUUID().toString().replace("-", ""));
-		varChange.setName(Constant.BAO_HE_ZHENG_QI_YA_LI);
-		Random random = new Random();
-		float value = random.nextInt(100);
-		System.out.println("value==="+value);
-		varChange.setValue(value);
-		varChange.setCreateTime(timeSDF.format(new Date()));
-		if(value>80) {
-			varChange.setState(1);
-			insertWarnRecord(varChange);
+		int count=0;
+		String createTime = timeSDF.format(new Date());
+		for (int i = 0; i < Constant.INSERT_ARR.length; i++) {
+			VarChange varChange=new VarChange();
+			varChange.setId(UUID.randomUUID().toString().replace("-", ""));
+			varChange.setName(Constant.INSERT_ARR[i]);
+			Random random = new Random();
+			float value = random.nextInt(100);
+			System.out.println("value==="+value);
+			varChange.setValue(value);
+			varChange.setCreateTime(createTime);
+			if(value>80) {
+				varChange.setState(1);
+				insertWarnRecord(varChange);
+			}
+			else if(value<20) {
+				varChange.setState(2);
+				insertWarnRecord(varChange);
+			}
+			else
+				varChange.setState(0);
+			
+			count+=publicDao.insertVarChange(varChange);
 		}
-		else if(value<20) {
-			varChange.setState(2);
-			insertWarnRecord(varChange);
-		}
-		else
-			varChange.setState(0);
-		
-		int count=publicDao.insertVarChange(varChange);
 		return count;
 	}
 
@@ -84,24 +88,28 @@ public class PublicServiceImpl implements PublicService {
 	public int insertVarAvgChange() {
 		// TODO Auto-generated method stub
 		
-		VarAvgChange varAvgChange=new VarAvgChange();
-		varAvgChange.setId(UUID.randomUUID().toString().replace("-", ""));
-		varAvgChange.setName(Constant.BAO_HE_ZHENG_QI_YA_LI);
+		int count=0;
 		String time = timeSDF.format(new Date());
-		float avgValue = publicDao.getVarChangeAvgValue(Constant.BAO_HE_ZHENG_QI_YA_LI,time);
-		System.out.println("avgValue==="+avgValue);
-		varAvgChange.setValue(avgValue);
-		varAvgChange.setCreateTime(timeSDF.format(new Date()));
-		if(avgValue>80)
-			varAvgChange.setState(1);
-		else if(avgValue<20)
-			varAvgChange.setState(2);
-		else
-			varAvgChange.setState(0);
-		
-		int count=publicDao.insertVarAvgChange(varAvgChange);
-		if(count>0) {
-			publicDao.updateVarChange(Constant.BAO_HE_ZHENG_QI_YA_LI,time);
+		String createTime = timeSDF.format(new Date());
+		for (int i = 0; i < Constant.INSERT_ARR.length; i++) {
+			VarAvgChange varAvgChange=new VarAvgChange();
+			varAvgChange.setId(UUID.randomUUID().toString().replace("-", ""));
+			varAvgChange.setName(Constant.INSERT_ARR[i]);
+			float avgValue = publicDao.getVarChangeAvgValue(Constant.INSERT_ARR[i],time);
+			System.out.println("avgValue==="+avgValue);
+			varAvgChange.setValue(avgValue);
+			varAvgChange.setCreateTime(createTime);
+			if(avgValue>80)
+				varAvgChange.setState(1);
+			else if(avgValue<20)
+				varAvgChange.setState(2);
+			else
+				varAvgChange.setState(0);
+			
+			count+=publicDao.insertVarAvgChange(varAvgChange);
+			if(count>0) {
+				publicDao.updateVarChange(Constant.INSERT_ARR[i],time);
+			}
 		}
 		return count;
 	}

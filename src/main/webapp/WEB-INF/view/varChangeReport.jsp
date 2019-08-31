@@ -9,12 +9,30 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
+	$.post("selectConstantData",
+		function(data){
+			$("#name_cbb").combobox({
+				width:200,
+				valueField:"value",
+				textField:"text",
+				data:data.rows
+			});
+		}
+	,"json");
+	
 	tab1=$("#tab1").datagrid({
-		title:"压强变化报表",
+		title:"变量变化报表",
 		url:"selectVarChangeReportData",
+		toolbar:"#toolbar",
 		pagination:true,
 		pageSize:10,
 		columns:[[
+            {field:"name",title:"变量名",width:200,
+	            styler:function(value,row,index){//设置样式
+					if(row.state==1||row.state==2)
+						return "color:#f00;";
+				}
+			},
 			{field:"createTime",title:"时间",width:200,
 	            styler:function(value,row,index){//设置样式
 					if(row.state==1||row.state==2)
@@ -45,8 +63,8 @@ $(function(){
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
-				$(this).datagrid("appendRow",{createTime:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"createTime",colspan:3});
+				$(this).datagrid("appendRow",{name:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"name",colspan:4});
 				data.total=0;
 			}
 		}
@@ -55,6 +73,9 @@ $(function(){
 </script>
 </head>
 <body>
+<div id="toolbar">
+	<select id="name_cbb"></select>
+</div>
 <table id="tab1">
 </table>
 </body>

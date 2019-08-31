@@ -10,7 +10,11 @@
 		select convert(varchar(12),CreateTime,108) createTime,value from VarChange where name=#{name} order by createtime
 	</select>
 	<select id="selectVarChangeReportData" resultType="blueGemstone.entity.VarChange">
-		select convert(varchar,CreateTime,120) createTime,value,state from VarChange where name=#{name} order by createtime
+		select name,convert(varchar,CreateTime,120) createTime,value,state from VarChange where 1=1
+		<if test="name!=null">
+			and name=#{name}
+		</if>
+		order by name,createtime
 	</select>
 	<select id="selectVarAvgChangeLineData" resultType="blueGemstone.entity.VarAvgChange">
 		select convert(varchar(12),CreateTime,108) createTime,value from VarAvgChange where name=#{name} order by createtime

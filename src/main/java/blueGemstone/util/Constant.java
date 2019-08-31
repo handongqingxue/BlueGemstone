@@ -131,4 +131,110 @@ public class Constant {
 	 */
 	public static final String HAN_YANG_LIANG_BIAO2="含氧量表2";
 	
+	/**
+	 * 存放待插入的变量数组
+	 */
+	public static final String[] INSERT_ARR=new String[] {
+			SHANG_SHUI_BENG_PIN_LV1,
+			SHANG_SHUI_BENG_PIN_LV2,
+			GU_FENG_JI_PIN_LV,
+			YIN_FENG_JI_PIN_LV,
+			ER_CI_FENG_PIN_LV,
+			SAN_CI_FENG_PIN_LV,
+			LIAO_CENG_YA_CHA,
+			LU_TANG_YA_CHA,
+			CHUANG_TI_WEN_DU1,
+			CHUANG_TI_WEN_DU2,
+			CHUANG_TI_WEN_DU3,
+			CHUANG_TI_WEN_DU4,
+			ZHENG_QI_LIU_LIANG_JI,
+			BAO_HE_ZHENG_QI_YA_LI,
+			GUO_RE_ZHENG_QI_YA_LI,
+			SHUI_BENG_SHANG_SHUI_LIU_LIANG,
+			GUO_RE_ZHENG_QI_WEN_DU,
+			CHU_YANG_QI_WEN_DU,
+			CHU_YANG_QI_YE_WEI,
+			CHU_YANG_QI_PIN_LV1,
+			CHU_YANG_QI_PIN_LV2,
+			FENG_SHI_YA_LI,
+			SAN_CI_FENG_SHI_YA_LI1,
+			SAN_CI_FENG_SHI_YA_LI2,
+			XUAN_FENG_FEN_LI_QI_WEN_DU1,
+			XUAN_FENG_FEN_LI_QI_WEN_DU2,
+			GUO_LU_CHU_KOU_WEN_DU1,
+			GUO_LU_CHU_KOU_WEN_DU2,
+			GEI_MEI_PIN_LV1,
+			GEI_MEI_PIN_LV2,
+			HAN_YANG_LIANG_BIAO1,
+			HAN_YANG_LIANG_BIAO2
+		};
+	
+	/**
+	 * 存放频率类型常量数组
+	 */
+	public static final String[] PIN_LV_TYPE=new String[] {
+			SHANG_SHUI_BENG_PIN_LV1,
+			SHANG_SHUI_BENG_PIN_LV2,
+			GU_FENG_JI_PIN_LV,
+			YIN_FENG_JI_PIN_LV,
+			ER_CI_FENG_PIN_LV,
+			SAN_CI_FENG_PIN_LV,
+			CHU_YANG_QI_PIN_LV1,
+			CHU_YANG_QI_PIN_LV2,
+			GEI_MEI_PIN_LV1,
+			GEI_MEI_PIN_LV2
+		};
+
+	/**
+	 * 存放压力类型常量数组
+	 */
+	public static final String[] YA_LI_TYPE=new String[] {
+			LIAO_CENG_YA_CHA,
+			LU_TANG_YA_CHA,
+			BAO_HE_ZHENG_QI_YA_LI,
+			GUO_RE_ZHENG_QI_YA_LI,
+			FENG_SHI_YA_LI,
+			SAN_CI_FENG_SHI_YA_LI1,
+			SAN_CI_FENG_SHI_YA_LI2
+		};
+
+	/**
+	 * 存放温度类型常量数组
+	 */
+	public static final String[] WEN_DU_TYPE=new String[] {
+			CHUANG_TI_WEN_DU1,
+			CHUANG_TI_WEN_DU2,
+			CHUANG_TI_WEN_DU3,
+			CHUANG_TI_WEN_DU4,
+			GUO_RE_ZHENG_QI_WEN_DU,
+			CHU_YANG_QI_WEN_DU,
+			XUAN_FENG_FEN_LI_QI_WEN_DU1,
+			XUAN_FENG_FEN_LI_QI_WEN_DU2,
+			GUO_LU_CHU_KOU_WEN_DU1,
+			GUO_LU_CHU_KOU_WEN_DU2
+	};
+
+	/**
+	 * 存放流量类型常量数组
+	 */
+	public static final String[] LIU_LIANG_TYPE=new String[] {
+			ZHENG_QI_LIU_LIANG_JI,
+			SHUI_BENG_SHANG_SHUI_LIU_LIANG
+	};
+
+	/**
+	 * 存放液位类型常量数组
+	 */
+	public static final String[] YE_WEI_TYPE=new String[] {
+			CHU_YANG_QI_YE_WEI
+	};
+
+	/**
+	 * 存放含氧量类型常量数组
+	 */
+	public static final String[] HAN_YANG_LIANG_TYPE=new String[] {
+			HAN_YANG_LIANG_BIAO1,
+			HAN_YANG_LIANG_BIAO2
+	};
+	
 }

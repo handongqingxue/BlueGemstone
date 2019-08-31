@@ -58,8 +58,8 @@ public class MainController {
 		
 		while (true) {
 			try {
-				Thread.sleep(2*1000);
-				int i=publicService.insertVarChange();
+				Thread.sleep(10*1000);
+				publicService.insertVarChange();
 				System.out.println("insertVarChange...........");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -112,11 +112,11 @@ public class MainController {
 	
 	@RequestMapping("/selectVarChangeReportData")
 	@ResponseBody
-	public Map<String,Object> selectVarChangeReportData() {
+	public Map<String,Object> selectVarChangeReportData(String name) {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		List<VarChange> vcList=publicService.selectVarChangeReportData(Constant.BAO_HE_ZHENG_QI_YA_LI);
+		List<VarChange> vcList=publicService.selectVarChangeReportData(name);
 		
 		jsonMap.put("total", vcList.size());
 		jsonMap.put("rows", vcList);
@@ -161,6 +161,26 @@ public class MainController {
 		
 		jsonMap.put("total", wrList.size());
 		jsonMap.put("rows", wrList);
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping("/selectConstantData")
+	@ResponseBody
+	public Map<String,Object> selectConstantData() {
+		
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		List<Map<String,String>> varList=new ArrayList<Map<String,String>>();
+		;
+		for (String var : Constant.INSERT_ARR) {
+			Map<String,String> varMap=new HashMap<>();
+			varMap.put("value", var);
+			varMap.put("text", var);
+			varList.add(varMap);
+		}
+		
+		jsonMap.put("rows", varList);
 		
 		return jsonMap;
 	}
