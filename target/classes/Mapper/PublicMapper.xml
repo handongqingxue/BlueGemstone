@@ -17,7 +17,7 @@
 		order by name,createtime
 	</select>
 	<select id="selectVarAvgChangeLineData" resultType="blueGemstone.entity.VarAvgChange">
-		select convert(varchar(12),CreateTime,108) createTime,value from VarAvgChange where name=#{name} order by createtime
+		select * from (select convert(varchar(12),CreateTime,108) createTime,value,ROW_NUMBER() over(order by createtime) as rowNumber from VarAvgChange where name=#{name})t where rowNumber between (#{page}-1)*#{row}+1 and #{page}*#{row}+1
 	</select>
 	<select id="selectWarnRecordReportData" resultType="blueGemstone.entity.WarnRecord">
 		select id,name,convert(varchar,CreateTime,120) createTime,value,state from WarnRecord where 1=1

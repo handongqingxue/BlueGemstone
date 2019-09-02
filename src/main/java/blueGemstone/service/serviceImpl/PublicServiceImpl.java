@@ -129,9 +129,9 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public List<VarAvgChange> selectVarAvgChangeLineData(String name) {
+	public List<VarAvgChange> selectVarAvgChangeLineData(String name, int page, int row) {
 		// TODO Auto-generated method stub
-		return publicDao.selectVarAvgChangeLineData(name);
+		return publicDao.selectVarAvgChangeLineData(name, page, row);
 	}
 
 	@Override

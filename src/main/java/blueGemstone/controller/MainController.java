@@ -162,27 +162,21 @@ public class MainController {
 	
 	@RequestMapping("/selectVarAvgChangeLineData")
 	@ResponseBody
-	public Map<String,Object> selectVarAvgChangeLineData() {
+	public Map<String,Object> selectVarAvgChangeLineData(String name,int page,int row) {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		List<VarAvgChange> vacList=publicService.selectVarAvgChangeLineData(Constant.BAO_HE_ZHENG_QI_YA_LI);
+		List<VarAvgChange> vacList=publicService.selectVarAvgChangeLineData(name,page,row);
 		
-		if(vacList.size()>0) {
-			jsonMap.put("message", "ok");
-			List<String> createTimeList=new ArrayList<String>();
-			List<Float> valueList=new ArrayList<Float>();
-			for (VarAvgChange varAvgChange : vacList) {
-				createTimeList.add(varAvgChange.getCreateTime());
-				valueList.add(varAvgChange.getValue());
-			}
-			jsonMap.put("createTimeList", createTimeList);
-			jsonMap.put("valueList", valueList);
-			jsonMap.put("listSize", createTimeList.size());
+		List<String> createTimeList=new ArrayList<String>();
+		List<Float> valueList=new ArrayList<Float>();
+		for (VarAvgChange varAvgChange : vacList) {
+			createTimeList.add(varAvgChange.getCreateTime());
+			valueList.add(varAvgChange.getValue());
 		}
-		else {
-			jsonMap.put("message", "no");
-		}
+		jsonMap.put("createTimeList", createTimeList);
+		jsonMap.put("listSize", createTimeList.size());
+		jsonMap.put("valueList", valueList);
 		
 		return jsonMap;
 	}
@@ -213,6 +207,26 @@ public class MainController {
 			Map<String,String> varMap=new HashMap<>();
 			varMap.put("value", var);
 			varMap.put("text", var);
+			varList.add(varMap);
+		}
+		
+		jsonMap.put("rows", varList);
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping("/selectVarTypeData")
+	@ResponseBody
+	public Map<String,Object> selectVarTypeData() {
+		
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		List<Map<String,String>> varList=new ArrayList<Map<String,String>>();
+		;
+		for (String varType : Constant.VAR_TYPE_NAME) {
+			Map<String,String> varMap=new HashMap<>();
+			varMap.put("value", varType);
+			varMap.put("text", varType);
 			varList.add(varMap);
 		}
 		
