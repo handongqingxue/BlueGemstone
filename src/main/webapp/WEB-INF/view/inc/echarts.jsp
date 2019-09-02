@@ -20,22 +20,25 @@ require.config({
     }
 });
 
-function initVarChangeLine(ec,url,chartDiv,createTimeList,listSize,seriesArr){
+function initVarChangeLine(ec,url,page,row,chartDiv,createTimeList,listSize,series){
    	$.post(url,
+   			{page:page,row:row},
   			function(data){
-   			//console.log(data.createTimeList);
+	   			//console.log(data.createTimeList);
+	   			/*
   				var series=[];
   				for(var i=0;i<seriesArr.length;i++){
   					series.push({name:data[seriesArr[i].name],type:'line',stack: '总量',data:data[seriesArr[i].data]});
   				}
   	   			console.log(data);
+  	   			*/
                var myChart = ec.init(document.getElementById(chartDiv));
                option = {
                	    tooltip : {
                	        trigger: 'axis'
                	    },
                	    legend: {
-               	        data:['压强','aaa']
+               	        data:[data[series.name]]
                	    },
                	    toolbox: {
                	        show : true,
@@ -61,7 +64,6 @@ function initVarChangeLine(ec,url,chartDiv,createTimeList,listSize,seriesArr){
                	            type : 'value'
                	        }
                	    ],
-               	 	series:series
                	    /*
                	    series : [
                	        {
@@ -73,6 +75,14 @@ function initVarChangeLine(ec,url,chartDiv,createTimeList,listSize,seriesArr){
                	        }
                	    ]
                	    */
+               	    series : [
+               	        {
+               	            name:data[series.name],
+               	            type:'line',
+               	            stack: '总量',
+               	        	data:data[series.data]
+               	        }
+               	    ]
                	};
                myChart.setOption(option);
                

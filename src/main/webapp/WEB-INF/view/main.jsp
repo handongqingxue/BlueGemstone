@@ -31,7 +31,7 @@ function initIframe(flag){
 <title>Insert title here</title>
 </head>
 <body>
-<iframe id="iframe1" src="goVarChangeLine" style="width:800px;height: 800px;display: block;"></iframe>
+<iframe id="iframe1" src="goVarChangeLine" style="width:100%;height: 800px;display: block;"></iframe>
 <!-- 
 <iframe id="iframe2" src="goVarChangeReport" style="width:800px;height: 800px;display: block;"></iframe>
 <iframe id="iframe3" src="goWarnRecord" style="width:800px;height: 800px;display: block;"></iframe>

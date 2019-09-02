@@ -14,7 +14,7 @@ public interface PublicService {
 	
 	int insertWarnRecord(VarChange varChange);
 
-	List<VarChange> selectVarChangeLineData(String name);
+	List<VarChange> selectVarChangeLineData(String name, int page, int row);
 
 	List<VarChange> selectVarChangeReportData(String yaqiang);
 

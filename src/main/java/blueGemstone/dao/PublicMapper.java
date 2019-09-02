@@ -20,7 +20,7 @@ public interface PublicMapper {
 
 	int updateVarChange(@Param("name") String name, @Param("time") String time);
 
-	List<VarChange> selectVarChangeLineData(@Param("name") String name);
+	List<VarChange> selectVarChangeLineData(@Param("name") String name, @Param("page") int page, @Param("row") int row);
 
 	List<VarChange> selectVarChangeReportData(@Param("name") String name);
 

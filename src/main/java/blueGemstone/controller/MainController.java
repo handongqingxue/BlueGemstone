@@ -35,10 +35,27 @@ public class MainController {
 	@RequestMapping("/goVarChangeLine")
 	public String goVarChange(HttpServletRequest request) {
 		
-		request.setAttribute("varTypeLength", Constant.VAR_TYPE.length);
+		StringBuffer sb=new StringBuffer();
+		sb.append("[");
 		for(int i=0;i<Constant.VAR_TYPE.length;i++) {
+			sb.append("{\"name\":\""+Constant.VAR_TYPE_NAME[i]+"\",\"childList\":");
+			sb.append("[");
+			for(int j=0;j<Constant.VAR_CHILD_TYPE_NAME[i].length;j++) {
+				sb.append("{\"name\":\""+Constant.VAR_CHILD_TYPE_NAME[i][j]+"\"}");
+				if(j<Constant.VAR_CHILD_TYPE_NAME[i].length-1)
+					sb.append(",");
+			}
+			sb.append("]");
+			sb.append("}");
+			if(i<Constant.VAR_TYPE.length-1)
+				sb.append(",");
 			request.setAttribute("varType"+(i+1)+"Length", Constant.VAR_TYPE[i].length);
 		}
+		sb.append("]");
+
+		System.out.println("varType==="+sb.toString());
+		request.setAttribute("varType", sb.toString());
+		//request.setAttribute("aaa","[{\"aaa\":\"111\",\"bbb\":\"222\"},{\"aaa\":\"111\",\"bbb\":\"222\"}]");
 		
 		return "varChangeLine";
 	}
@@ -93,24 +110,22 @@ public class MainController {
 
 	@RequestMapping("/selectVarChangeLineData")
 	@ResponseBody
-	public Map<String,Object> selectVarChangeLineData() {
+	public Map<String,Object> selectVarChangeLineData(int page,int row) {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
 		for(int i=0;i<Constant.VAR_TYPE.length;i++) {
 			for(int j=0;j<Constant.VAR_TYPE[i].length;j++) {
 	
-				List<VarChange> vcList=publicService.selectVarChangeLineData(Constant.VAR_TYPE[i][j]);
+				List<VarChange> vcList=publicService.selectVarChangeLineData(Constant.VAR_TYPE[i][j],page,row);
 				List<String> createList=new ArrayList<String>();
 				List<Float> valueList=new ArrayList<Float>();
 				for (VarChange varChange : vcList) {
 					createList.add(varChange.getCreateTime());
 					valueList.add(varChange.getValue());
 				}
-				if(j==0) {
-					jsonMap.put("createList"+(i+1), createList);
-					jsonMap.put("listSize"+(i+1), createList.size());
-				}
+				jsonMap.put("createList"+(i+1)+"_"+(j+1), createList);
+				jsonMap.put("listSize"+(i+1)+"_"+(j+1), createList.size());
 				jsonMap.put("name"+(i+1)+"_"+(j+1), Constant.VAR_TYPE[i][j]);
 				jsonMap.put("valueList"+(i+1)+"_"+(j+1), valueList);
 			}

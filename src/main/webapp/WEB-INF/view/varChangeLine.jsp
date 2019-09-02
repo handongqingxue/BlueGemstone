@@ -8,19 +8,15 @@
 </head>
 <body>
 <jsp:include page="inc/echarts.jsp"></jsp:include>
-<div id="main" style="width:800px;height:2400px;overflow-x:auto;overflow-y:hidden;">
-	<div id="chart1_div" style="height:400px;"></div>
-	<div id="chart2_div" style="height:400px;"></div>
-	<div id="chart3_div" style="height:400px;"></div>
-	<div id="chart4_div" style="height:400px;"></div>
-	<div id="chart5_div" style="height:400px;"></div>
-	<div id="chart6_div" style="height:400px;"></div>
+<div id="main" style="width:100%;height:600px;overflow:auto;">
 </div>
 <div id="main2" style="width:800px;height:400px;overflow-x:auto;overflow-y:hidden;">
 	<div id="avgChart_div" style="height:400px;"></div>
 </div>
 <script type="text/javascript">
-alert('${requestScope.varType1Length}');
+var page=1;
+var row=100;
+var main=$("#main");
 require(
     [
         'echarts',
@@ -29,32 +25,35 @@ require(
     ],
     function (ec) {
     	var url1="selectVarChangeLineData";
-    	var count=1;
-    	for(var i=0;i<'${requestScope.varTypeLength}';i++){
-	    	var seriesArr=[];
-	    	for(var j=0;j<count;j++){
-    			if(i==0&&j==0)
-    				count='${requestScope.varType3Length}';
-   				else if(i==1&&j==0)
-   					count='${requestScope.varType2Length}';
-    			else if(i==2&&j==0)
-    				count='${requestScope.varType3Length}';
-   				else if(i==3&&j==0)
-   					count='${requestScope.varType4Length}';
- 				else if(i==4&&j==0)
- 					count='${requestScope.varType5Length}';
- 				else if(i==5&&j==0)
- 					count='${requestScope.varType6Length}';
-		    	seriesArr[j]=new Array();
-		    	seriesArr[j]["name"]="name1_"+(j+1);
-		    	seriesArr[j]["data"]="valueList1_"+(j+1);
+    	var varTypeJS=JSON.parse('${requestScope.varType}');
+    	for(var i=0;i<varTypeJS.length;i++){
+        	console.log(varTypeJS[i].name+","+varTypeJS[i].childList.length);
+        	main.append("<div name=\""+varTypeJS[i].name+"\"></div>");
+	    	for(var j=0;j<varTypeJS[i].childList.length;j++){
+		    	var series=new Array();
+		    	series["name"]="name"+(i+1)+"_"+(j+1);
+		    	series["data"]="valueList"+(i+1)+"_"+(j+1);
+		    	
+		    	$("div[name='"+varTypeJS[i].name+"']").append("<div>"
+		    			+"<input type=\"button\" value=\"上一页\"/>"
+		    			+"<input type=\"button\" value=\"下一页\" onclick=\"nextPage('"+ec+"','"+url1+"','"+varTypeJS[i].childList[j].name+"','"+i+"','"+j+"','"+series+"')\"/>"
+		    			+"</div>");
+		    	$("div[name='"+varTypeJS[i].name+"']").append("<div name=\""+varTypeJS[i].childList[j].name+"\" page=\""+page+"\" id=\"chart"+(i+1)+"_"+(j+1)+"_div\" style=\"height:400px;\"></div>");
+		    	//var series=[];
+				//series.push({name:data[seriesArr[i].name],type:'line',stack: '总量',data:data[seriesArr[i].data]});
+			    initVarChangeLine(ec,url1,page,row,"chart"+(i+1)+"_"+(j+1)+"_div","createList"+(i+1)+"_"+(j+1),"listSize"+(i+1)+"_"+(j+1),series);
 	    	}
-	    	initVarChangeLine(ec,url1,"chart"+(i+1)+"_div","createList"+(i+1),"listSize"+(i+1),seriesArr);
     	}
     	var url2="selectVarAvgChangeLineData";
     	//initVarChangeLine(ec,url2,"avgChart_div");
     }
 );
+
+function nextPage(ec,url,name,i,j,series){
+	var page=$("div[name='"+name+"']").attr("page");
+	page++;
+	initVarChangeLine(ec,url,page,row,"chart"+(i+1)+"_"+(j+1)+"_div","createList"+(i+1)+"_"+(j+1),"listSize"+(i+1)+"_"+(j+1),series);
+}
 </script>
 </body>
 </html>

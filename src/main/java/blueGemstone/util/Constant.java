@@ -249,4 +249,24 @@ public class Constant {
 			HAN_YANG_LIANG_TYPE
 	};
 	
+	public static final String[] VAR_TYPE_NAME=new String[] {"频率类","压力类","温度类","流量类","液位类","含氧量类"};
+	
+	public static final String[] PIN_LV_TYPE_NAME=new String[] {PIN_LV_TYPE[0],PIN_LV_TYPE[1],PIN_LV_TYPE[2],PIN_LV_TYPE[3],PIN_LV_TYPE[4],PIN_LV_TYPE[5],PIN_LV_TYPE[6],PIN_LV_TYPE[7],PIN_LV_TYPE[8],PIN_LV_TYPE[9]};
+	
+	public static final String[] YA_LI_TYPE_NAME=new String[] {YA_LI_TYPE[0],YA_LI_TYPE[1],YA_LI_TYPE[2],YA_LI_TYPE[3],YA_LI_TYPE[4],YA_LI_TYPE[5],YA_LI_TYPE[6]};
+	
+	public static final String[] WEN_DU_TYPE_NAME=new String[] {WEN_DU_TYPE[0],WEN_DU_TYPE[1],WEN_DU_TYPE[2],WEN_DU_TYPE[3],WEN_DU_TYPE[4],WEN_DU_TYPE[5],WEN_DU_TYPE[6],WEN_DU_TYPE[7],WEN_DU_TYPE[8],WEN_DU_TYPE[9]};
+	
+	public static final String[] LIU_LIANG_TYPE_NAME=new String[] {LIU_LIANG_TYPE[0],LIU_LIANG_TYPE[1]};
+	
+	public static final String[] YE_WEI_TYPE_NAME=new String[] {YE_WEI_TYPE[0]};
+	
+	public static final String[] HAN_YANG_LIANG_TYPE_NAME=new String[] {HAN_YANG_LIANG_TYPE[0],HAN_YANG_LIANG_TYPE[1]};
+	
+	public static final String[][] VAR_CHILD_TYPE_NAME=new String[][] {PIN_LV_TYPE_NAME,YA_LI_TYPE_NAME,WEN_DU_TYPE_NAME,LIU_LIANG_TYPE_NAME,YE_WEI_TYPE_NAME,HAN_YANG_LIANG_TYPE_NAME};
+	
+	public static void main(String[] args) {
+		System.out.println(WEN_DU_TYPE[9]);
+	}
+	
 }

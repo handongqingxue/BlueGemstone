@@ -115,10 +115,10 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public List<VarChange> selectVarChangeLineData(String name) {
+	public List<VarChange> selectVarChangeLineData(String name, int page, int row) {
 		// TODO Auto-generated method stub
 		
-		return publicDao.selectVarChangeLineData(name);
+		return publicDao.selectVarChangeLineData(name, page, row);
 	}
 
 	@Override
