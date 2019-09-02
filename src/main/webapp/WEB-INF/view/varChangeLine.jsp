@@ -17,6 +17,7 @@
 var page=1;
 var row=100;
 var main=$("#main");
+var ec1;
 require(
     [
         'echarts',
@@ -24,24 +25,21 @@ require(
         'echarts/chart/bar'
     ],
     function (ec) {
+   		ec1=ec;
     	var url1="selectVarChangeLineData";
     	var varTypeJS=JSON.parse('${requestScope.varType}');
     	for(var i=0;i<varTypeJS.length;i++){
         	console.log(varTypeJS[i].name+","+varTypeJS[i].childList.length);
         	main.append("<div name=\""+varTypeJS[i].name+"\"></div>");
 	    	for(var j=0;j<varTypeJS[i].childList.length;j++){
-		    	var series=new Array();
-		    	series["name"]="name"+(i+1)+"_"+(j+1);
-		    	series["data"]="valueList"+(i+1)+"_"+(j+1);
-		    	
 		    	$("div[name='"+varTypeJS[i].name+"']").append("<div>"
-		    			+"<input type=\"button\" value=\"上一页\"/>"
-		    			+"<input type=\"button\" value=\"下一页\" onclick=\"nextPage('"+ec+"','"+url1+"','"+varTypeJS[i].childList[j].name+"','"+i+"','"+j+"','"+series+"')\"/>"
+		    			+"<input type=\"button\" value=\"上一页\" onclick=\"nextPage('"+url1+"','"+varTypeJS[i].childList[j].name+"',"+i+","+j+",-1)\"/>"
+		    			+"<input type=\"button\" value=\"下一页\" onclick=\"nextPage('"+url1+"','"+varTypeJS[i].childList[j].name+"',"+i+","+j+",1)\"/>"
 		    			+"</div>");
 		    	$("div[name='"+varTypeJS[i].name+"']").append("<div name=\""+varTypeJS[i].childList[j].name+"\" page=\""+page+"\" id=\"chart"+(i+1)+"_"+(j+1)+"_div\" style=\"height:400px;\"></div>");
 		    	//var series=[];
 				//series.push({name:data[seriesArr[i].name],type:'line',stack: '总量',data:data[seriesArr[i].data]});
-			    initVarChangeLine(ec,url1,page,row,"chart"+(i+1)+"_"+(j+1)+"_div","createList"+(i+1)+"_"+(j+1),"listSize"+(i+1)+"_"+(j+1),series);
+			    initVarChangeLine(ec,url1,page,row,"chart"+(i+1)+"_"+(j+1)+"_div",varTypeJS[i].childList[j].name);
 	    	}
     	}
     	var url2="selectVarAvgChangeLineData";
@@ -49,10 +47,14 @@ require(
     }
 );
 
-function nextPage(ec,url,name,i,j,series){
+function nextPage(url,name,i,j,next){
 	var page=$("div[name='"+name+"']").attr("page");
-	page++;
-	initVarChangeLine(ec,url,page,row,"chart"+(i+1)+"_"+(j+1)+"_div","createList"+(i+1)+"_"+(j+1),"listSize"+(i+1)+"_"+(j+1),series);
+	if(next==1)
+		page++;
+	else if(next==-1)
+		page--;
+	$("div[name='"+name+"']").attr("page",page);
+	initVarChangeLine(ec1,url,page,row,"chart"+(i+1)+"_"+(j+1)+"_div",name);
 }
 </script>
 </body>

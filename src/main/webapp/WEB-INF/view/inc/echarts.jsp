@@ -20,9 +20,9 @@ require.config({
     }
 });
 
-function initVarChangeLine(ec,url,page,row,chartDiv,createTimeList,listSize,series){
+function initVarChangeLine(ec,url,page,row,chartDiv,name){
    	$.post(url,
-   			{page:page,row:row},
+   			{name:name,page:page,row:row},
   			function(data){
 	   			//console.log(data.createTimeList);
 	   			/*
@@ -38,7 +38,7 @@ function initVarChangeLine(ec,url,page,row,chartDiv,createTimeList,listSize,seri
                	        trigger: 'axis'
                	    },
                	    legend: {
-               	        data:[data[series.name]]
+               	        data:[name]
                	    },
                	    toolbox: {
                	        show : true,
@@ -56,7 +56,7 @@ function initVarChangeLine(ec,url,page,row,chartDiv,createTimeList,listSize,seri
                	            type : 'category',
                	            boundaryGap : false,
                	            //data : ['周一','周二','周三','周四','周五','周六','周日']
-               	            data : data[createTimeList]
+               	            data : data["createTimeList"]
                	        }
                	    ],
                	    yAxis : [
@@ -77,17 +77,17 @@ function initVarChangeLine(ec,url,page,row,chartDiv,createTimeList,listSize,seri
                	    */
                	    series : [
                	        {
-               	            name:data[series.name],
+               	            name:name,
                	            type:'line',
                	            stack: '总量',
-               	        	data:data[series.data]
+               	        	data:data["valueList"]
                	        }
                	    ]
                	};
                myChart.setOption(option);
                
-               if(data[listSize]>30)
-               	document.getElementById(chartDiv).style.width = data[listSize]*15+'px';
+               if(data["listSize"]>30)
+               	document.getElementById(chartDiv).style.width = data["listSize"]*15+'px';
                myChart.resize();//直接加这句即可
                myChart.setOption(option,true);
    		}

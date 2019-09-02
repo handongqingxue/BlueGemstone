@@ -110,26 +110,20 @@ public class MainController {
 
 	@RequestMapping("/selectVarChangeLineData")
 	@ResponseBody
-	public Map<String,Object> selectVarChangeLineData(int page,int row) {
+	public Map<String,Object> selectVarChangeLineData(String name,int page,int row) {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		for(int i=0;i<Constant.VAR_TYPE.length;i++) {
-			for(int j=0;j<Constant.VAR_TYPE[i].length;j++) {
-	
-				List<VarChange> vcList=publicService.selectVarChangeLineData(Constant.VAR_TYPE[i][j],page,row);
-				List<String> createList=new ArrayList<String>();
-				List<Float> valueList=new ArrayList<Float>();
-				for (VarChange varChange : vcList) {
-					createList.add(varChange.getCreateTime());
-					valueList.add(varChange.getValue());
-				}
-				jsonMap.put("createList"+(i+1)+"_"+(j+1), createList);
-				jsonMap.put("listSize"+(i+1)+"_"+(j+1), createList.size());
-				jsonMap.put("name"+(i+1)+"_"+(j+1), Constant.VAR_TYPE[i][j]);
-				jsonMap.put("valueList"+(i+1)+"_"+(j+1), valueList);
-			}
+		List<VarChange> vcList=publicService.selectVarChangeLineData(name,page,row);
+		List<String> createTimeList=new ArrayList<String>();
+		List<Float> valueList=new ArrayList<Float>();
+		for (VarChange varChange : vcList) {
+			createTimeList.add(varChange.getCreateTime());
+			valueList.add(varChange.getValue());
 		}
+		jsonMap.put("createTimeList", createTimeList);
+		jsonMap.put("listSize", createTimeList.size());
+		jsonMap.put("valueList", valueList);
 		
 		/*
 		if(vcList.size()>0) {
