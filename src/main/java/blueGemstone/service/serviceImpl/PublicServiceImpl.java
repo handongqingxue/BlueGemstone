@@ -66,14 +66,14 @@ public class PublicServiceImpl implements PublicService {
 			varChange.setName(Constant.INSERT_ARR[i]);
 			Random random = new Random();
 			float value = random.nextInt(100);
-			System.out.println("value==="+value);
+			//System.out.println("value==="+value);
 			varChange.setValue(value);
 			varChange.setCreateTime(createTime);
-			if(value>80) {
+			if(value>98) {
 				varChange.setState(1);
 				insertWarnRecord(varChange);
 			}
-			else if(value<20) {
+			else if(value<2) {
 				varChange.setState(2);
 				insertWarnRecord(varChange);
 			}
@@ -139,6 +139,12 @@ public class PublicServiceImpl implements PublicService {
 	public List<WarnRecord> selectWarnRecordReportData(String name) {
 		// TODO Auto-generated method stub
 		return publicDao.selectWarnRecordReportData(name);
+	}
+
+	@Override
+	public List<WarnHistoryRecord> selectWarnHistoryRecordReportData(String name) {
+		// TODO Auto-generated method stub
+		return publicDao.selectWarnHistoryRecordReportData(name);
 	}
 
 	@Override

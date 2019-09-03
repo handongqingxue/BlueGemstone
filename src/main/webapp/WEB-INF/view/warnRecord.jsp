@@ -54,8 +54,8 @@ $(function(){
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
-				$(this).datagrid("appendRow",{createTime:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"createTime",colspan:3});
+				$(this).datagrid("appendRow",{id:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"id",colspan:5});
 				data.total=0;
 			}
 		}

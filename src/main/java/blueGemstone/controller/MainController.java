@@ -1,7 +1,6 @@
 package blueGemstone.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
+import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
 import blueGemstone.util.Constant;
@@ -27,8 +27,17 @@ public class MainController {
 	private PublicService publicService;
 	
 	@RequestMapping("/goMain")
-	public String goMain() {
+	public String goMain(HttpServletRequest request) {
 		
+		List<Map<String, Object>> varList=new ArrayList<>();
+		for(int i=0;i<Constant.INSERT_ARR.length;i++) {
+			Map<String, Object> varMap=new HashMap<>();
+			varMap.put("name", Constant.INSERT_ARR[i]);
+			varMap.put("value", (float)1.00);
+			varList.add(varMap);
+		}
+		
+		request.setAttribute("varList", varList);
 		return "main";
 	}
 	
@@ -72,6 +81,12 @@ public class MainController {
 		return "warnRecord";
 	}
 	
+	@RequestMapping("/goWarnHistoryRecord")
+	public String goWarnHistoryRecord() {
+		
+		return "warnHistoryRecord";
+	}
+	
 	@RequestMapping("/goInsertData")
 	public String goInsertData() {
 		
@@ -85,7 +100,7 @@ public class MainController {
 			try {
 				Thread.sleep(10*1000);
 				publicService.insertVarChange();
-				System.out.println("insertVarChange...........");
+				//System.out.println("insertVarChange...........");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -100,7 +115,7 @@ public class MainController {
 			try {
 				Thread.sleep(10*60*1000);
 				int i=publicService.insertVarAvgChange();
-				System.out.println("insertVarAvgChange...........");
+				//System.out.println("insertVarAvgChange...........");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -191,6 +206,20 @@ public class MainController {
 		
 		jsonMap.put("total", wrList.size());
 		jsonMap.put("rows", wrList);
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping("/selectWarnHistoryRecordReportData")
+	@ResponseBody
+	public Map<String,Object> selectWarnHistoryRecordReportData(String name) {
+		
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		List<WarnHistoryRecord> whrList=publicService.selectWarnHistoryRecordReportData(name);
+		
+		jsonMap.put("total", whrList.size());
+		jsonMap.put("rows", whrList);
 		
 		return jsonMap;
 	}

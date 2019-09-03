@@ -4,6 +4,7 @@ import java.util.List;
 
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
+import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 
 public interface PublicService {
@@ -21,6 +22,8 @@ public interface PublicService {
 	List<VarAvgChange> selectVarAvgChangeLineData(String name, int page, int row);
 
 	List<WarnRecord> selectWarnRecordReportData(String name);
+
+	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(String name);
 
 	int updateWarnRecord();
 

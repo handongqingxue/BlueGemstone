@@ -37,4 +37,6 @@ public interface PublicMapper {
 
 	int deleteWarnRecordByName(@Param("name") String name);
 
+	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(@Param("name") String name);
+
 }

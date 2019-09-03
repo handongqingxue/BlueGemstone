@@ -26,6 +26,12 @@
 		</if>
 		order by name,createtime
 	</select>
+	<select id="selectWarnHistoryRecordReportData" resultType="blueGemstone.entity.WarnHistoryRecord">
+		select * from (select id,name,convert(varchar,CreateTime,120) createTime,value,state,ROW_NUMBER() over(order by name,createtime) as rowNumber from WarnHistoryRecord where createTime between DATEADD(D,-7,createTime) and createTime)t where 1=1
+		<if test="name!=null">
+			and t.name=#{name}
+		</if>
+	</select>
 	<select id="getVarStateByName" resultType="java.lang.Integer">
 		select top 1 state from VarChange where name=#{name} order by createTime desc
 	</select>
