@@ -17,8 +17,49 @@ $(function(){
 	showVarLabel("除氧器液位",415,97);
 	showVarLabel("除氧器温度",415,122);
 	showVarLabel("上水泵频率1",197,119);
+	showVarLabel("上水泵频率2",197,254);
 	showVarLabel("水泵上水流量",301,119);
+	showVarLabel("过热蒸汽压力",615,108);
+	showVarLabel("过热蒸汽温度",715,108);
+	showVarLabel("蒸汽流量计",790,132);
+	showVarLabel("引风机频率",805,312);
+	showVarLabel("锅炉出口温度",388,333);
+	showVarLabel("床体温度1",388,368);
+	showVarLabel("床体温度2",388,402);
+	showVarLabel("床体温度3",388,437);
+	showVarLabel("床体温度4",388,471);
+	showVarLabel("鼓风机频率",330,550);
+	showVarLabel("二次风频率",330,612);
+	showVarLabel("三次风频率1",330,670);
+	showVarLabel("三次风频率2",330,707);
+	showVarLabel("旋风分离器温度1",708,402);
+	showVarLabel("旋风分离器温度2",708,435);
+	showVarLabel("炉膛差压",691,481);
+	showVarLabel("料层差压",691,517);
+	showVarLabel("含氧量表",691,553);
+	showVarLabel("给煤频率1",691,583);
+	showVarLabel("给煤频率2",691,620);
+	showVarLabel("给煤频率3",691,654);
+	showVarLabel("三次风室压力1",538,575);
+	showVarLabel("三次风室压力2",538,621);
+	showVarLabel("风室压力",538,661);
+	showVarLabel("饱和蒸汽压力",520,202);
+	setInterval("updateVarLabel()",5000,1000);
 });
+
+function updateVarLabel(){
+	$.post("updateCurrentVarValue",
+		function(data){
+			if(data.message=="ok"){
+				var varList=data.varList;
+				for(var i=0;i<varList.length;i++){
+					var name=varList[i].name;
+					$("span[name='"+name+"']").text(varList[i].value);
+				}
+			}
+		}
+	,"json");
+}
 
 function initIframe(flag){
 	if(flag==1){

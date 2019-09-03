@@ -35,6 +35,9 @@
 	<select id="getVarStateByName" resultType="java.lang.Integer">
 		select top 1 state from VarChange where name=#{name} order by createTime desc
 	</select>
+	<select id="getCurrentVarValue" resultType="java.lang.Float">
+		select top 1 value from VarChange where name=#{name} order by createTime desc
+	</select>
 	<insert id="insertVarChange" parameterType="blueGemstone.entity.VarChange">
 		insert into VarChange (id,name,value,createTime,state,updated,memo) values(#{id},#{name},#{value},#{createTime},#{state},0,#{memo})
 	</insert>

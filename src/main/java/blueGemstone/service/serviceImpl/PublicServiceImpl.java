@@ -1,8 +1,11 @@
 package blueGemstone.service.serviceImpl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -16,6 +19,7 @@ import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
 import blueGemstone.util.Constant;
+import blueGemstone.util.StringUtils;
 
 @Service
 public class PublicServiceImpl implements PublicService {
@@ -183,5 +187,22 @@ public class PublicServiceImpl implements PublicService {
 			}
 		}
 		return 1;
+	}
+
+	@Override
+	public List<Map<String, Object>> getCurrentVarValueList() {
+		// TODO Auto-generated method stub
+		
+		List<Map<String, Object>> varList=new ArrayList<>();
+		for(int i=0;i<Constant.INSERT_ARR.length;i++) {
+			Map<String, Object> varMap=new HashMap<>();
+			varMap.put("name", Constant.INSERT_ARR[i]);
+			Float value=publicDao.getCurrentVarValue(Constant.INSERT_ARR[i]);
+			//varMap.put("value", (float)1.00);
+			varMap.put("value", value==null?0.0:value);
+			varList.add(varMap);
+		}
+		
+		return varList;
 	}
 }

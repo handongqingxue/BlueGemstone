@@ -29,16 +29,24 @@ public class MainController {
 	@RequestMapping("/goMain")
 	public String goMain(HttpServletRequest request) {
 		
-		List<Map<String, Object>> varList=new ArrayList<>();
-		for(int i=0;i<Constant.INSERT_ARR.length;i++) {
-			Map<String, Object> varMap=new HashMap<>();
-			varMap.put("name", Constant.INSERT_ARR[i]);
-			varMap.put("value", (float)1.00);
-			varList.add(varMap);
-		}
-		
+		List<Map<String, Object>> varList=publicService.getCurrentVarValueList();
 		request.setAttribute("varList", varList);
+		
 		return "main";
+	}
+	
+	@RequestMapping("/updateCurrentVarValue")
+	@ResponseBody
+	public Map<String,Object> updateCurrentVarValue() {
+		
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		List<Map<String, Object>> varList=publicService.getCurrentVarValueList();
+		
+		jsonMap.put("message", "ok");
+		jsonMap.put("varList", varList);
+		
+		return jsonMap;
 	}
 	
 	@RequestMapping("/goVarChangeLine")

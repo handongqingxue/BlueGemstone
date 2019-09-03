@@ -1,6 +1,7 @@
 package blueGemstone.service;
 
 import java.util.List;
+import java.util.Map;
 
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
@@ -26,5 +27,7 @@ public interface PublicService {
 	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(String name);
 
 	int updateWarnRecord();
+
+	List<Map<String, Object>> getCurrentVarValueList();
 
 }

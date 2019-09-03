@@ -39,4 +39,6 @@ public interface PublicMapper {
 
 	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(@Param("name") String name);
 
+	Float getCurrentVarValue(@Param("name") String name);
+
 }
