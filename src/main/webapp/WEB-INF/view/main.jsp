@@ -22,9 +22,12 @@ function initIframe(flag){
 		$("#iframe3").css("display","none");
 	}
 	else if(flag==3){
+		/*
 		$("#iframe1").css("display","none");
 		$("#iframe2").css("display","none");
 		$("#iframe3").css("display","block");
+		*/
+		window.open("goWarnRecord");
 	}
 }
 </script>

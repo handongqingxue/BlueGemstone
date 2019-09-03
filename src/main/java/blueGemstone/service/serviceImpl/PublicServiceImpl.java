@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import blueGemstone.dao.PublicMapper;
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
+import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
 import blueGemstone.util.Constant;
@@ -99,9 +100,9 @@ public class PublicServiceImpl implements PublicService {
 			System.out.println("avgValue==="+avgValue);
 			varAvgChange.setValue(avgValue);
 			varAvgChange.setCreateTime(createTime);
-			if(avgValue>80)
+			if(avgValue>95)
 				varAvgChange.setState(1);
-			else if(avgValue<20)
+			else if(avgValue<5)
 				varAvgChange.setState(2);
 			else
 				varAvgChange.setState(0);
@@ -155,7 +156,26 @@ public class PublicServiceImpl implements PublicService {
 		return publicDao.insertWarnRecord(warnRecord);
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(new Random().nextInt(100));
+	@Override
+	public int updateWarnRecord() {
+		// TODO Auto-generated method stub
+		
+		for(int i=0;i<Constant.INSERT_ARR.length;i++) {
+			int state=publicDao.getVarStateByName(Constant.INSERT_ARR[i]);
+			if(state==0) {
+				List<WarnRecord> wrList = selectWarnRecordReportData(Constant.INSERT_ARR[i]);
+				for (WarnRecord wr : wrList) {
+					WarnHistoryRecord whr=new WarnHistoryRecord();
+					whr.setId(UUID.randomUUID().toString().replace("-", ""));
+					whr.setName(wr.getName());
+					whr.setValue(wr.getValue());
+					whr.setCreateTime(wr.getCreateTime());
+					whr.setState(wr.getState());
+					publicDao.insertWarnHistoryRecord(whr);
+				}
+				publicDao.deleteWarnRecordByName(Constant.INSERT_ARR[i]);
+			}
+		}
+		return 1;
 	}
 }

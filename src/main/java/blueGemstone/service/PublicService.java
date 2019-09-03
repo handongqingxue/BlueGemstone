@@ -22,4 +22,6 @@ public interface PublicService {
 
 	List<WarnRecord> selectWarnRecordReportData(String name);
 
+	int updateWarnRecord();
+
 }

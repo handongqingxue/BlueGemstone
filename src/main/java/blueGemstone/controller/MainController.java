@@ -234,5 +234,18 @@ public class MainController {
 		
 		return jsonMap;
 	}
+	
+	@RequestMapping("/updateWarnRecord")
+	@ResponseBody
+	public Map<String,Object> updateWarnRecord() {
+		
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		publicService.updateWarnRecord();
+		
+		jsonMap.put("message", "ok");
+		
+		return jsonMap;
+	}
 
 }

@@ -26,6 +26,9 @@
 		</if>
 		order by name,createtime
 	</select>
+	<select id="getVarStateByName" resultType="java.lang.Integer">
+		select top 1 state from VarChange where name=#{name} order by createTime desc
+	</select>
 	<insert id="insertVarChange" parameterType="blueGemstone.entity.VarChange">
 		insert into VarChange (id,name,value,createTime,state,updated,memo) values(#{id},#{name},#{value},#{createTime},#{state},0,#{memo})
 	</insert>
@@ -35,7 +38,13 @@
 	<insert id="insertWarnRecord" parameterType="blueGemstone.entity.WarnRecord">
 		insert into WarnRecord (id,name,value,createTime,state,memo) values(#{id},#{name},#{value},#{createTime},#{state},#{memo})
 	</insert>
+	<insert id="insertWarnHistoryRecord" parameterType="blueGemstone.entity.WarnHistoryRecord">
+		insert into WarnHistoryRecord (id,name,value,createTime,state,memo) values(#{id},#{name},#{value},#{createTime},#{state},#{memo})
+	</insert>
 	<update id="updateVarChange">
 		update VarChange set updated=1 where name=#{name} and createTime&lt;#{time} and updated=0
 	</update>
+	<delete id="deleteWarnRecordByName">
+		delete from WarnRecord where name=#{name}
+	</delete>
 </mapper>

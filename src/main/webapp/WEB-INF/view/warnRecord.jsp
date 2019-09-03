@@ -61,6 +61,19 @@ $(function(){
 		}
 	});
 });
+
+setInterval("updateWarnRecord()",10000,1000);
+
+function updateWarnRecord(){
+	$.post("updateWarnRecord",
+		function(data){
+			console.log(data.message);
+			if(data.message=="ok"){
+				tab1.datagrid("reload");
+			}
+		}
+	,"json");
+}
 </script>
 </head>
 <body>

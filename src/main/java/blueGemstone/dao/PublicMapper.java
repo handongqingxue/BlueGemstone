@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
+import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 
 public interface PublicMapper {
@@ -29,5 +30,11 @@ public interface PublicMapper {
 	List<WarnRecord> selectWarnRecordReportData(@Param("name") String name);
 
 	int insertWarnRecord(WarnRecord warnRecord);
+
+	int insertWarnHistoryRecord(WarnHistoryRecord whr);
+
+	int getVarStateByName(@Param("name") String name);
+
+	int deleteWarnRecordByName(@Param("name") String name);
 
 }
