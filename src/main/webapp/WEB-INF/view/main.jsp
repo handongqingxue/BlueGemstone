@@ -1,17 +1,112 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	String basePath=request.getScheme()+"://"+request.getServerName()+":"
-	+request.getServerPort()+request.getContextPath()+"/";
-%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="<%=basePath %>resource/js/jquery-3.3.1.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Insert title here</title>
+<jsp:include page="inc/echarts.jsp"></jsp:include>
+<%@include file="inc/reportJs.jsp"%>
 <script type="text/javascript">
 $(function(){
+	initVarTab();
+	initVarDiv();
+	initLineDiv();
+});
+
+function initLineDiv(){
+	$.post("selectInsertArrData",
+		function(data){
+			varTypeCbb=$("#varType_cbb").combobox({
+				width:200,
+				valueField:"value",
+				textField:"text",
+				data:data.rows,
+				onSelect:function(){
+					//resetMainDiv();
+				},
+				onLoadSuccess:function(){
+					var data=$(this).combobox("getData");
+					$(this).combobox("select",data[0].value);
+				}
+			});
+		}
+	,"json");
+}
+
+var page=1;
+var row=100;
+var ec1;
+require(
+    [
+        'echarts',
+        'echarts/chart/line',   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
+        'echarts/chart/bar'
+    ],
+    function (ec) {
+   		ec1=ec;
+   		console.log('${requestScope.varName}');
+    	var varNameJS=JSON.parse('${requestScope.varName}');
+    	var url1="selectVarChangeLineData";
+    	var lineDiv=$("#line_div");
+    	for(var i=0;i<varNameJS.length;i++){
+        	lineDiv.append("<div name=\""+varNameJS[i].name+"\"></div>");
+	    	$("div[name='"+varNameJS[i].name+"']").append("<div>"
+	    			+"<input type=\"button\" value=\"上一页\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",-1)\"/>"
+	    			+"<input type=\"button\" value=\"下一页\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",1)\"/>"
+	    			+"</div>");
+	    	$("div[name='"+varNameJS[i].name+"']").append("<div page=\""+page+"\" id=\"chart_div"+(i+1)+"\" style=\"height:400px;\"></div>");
+		    initVarChangeLine(ec,url1,page,row,"chart_div"+(i+1),varNameJS[i].name);
+    	}
+    }
+);
+
+function nextPage(url,name,i,next){
+	var page=$("#main div[name='"+name+"']").attr("page");
+	if(next==1)
+		page++;
+	else if(next==-1)
+		page--;
+	$("#main div[name='"+name+"']").attr("page",page);
+	initVarChangeLine(ec1,url,page,row,"chart_div"+(i+1),name);
+}
+
+function initVarTab(){
+	warnRecTab=$("#warnRec_tab").datagrid({
+		title:"报警记录",
+		url:"selectWarnRecordReportData",
+		toolbar:"#toolbar",
+		pagination:true,
+		pageSize:10,
+		columns:[[
+			{field:"id",title:"序号",formatter:function(value,row,index){
+	            return index;
+	        }},
+			{field:"name",title:"记录点",width:150},
+			{field:"createTime",title:"时间",width:180},
+            {field:"value",title:"数值",width:80},
+            {field:"state",title:"状态",width:100,formatter:function(value,row){
+            	var str;
+            	if(value==0)
+            		str="正常";
+            	else if(value==1)
+            		str="上限报警";
+            	else if(value==2)
+            		str="下限报警";
+            	return str;
+	        }}
+	    ]],
+        onLoadSuccess:function(data){
+			if(data.total==0){
+				$(this).datagrid("appendRow",{id:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"id",colspan:5});
+				data.total=0;
+			}
+		}
+	});
+}
+
+function initVarDiv(){
 	showVarLabel("除氧器频率1",415,35);
 	showVarLabel("除氧器频率2",415,62);
 	showVarLabel("除氧器液位",415,97);
@@ -45,7 +140,7 @@ $(function(){
 	showVarLabel("风室压力",538,661);
 	showVarLabel("饱和蒸汽压力",520,202);
 	setInterval("updateVarLabel()",5000,1000);
-});
+}
 
 function updateVarLabel(){
 	$.post("updateCurrentVarValue",
@@ -96,13 +191,27 @@ function showVarLabel(name,left,top){
 	$("span[name='"+name+"']").css("margin-top",top+"px");
 }
 </script>
-<title>Insert title here</title>
 </head>
 <body>
-<div id="var_div" style="width:1024px;height:768px;margin:0 auto;background-image: url('<%=basePath %>resource/image/001.png');background-size:100% 100%;">
-	<c:forEach items="${requestScope.varList }" var="item">
-	<span name="${item.name }" style="position: absolute;">${item.value }</span>
-	</c:forEach>
+<div style="width: 600px;height: 1000px;">
+	<table id="warnRec_tab">
+	</table>
+</div>
+<div style="margin-top:-1000px;margin-left:600px;">
+	<div>
+		<input type="button" value="曲线" onclick="initIframe(1);"/>
+		<input type="button" value="报表" onclick="initIframe(2);"/>
+		<input type="button" value="报警" onclick="initIframe(3);"/>
+		<input type="button" value="历史报警记录" onclick="initIframe(4);"/>
+	</div>
+	<div id="var_div" style="width:1024px;height:768px;background-image: url('<%=basePath %>resource/image/001.png');background-size:100% 100%;">
+		<c:forEach items="${requestScope.varList }" var="item">
+		<span name="${item.name }" style="position: absolute;">${item.value }</span>
+		</c:forEach>
+	</div>
+	<div id="line_div" style="width:100%;height:600px;overflow:auto;">
+		<select id="varType_cbb"></select>
+	</div>
 </div>
 <!-- 
 <iframe id="iframe1" src="goVarChangeLine" style="width:100%;height: 800px;display: block;"></iframe>
@@ -112,12 +221,6 @@ function showVarLabel(name,left,top){
 <!-- 
 <iframe src="goWarnRecord" style="width:800px;height: 800px;"></iframe>
  -->
-<div>
-	<input type="button" value="曲线" onclick="initIframe(1);"/>
-	<input type="button" value="报表" onclick="initIframe(2);"/>
-	<input type="button" value="报警" onclick="initIframe(3);"/>
-	<input type="button" value="历史报警记录" onclick="initIframe(4);"/>
-</div>
 <body>
 </body>
 </html>

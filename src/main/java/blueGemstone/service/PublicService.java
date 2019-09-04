@@ -10,11 +10,11 @@ import blueGemstone.entity.WarnRecord;
 
 public interface PublicService {
 
-	int insertVarChange();
+	Integer insertVarChange();
 
-	int insertVarAvgChange();
+	Integer insertVarAvgChange();
 	
-	int insertWarnRecord(VarChange varChange);
+	Integer insertWarnRecord(VarChange varChange);
 
 	List<VarChange> selectVarChangeLineData(String name, int page, int row);
 
@@ -26,7 +26,7 @@ public interface PublicService {
 
 	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(String name);
 
-	int updateWarnRecord();
+	Integer updateWarnRecord();
 
 	List<Map<String, Object>> getCurrentVarValueList();
 

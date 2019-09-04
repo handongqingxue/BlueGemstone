@@ -32,6 +32,17 @@ public class MainController {
 		List<Map<String, Object>> varList=publicService.getCurrentVarValueList();
 		request.setAttribute("varList", varList);
 		
+		StringBuffer sb=new StringBuffer();
+		sb.append("[");
+		for(int i=0;i<Constant.INSERT_ARR.length;i++) {
+			sb.append("{\"name\":\""+Constant.INSERT_ARR[i]+"\"}");
+			if(i<Constant.INSERT_ARR.length-1)
+				sb.append(",");
+		}
+		sb.append("]");
+
+		request.setAttribute("varName", sb.toString());
+		
 		return "main";
 	}
 	
@@ -66,13 +77,11 @@ public class MainController {
 			sb.append("}");
 			if(i<Constant.VAR_TYPE.length-1)
 				sb.append(",");
-			request.setAttribute("varType"+(i+1)+"Length", Constant.VAR_TYPE[i].length);
 		}
 		sb.append("]");
 
-		System.out.println("varType==="+sb.toString());
+		//System.out.println("varType==="+sb.toString());
 		request.setAttribute("varType", sb.toString());
-		//request.setAttribute("aaa","[{\"aaa\":\"111\",\"bbb\":\"222\"},{\"aaa\":\"111\",\"bbb\":\"222\"}]");
 		
 		return "varChangeLine";
 	}
@@ -264,6 +273,26 @@ public class MainController {
 			Map<String,String> varMap=new HashMap<>();
 			varMap.put("value", varType);
 			varMap.put("text", varType);
+			varList.add(varMap);
+		}
+		
+		jsonMap.put("rows", varList);
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping("/selectInsertArrData")
+	@ResponseBody
+	public Map<String,Object> selectInsertArrData() {
+		
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		List<Map<String,String>> varList=new ArrayList<Map<String,String>>();
+		
+		for (String var : Constant.INSERT_ARR) {
+			Map<String,String> varMap=new HashMap<>();
+			varMap.put("value", var);
+			varMap.put("text", var);
 			varList.add(varMap);
 		}
 		

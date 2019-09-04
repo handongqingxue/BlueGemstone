@@ -11,15 +11,15 @@ import blueGemstone.entity.WarnRecord;
 
 public interface PublicMapper {
 
-	int select();
+	Integer select();
 
-	int insertVarChange(VarChange varChange);
+	Integer insertVarChange(VarChange varChange);
 
-	int insertVarAvgChange(VarAvgChange varAvgChange);
+	Integer insertVarAvgChange(VarAvgChange varAvgChange);
 
-	float getVarChangeAvgValue(@Param("name") String name, @Param("time") String time);
+	Float getVarChangeAvgValue(@Param("name") String name, @Param("time") String time);
 
-	int updateVarChange(@Param("name") String name, @Param("time") String time);
+	Integer updateVarChange(@Param("name") String name, @Param("time") String time);
 
 	List<VarChange> selectVarChangeLineData(@Param("name") String name, @Param("page") int page, @Param("row") int row);
 
@@ -29,13 +29,13 @@ public interface PublicMapper {
 
 	List<WarnRecord> selectWarnRecordReportData(@Param("name") String name);
 
-	int insertWarnRecord(WarnRecord warnRecord);
+	Integer insertWarnRecord(WarnRecord warnRecord);
 
-	int insertWarnHistoryRecord(WarnHistoryRecord whr);
+	Integer insertWarnHistoryRecord(WarnHistoryRecord whr);
 
-	int getVarStateByName(@Param("name") String name);
+	Integer getVarStateByName(@Param("name") String name);
 
-	int deleteWarnRecordByName(@Param("name") String name);
+	Integer deleteWarnRecordByName(@Param("name") String name);
 
 	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(@Param("name") String name);
 

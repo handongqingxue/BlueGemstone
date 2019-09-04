@@ -59,7 +59,7 @@ public class PublicServiceImpl implements PublicService {
     }
 	
 	@Override
-	public int insertVarChange() {
+	public Integer insertVarChange() {
 		// TODO Auto-generated method stub
 		
 		int count=0;
@@ -90,7 +90,7 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int insertVarAvgChange() {
+	public Integer insertVarAvgChange() {
 		// TODO Auto-generated method stub
 		
 		int count=0;
@@ -152,7 +152,7 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public int insertWarnRecord(VarChange varChange) {
+	public Integer insertWarnRecord(VarChange varChange) {
 		// TODO Auto-generated method stub
 		
 		WarnRecord warnRecord=new WarnRecord();
@@ -167,12 +167,12 @@ public class PublicServiceImpl implements PublicService {
 	}
 	
 	@Override
-	public int updateWarnRecord() {
+	public Integer updateWarnRecord() {
 		// TODO Auto-generated method stub
 		
 		for(int i=0;i<Constant.INSERT_ARR.length;i++) {
-			int state=publicDao.getVarStateByName(Constant.INSERT_ARR[i]);
-			if(state==0) {
+			Integer state=publicDao.getVarStateByName(Constant.INSERT_ARR[i]);
+			if("0".equals(state)) {
 				List<WarnRecord> wrList = selectWarnRecordReportData(Constant.INSERT_ARR[i]);
 				for (WarnRecord wr : wrList) {
 					WarnHistoryRecord whr=new WarnHistoryRecord();
