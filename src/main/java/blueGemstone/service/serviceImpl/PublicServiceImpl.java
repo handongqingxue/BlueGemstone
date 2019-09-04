@@ -172,7 +172,7 @@ public class PublicServiceImpl implements PublicService {
 		
 		for(int i=0;i<Constant.INSERT_ARR.length;i++) {
 			Integer state=publicDao.getVarStateByName(Constant.INSERT_ARR[i]);
-			if("0".equals(state)) {
+			if(0==state) {
 				List<WarnRecord> wrList = selectWarnRecordReportData(Constant.INSERT_ARR[i]);
 				for (WarnRecord wr : wrList) {
 					WarnHistoryRecord whr=new WarnHistoryRecord();

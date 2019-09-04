@@ -18,7 +18,8 @@ function initLineDiv(){
 	$.post("selectInsertArrData",
 		function(data){
 			varTypeCbb=$("#varType_cbb").combobox({
-				width:200,
+				width:300,
+				height:50,
 				valueField:"value",
 				textField:"text",
 				data:data.rows,
@@ -28,6 +29,17 @@ function initLineDiv(){
 				onLoadSuccess:function(){
 					var data=$(this).combobox("getData");
 					$(this).combobox("select",data[0].value);
+					
+					$(".combo").css("margin-left","50px");
+					$(".combo .combo-text").css("color","#fff");
+					$(".combo .combo-text").css("background-color","#1A4A8C");
+					$(".combo .combo-text").css("font-size","20px");
+					
+					$(".combobox-item").css("height","50px");
+					$(".combobox-item").css("line-height","50px");
+					$(".combobox-item").css("font-size","20px");
+					$(".combobox-item").css("color","#fff");
+					$(".combobox-item").css("background-color","#1A4A8C");
 				}
 			});
 		}
@@ -57,17 +69,99 @@ require(
     	var url1="selectVarChangeLineData";
     	var lineDiv=$("#line_div");
     	for(var i=0;i<varNameJS.length;i++){
-        	lineDiv.append("<div name=\""+varNameJS[i].name+"\"></div>");
+        	lineDiv.append("<div name=\""+varNameJS[i].name+"\" style=\"margin-top:10px;\"></div>");
 	    	$("div[name='"+varNameJS[i].name+"']").append("<div>"
-	    			+"<input type=\"button\" value=\"上一页\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",-1)\"/>"
-	    			+"<input type=\"button\" value=\"下一页\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",1)\"/>"
+	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-left:50px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",-1)\">上一页</div>"
+	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:155px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",1)\">下一页</div>"
 	    			+"</div>");
 	    	$("div[name='"+varNameJS[i].name+"']").append("<div page=\""+page+"\" id=\"chart_div"+(i+1)+"\" style=\"height:400px;\"></div>");
-		    initVarChangeLine(ec,url1,page,row,"chart_div"+(i+1),varNameJS[i].name);
+		    initMainVarChangeLine(ec,url1,page,row,"chart_div"+(i+1),varNameJS[i].name);
     	}
 		showLineDiv(varTypeCbb.combobox("getValue"));
     }
 );
+
+function initMainVarChangeLine(ec,url,page,row,chartDiv,name){
+   	$.post(url,
+   			{name:name,page:page,row:row},
+  			function(data){
+               var myChart = ec.init(document.getElementById(chartDiv));
+               option = {
+               	    tooltip : {
+               	        trigger: 'axis'
+               	    },
+               	    legend: {
+               	        data:[name],
+	               	    textStyle: {
+	         				fontWeight: 'normal',              //标题颜色
+	         				color: '#fff'
+	         			},
+               	    },
+               	    toolbox: {
+               	        show : true,
+               	        feature : {
+               	            mark : {show: true},
+               	            dataView : {show: true, readOnly: false},
+               	            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+               	            restore : {show: true},
+               	            saveAsImage : {show: true}
+               	        }
+               	    },
+               	    calculable : true,
+               	    xAxis : [
+               	        {
+               	            type : 'category',
+               	            boundaryGap : false,
+               	            //data : ['周一','周二','周三','周四','周五','周六','周日']
+               	            data : data["createTimeList"],
+	               	        axisLabel: {
+	                            show: true,
+	                            textStyle: {
+	                                color: '#fff'
+	                            }
+	                        }
+               	        }
+               	    ],
+               	    yAxis : [
+               	        {
+               	            type : 'value',
+	               	        axisLabel: {
+	                            show: true,
+	                            textStyle: {
+	                                color: '#fff'
+	                            }
+	                        }
+               	        }
+               	    ],
+               	    /*
+               	    series : [
+               	        {
+               	            name:'压强',
+               	            type:'line',
+               	            stack: '总量',
+               	            //data:[120, 132, 101, 134, 90, 230, 210]
+               	        	data:data[valueList]
+               	        }
+               	    ]
+               	    */
+               	    series : [
+               	        {
+               	            name:name,
+               	            type:'line',
+               	            stack: '总量',
+               	        	data:data["valueList"]
+               	        }
+               	    ]
+               	};
+               myChart.setOption(option);
+               
+               if(data["listSize"]>30)
+               	document.getElementById(chartDiv).style.width = data["listSize"]*15+'px';
+               myChart.resize();//直接加这句即可
+               myChart.setOption(option,true);
+   		}
+   	,"json");
+}
 
 function nextPage(url,name,i,next){
 	var page=$("#line_div #chart_div"+(i+1)).attr("page");
@@ -76,7 +170,7 @@ function nextPage(url,name,i,next){
 	else if(next==-1)
 		page--;
 	$("#line_div #chart_div"+(i+1)).attr("page",page);
-	initVarChangeLine(ec1,url,page,row,"chart_div"+(i+1),name);
+	initMainVarChangeLine(ec1,url,page,row,"chart_div"+(i+1),name);
 }
 
 function initVarTab(){
@@ -111,8 +205,32 @@ function initVarTab(){
 				$(this).datagrid("mergeCells",{index:0,field:"id",colspan:5});
 				data.total=0;
 			}
+
+			$(".panel-header").css("background","linear-gradient(to bottom,#092378 0,#092378 20%)");
+			$(".datagrid-header-inner").css("background-color","#092378");
+			$(".datagrid-header-inner .datagrid-header-row").css("color","#fff");
+			$(".panel-header .panel-title").css("color","#fff");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#ddd");
+			$(".datagrid-body").css("background-color","#092378");
+			$(".datagrid-row").css("color","#fff");
+			$(".datagrid-pager").css("color","#fff");
+			$(".datagrid-pager").css("background-color","#092378");
 		}
 	});
+	setInterval("updateWarnRecord()",10000,1000);
+}
+
+function updateWarnRecord(){
+	$.post("updateWarnRecord",
+		function(data){
+			console.log(data.message);
+			if(data.message=="ok"){
+				warnRecTab.datagrid("reload");
+			}
+		}
+	,"json");
 }
 
 function initVarDiv(){
@@ -202,24 +320,26 @@ function showVarLabel(name,left,top){
 </script>
 </head>
 <body style="background-color: #092378;">
-<div>青岛蓝宝石酒业有限公司</div>
-<div style="width: 600px;height: 1000px;">
+<div style="color: #fff;height: 50px;line-height: 50px;border-bottom: #fff solid 1px;">
+	<span style="font-size: 20px;float: right;margin-right: 100px;color: #1CBFDE;">青岛蓝宝石酒业有限公司</span>
+</div>
+<div style="width: 600px;height: 1000px;margin-top: 10px;">
 	<table id="warnRec_tab">
 	</table>
 </div>
 <div style="margin-top:-1000px;margin-left:600px;">
-	<div>
-		<input type="button" value="曲线" onclick="initIframe(1);"/>
-		<input type="button" value="报表" onclick="initIframe(2);"/>
-		<input type="button" value="报警" onclick="initIframe(3);"/>
-		<input type="button" value="历史报警记录" onclick="initIframe(4);"/>
+	<div style="margin-left:50px;">
+		<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center; background-color: #1A4A8C;cursor: pointer;" onclick="initIframe(1);">曲线</div>
+		<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:105px; background-color: #1A4A8C;cursor: pointer;" onclick="initIframe(2);">报表</div>
+		<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:210px; background-color: #1A4A8C;cursor: pointer;" onclick="initIframe(3);">报警</div>
+		<div class="pageNav" style="width: 200px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:315px; background-color: #1A4A8C;cursor: pointer;" onclick="initIframe(4);">历史报警记录</div>
 	</div>
-	<div id="var_div" style="width:1024px;height:768px;background-image: url('<%=basePath %>resource/image/001.png');background-size:100% 100%;">
+	<div id="var_div" style="width:1024px;height:768px;margin-left:50px;background-image: url('<%=basePath %>resource/image/001.png');background-size:100% 100%;">
 		<c:forEach items="${requestScope.varList }" var="item">
 		<span name="${item.name }" style="position: absolute;">${item.value }</span>
 		</c:forEach>
 	</div>
-	<div id="line_div" style="width:100%;height:450px;overflow:auto;">
+	<div id="line_div" style="width:100%;height:520px;margin-top: 10px;overflow:auto;">
 		<select id="varType_cbb"></select>
 	</div>
 </div>
