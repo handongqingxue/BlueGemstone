@@ -9,9 +9,11 @@
 <body>
 <jsp:include page="inc/echarts.jsp"></jsp:include>
 <%@include file="inc/reportJs.jsp"%>
+实时数据：
 <div id="main" style="width:100%;height:600px;overflow:auto;">
 	<select id="varType_cbb"></select>
 </div>
+平均数据：
 <div id="main2" style="width:100%;height:600px;overflow:auto;">
 	<select id="varType_cbb2"></select>
 	<!-- 

@@ -23,7 +23,7 @@ function initLineDiv(){
 				textField:"text",
 				data:data.rows,
 				onSelect:function(){
-					//resetMainDiv();
+					showLineDiv($(this).combobox("getValue"));
 				},
 				onLoadSuccess:function(){
 					var data=$(this).combobox("getData");
@@ -32,6 +32,14 @@ function initLineDiv(){
 			});
 		}
 	,"json");
+}
+
+function showLineDiv(name){
+	var varNameJS=JSON.parse('${requestScope.varName}');
+	for(var i=0;i<varNameJS.length;i++){
+		$("#line_div div[name='"+varNameJS[i].name+"']").css("display","none");
+	}
+	$("#line_div div[name='"+name+"']").css("display","block");
 }
 
 var page=1;
@@ -45,7 +53,6 @@ require(
     ],
     function (ec) {
    		ec1=ec;
-   		console.log('${requestScope.varName}');
     	var varNameJS=JSON.parse('${requestScope.varName}');
     	var url1="selectVarChangeLineData";
     	var lineDiv=$("#line_div");
@@ -58,16 +65,17 @@ require(
 	    	$("div[name='"+varNameJS[i].name+"']").append("<div page=\""+page+"\" id=\"chart_div"+(i+1)+"\" style=\"height:400px;\"></div>");
 		    initVarChangeLine(ec,url1,page,row,"chart_div"+(i+1),varNameJS[i].name);
     	}
+		showLineDiv(varTypeCbb.combobox("getValue"));
     }
 );
 
 function nextPage(url,name,i,next){
-	var page=$("#main div[name='"+name+"']").attr("page");
+	var page=$("#line_div #chart_div"+(i+1)).attr("page");
 	if(next==1)
 		page++;
 	else if(next==-1)
 		page--;
-	$("#main div[name='"+name+"']").attr("page",page);
+	$("#line_div #chart_div"+(i+1)).attr("page",page);
 	initVarChangeLine(ec1,url,page,row,"chart_div"+(i+1),name);
 }
 
@@ -76,6 +84,7 @@ function initVarTab(){
 		title:"报警记录",
 		url:"selectWarnRecordReportData",
 		toolbar:"#toolbar",
+		height:960,
 		pagination:true,
 		pageSize:10,
 		columns:[[
@@ -192,7 +201,8 @@ function showVarLabel(name,left,top){
 }
 </script>
 </head>
-<body>
+<body style="background-color: #092378;">
+<div>青岛蓝宝石酒业有限公司</div>
 <div style="width: 600px;height: 1000px;">
 	<table id="warnRec_tab">
 	</table>
@@ -209,7 +219,7 @@ function showVarLabel(name,left,top){
 		<span name="${item.name }" style="position: absolute;">${item.value }</span>
 		</c:forEach>
 	</div>
-	<div id="line_div" style="width:100%;height:600px;overflow:auto;">
+	<div id="line_div" style="width:100%;height:450px;overflow:auto;">
 		<select id="varType_cbb"></select>
 	</div>
 </div>
