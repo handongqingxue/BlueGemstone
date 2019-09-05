@@ -72,8 +72,8 @@ require(
     	for(var i=0;i<varNameJS.length;i++){
         	lineDiv.append("<div name=\""+varNameJS[i].name+"\" style=\"margin-top:10px;\"></div>");
 	    	$("div[name='"+varNameJS[i].name+"']").append("<div>"
-	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-left:50px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",-1)\">上一页</div>"
-	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:155px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",1)\">下一页</div>"
+	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-left:50px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",-1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">上一页</div>"
+	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:155px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">下一页</div>"
 	    			+"</div>");
 	    	$("div[name='"+varNameJS[i].name+"']").append("<div page=\""+page+"\" id=\"chart_div"+(i+1)+"\" style=\"height:400px;\"></div>");
 		    initMainVarChangeLine(ec,url1,page,row,"chart_div"+(i+1),varNameJS[i].name);
@@ -188,7 +188,6 @@ function initVarTab(){
 		title:"报警记录",
 		url:"selectWarnRecordReportData",
 		toolbar:"#toolbar",
-		height:960,
 		//pagination:true,
 		pageSize:10,
 		columns:[[
@@ -233,7 +232,11 @@ function initVarTab(){
 			$(".datagrid-row td").css("border-bottom","0.05vw rgba(255, 255, 255, 0.3) solid");
 			//$(".datagrid-pager").css("color","#fff");
 			//$(".datagrid-pager").css("background-color","#092378");
-		}
+		},
+		rowStyler: function(index, row) {
+	         //此处可以添加条件
+	        return 'background-color:rgba(8,51,94,0.5);';
+	    }
 	});
 	//setInterval("updateWarnRecord()",10000,1000);
 }
@@ -340,13 +343,20 @@ function changeNavDiv(o,flag){
 	else
 		$(o).css("background-color","");
 }
+
+function changePageDiv(o,flag){
+	if(flag==1)
+		$(o).css("background-color","#07345e");
+	else
+		$(o).css("background-color","#1a4a8c");
+}
 </script>
 </head>
 <body style="background-image: url('<%=basePath %>resource/image/002.png');background-size:100% 100%;">
-<div style="color: #fff;height: 50px;line-height: 50px;border-bottom: #fff solid 1px;">
+<div style="color: #fff;height: 50px;line-height: 50px;">
 	<span style="font-size: 20px;float: right;margin-right: 100px;color: #1CBFDE;">青岛蓝宝石酒业有限公司</span>
 </div>
-<div style="margin-left:50px;border: 0.1vw solid;
+<div style="border: 0.1vw solid;
     border-image: linear-gradient(90deg, rgba(231, 231, 231, 0) 0%,rgba(231, 231, 231, 0) 5%, rgba(231, 231, 231, 0.3) 30%, #ffffff 50%,rgba(231, 231, 231, 0.3) 70%, rgba(231, 231, 231, 0) 95%,rgba(231, 231, 231, 0) 100%) 10 1 stretch;
     border-left: none;
     border-right: none;
@@ -358,11 +368,11 @@ function changeNavDiv(o,flag){
 	<div class="pageNav" style="width: 200px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:345px;cursor: pointer;" onclick="initIframe(4);" onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">历史报警记录</div>
 	</div>
 </div>
-<div style="width: 600px;height: 1000px;margin-top: 10px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
+<div style="width: 600px;height: 1350px;margin-top: 10px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
 	<table id="warnRec_tab">
 	</table>
 </div>
-<div style="margin-top:-1000px;margin-left:600px;">
+<div style="margin-top:-1350px;margin-left:600px;">
 	<div style="margin-left:20px;width:1024px;height:768px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
 		<div id="var_div" style="width:1024px;height:768px;background-image: url('<%=basePath %>resource/image/001.png');background-size:101% 101%;">
 			<c:forEach items="${requestScope.varList }" var="item">
@@ -370,7 +380,8 @@ function changeNavDiv(o,flag){
 			</c:forEach>
 		</div>
 	</div>
-	<div id="line_div" style="height:550px;margin-top: 10px;margin-left:20px;overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
+	<div id="line_div" style="height:570px;margin-top: 10px;margin-left:20px;overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
+    	<div style="color: #fff;font-size: 20px;padding-left: 20px;height: 40px;line-height: 40px;">实时曲线</div>
 		<select id="varType_cbb"></select>
 	</div>
 </div>
