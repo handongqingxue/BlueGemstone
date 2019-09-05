@@ -79,6 +79,7 @@ function initVarChangeLine(ec,url,page,row,chartDiv,name){
                	        {
                	            name:name,
                	            type:'line',
+               	         	smooth: true,
                	            stack: '总量',
                	        	data:data["valueList"]
                	        }

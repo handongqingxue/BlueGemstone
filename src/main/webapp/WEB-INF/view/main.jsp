@@ -30,6 +30,7 @@ function initLineDiv(){
 					var data=$(this).combobox("getData");
 					$(this).combobox("select",data[0].value);
 					
+					$(".combo").css("margin-top","10px");
 					$(".combo").css("margin-left","50px");
 					$(".combo .combo-text").css("color","#fff");
 					$(".combo .combo-text").css("background-color","#1A4A8C");
@@ -148,8 +149,17 @@ function initMainVarChangeLine(ec,url,page,row,chartDiv,name){
                	        {
                	            name:name,
                	            type:'line',
+               	         	smooth: true,
                	            stack: '总量',
-               	        	data:data["valueList"]
+               	        	data:data["valueList"],
+               	        	itemStyle: {
+                                normal: {
+                                    color: '#6cb041',
+                                    lineStyle:{
+                                        width:1//设置线条粗细
+                                    }
+                                }
+                            }
                	        }
                	    ]
                	};
@@ -179,14 +189,13 @@ function initVarTab(){
 		url:"selectWarnRecordReportData",
 		toolbar:"#toolbar",
 		height:960,
-		pagination:true,
+		//pagination:true,
 		pageSize:10,
 		columns:[[
 			{field:"id",title:"序号",formatter:function(value,row,index){
 	            return index;
 	        }},
 			{field:"name",title:"记录点",width:150},
-			{field:"createTime",title:"时间",width:180},
             {field:"value",title:"数值",width:80},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
             	var str;
@@ -197,7 +206,8 @@ function initVarTab(){
             	else if(value==2)
             		str="下限报警";
             	return str;
-	        }}
+	        }},
+			{field:"createTime",title:"时间",width:180}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
@@ -206,20 +216,26 @@ function initVarTab(){
 				data.total=0;
 			}
 
-			$(".panel-header").css("background","linear-gradient(to bottom,#092378 0,#092378 20%)");
+			//$(".panel-header").css("background","linear-gradient(to bottom,#092378 0,#092378 20%)");
+			$(".panel-header").css("background","rgba(8,51,94,0.5)");
+			$(".datagrid-header").css("border-color","#092378");
 			$(".datagrid-header-inner").css("background-color","#092378");
 			$(".datagrid-header-inner .datagrid-header-row").css("color","#fff");
 			$(".panel-header .panel-title").css("color","#fff");
 			$(".panel-header .panel-title").css("font-size","15px");
 			$(".panel-header .panel-title").css("padding-left","10px");
-			$(".panel-header, .panel-body").css("border-color","#ddd");
+			$(".panel-header, .panel-body").css("border-color","#092378");
 			$(".datagrid-body").css("background-color","#092378");
 			$(".datagrid-row").css("color","#fff");
-			$(".datagrid-pager").css("color","#fff");
-			$(".datagrid-pager").css("background-color","#092378");
+			$(".datagrid-body td").css("border-bottom-color","#fff");
+			$(".datagrid-header td").css("border-width","0 0px 1px 0");
+			$(".datagrid-body td").css("border-width","0 0px 1px 0");
+			$(".datagrid-row td").css("border-bottom","0.05vw rgba(255, 255, 255, 0.3) solid");
+			//$(".datagrid-pager").css("color","#fff");
+			//$(".datagrid-pager").css("background-color","#092378");
 		}
 	});
-	setInterval("updateWarnRecord()",10000,1000);
+	//setInterval("updateWarnRecord()",10000,1000);
 }
 
 function updateWarnRecord(){
@@ -317,29 +333,44 @@ function showVarLabel(name,left,top){
 	$("span[name='"+name+"']").css("margin-left",left+"px");
 	$("span[name='"+name+"']").css("margin-top",top+"px");
 }
+
+function changeNavDiv(o,flag){
+	if(flag==1)
+		$(o).css("background-color","#07345e");
+	else
+		$(o).css("background-color","");
+}
 </script>
 </head>
-<body style="background-color: #092378;">
+<body style="background-image: url('<%=basePath %>resource/image/002.png');background-size:100% 100%;">
 <div style="color: #fff;height: 50px;line-height: 50px;border-bottom: #fff solid 1px;">
 	<span style="font-size: 20px;float: right;margin-right: 100px;color: #1CBFDE;">青岛蓝宝石酒业有限公司</span>
 </div>
-<div style="width: 600px;height: 1000px;margin-top: 10px;">
+<div style="margin-left:50px;border: 0.1vw solid;
+    border-image: linear-gradient(90deg, rgba(231, 231, 231, 0) 0%,rgba(231, 231, 231, 0) 5%, rgba(231, 231, 231, 0.3) 30%, #ffffff 50%,rgba(231, 231, 231, 0.3) 70%, rgba(231, 231, 231, 0) 95%,rgba(231, 231, 231, 0) 100%) 10 1 stretch;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;background: -webkit-linear-gradient(left,rgba(11,68,124,0),rgba(11,68,124,1),rgba(11,68,124,0) );">
+    <div style="width: 550px;height: 40px;margin: 0 auto;">
+	<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;cursor: pointer;" onclick="initIframe(1);" onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">曲线</div>
+	<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:115px; cursor: pointer;" onclick="initIframe(2);"  onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">报表</div>
+	<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:230px;cursor: pointer;" onclick="initIframe(3);" onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">报警</div>
+	<div class="pageNav" style="width: 200px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:345px;cursor: pointer;" onclick="initIframe(4);" onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">历史报警记录</div>
+	</div>
+</div>
+<div style="width: 600px;height: 1000px;margin-top: 10px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
 	<table id="warnRec_tab">
 	</table>
 </div>
 <div style="margin-top:-1000px;margin-left:600px;">
-	<div style="margin-left:50px;">
-		<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center; background-color: #1A4A8C;cursor: pointer;" onclick="initIframe(1);">曲线</div>
-		<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:105px; background-color: #1A4A8C;cursor: pointer;" onclick="initIframe(2);">报表</div>
-		<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:210px; background-color: #1A4A8C;cursor: pointer;" onclick="initIframe(3);">报警</div>
-		<div class="pageNav" style="width: 200px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:315px; background-color: #1A4A8C;cursor: pointer;" onclick="initIframe(4);">历史报警记录</div>
+	<div style="margin-left:20px;width:1024px;height:768px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
+		<div id="var_div" style="width:1024px;height:768px;background-image: url('<%=basePath %>resource/image/001.png');background-size:101% 101%;">
+			<c:forEach items="${requestScope.varList }" var="item">
+			<span name="${item.name }" style="position: absolute;">${item.value }</span>
+			</c:forEach>
+		</div>
 	</div>
-	<div id="var_div" style="width:1024px;height:768px;margin-left:50px;background-image: url('<%=basePath %>resource/image/001.png');background-size:100% 100%;">
-		<c:forEach items="${requestScope.varList }" var="item">
-		<span name="${item.name }" style="position: absolute;">${item.value }</span>
-		</c:forEach>
-	</div>
-	<div id="line_div" style="width:100%;height:520px;margin-top: 10px;overflow:auto;">
+	<div id="line_div" style="height:550px;margin-top: 10px;margin-left:20px;overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
 		<select id="varType_cbb"></select>
 	</div>
 </div>
