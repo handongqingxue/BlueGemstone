@@ -12,34 +12,42 @@ $(function(){
 	$.post("selectConstantData",
 		function(data){
 			nameCbb=$("#name_cbb").combobox({
-				width:200,
+				width:300,
+				height:40,
 				valueField:"value",
 				textField:"text",
-				data:data.rows
+				data:data.rows,
+				onLoadSuccess:function(){
+					var data=$(this).combobox("getData");
+					$(this).combobox("select",data[0].value);
+					
+					$(".combo").css("margin-top","-5px");
+					$(".combo").css("margin-left","10px");
+					$(".combo .combo-text").css("color","#fff");
+					$(".combo .combo-text").css("background-color","#1A4A8C");
+					$(".combo .combo-text").css("font-size","20px");
+					
+					$(".combobox-item").css("height","50px");
+					$(".combobox-item").css("line-height","50px");
+					$(".combobox-item").css("font-size","20px");
+					$(".combobox-item").css("color","#fff");
+					$(".combobox-item").css("background-color","#1A4A8C");
+				}
 			});
 		}
 	,"json");
 	
-	$("#search_but").linkbutton({
-		iconCls:"icon-search",
-		onClick:function(){
-			var name=nameCbb.combobox("getValue");
-			tab1.datagrid("reload",{"name":name});
-		}
-	});
-		
 	tab1=$("#tab1").datagrid({
 		title:"报警记录报表",
 		url:"selectWarnRecordReportData",
 		toolbar:"#toolbar",
-		pagination:true,
+		//pagination:true,
 		pageSize:10,
 		columns:[[
 			{field:"id",title:"序号",formatter:function(value,row,index){
 	            return index;
 	        }},
 			{field:"name",title:"记录点",width:200},
-			{field:"createTime",title:"时间",width:200},
             {field:"value",title:"数值",width:200},
             {field:"state",title:"状态",width:200,formatter:function(value,row){
             	var str;
@@ -50,7 +58,8 @@ $(function(){
             	else if(value==2)
             		str="下限报警";
             	return str;
-	        }}
+	        }},
+			{field:"createTime",title:"时间",width:200}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
@@ -58,6 +67,21 @@ $(function(){
 				$(this).datagrid("mergeCells",{index:0,field:"id",colspan:5});
 				data.total=0;
 			}
+
+			$(".panel-header").css("background","rgba(8,51,94,0.5)");
+			$(".datagrid-header").css("border-color","#092378");
+			$(".datagrid-header-inner").css("background-color","#092378");
+			$(".datagrid-header-inner .datagrid-header-row").css("color","#fff");
+			$(".panel-header .panel-title").css("color","#fff");
+			$(".panel-header .panel-title").css("font-size","15px");
+			$(".panel-header .panel-title").css("padding-left","10px");
+			$(".panel-header, .panel-body").css("border-color","#092378");
+			$(".datagrid-body").css("background-color","#092378");
+			$(".datagrid-row").css("color","#fff");
+			$(".datagrid-body td").css("border-bottom-color","#fff");
+			$(".datagrid-header td").css("border-width","0 0px 1px 0");
+			$(".datagrid-body td").css("border-width","0 0px 1px 0");
+			$(".datagrid-row td").css("border-bottom","0.05vw rgba(255, 255, 255, 0.3) solid");
 		}
 	});
 });
@@ -74,14 +98,29 @@ function updateWarnRecord(){
 		}
 	,"json");
 }
+
+function changeButDiv(o,flag){
+	if(flag==1)
+		$(o).css("background-color","#00f");
+	else
+		$(o).css("background-color","#1A4A8C");
+}
+
+function searchByName(){
+	var name=nameCbb.combobox("getValue");
+	tab1.datagrid("reload",{"name":name});
+}
 </script>
 </head>
-<body>
-<div id="toolbar">
-	记录点：<select id="name_cbb"></select>
-	<a id="search_but">搜索</a>
+<body style="background-image: url('<%=basePath %>resource/image/002.png');background-size:100% 100%;">
+<div style="width:99%;height:1000px; background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
+	<div id="toolbar" style="height:60px;line-height:60px;background-color: rgb(9, 35, 120);">
+		<span style="color: #fff;font-size:20px;margin-left:10px;">记录点：</span>
+		<select id="name_cbb"></select>
+		<div style="width: 80px;height: 40px;line-height: 40px;margin-top:-52px;margin-left:420px;color:#fff;font-size:20px;text-align:center; background-color: #1A4A8C;cursor: pointer;border: 0.05vw solid rgba(255,255,255,0.3);border-radius:3px;" onclick="searchByName();" onmouseover="changeButDiv(this,1);" onmouseout="changeButDiv(this,0);">查询</div>
+	</div>
+	<table id="tab1">
+	</table>
 </div>
-<table id="tab1">
-</table>
 </body>
 </html>
