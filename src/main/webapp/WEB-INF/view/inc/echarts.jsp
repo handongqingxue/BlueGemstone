@@ -38,7 +38,11 @@ function initVarChangeLine(ec,url,page,row,chartDiv,name){
                	        trigger: 'axis'
                	    },
                	    legend: {
-               	        data:[name]
+               	        data:[name],
+	               	    textStyle: {
+	         				fontWeight: 'normal',              //标题颜色
+	         				color: '#fff'
+	         			}
                	    },
                	    toolbox: {
                	        show : true,
@@ -56,12 +60,24 @@ function initVarChangeLine(ec,url,page,row,chartDiv,name){
                	            type : 'category',
                	            boundaryGap : false,
                	            //data : ['周一','周二','周三','周四','周五','周六','周日']
-               	            data : data["createTimeList"]
+               	            data : data["createTimeList"],
+	               	        axisLabel: {
+	                            show: true,
+	                            textStyle: {
+	                                color: '#fff'
+	                            }
+	                        }
                	        }
                	    ],
                	    yAxis : [
                	        {
-               	            type : 'value'
+               	            type : 'value',
+	               	        axisLabel: {
+	                            show: true,
+	                            textStyle: {
+	                                color: '#fff'
+	                            }
+	                        }
                	        }
                	    ],
                	    /*
@@ -81,7 +97,15 @@ function initVarChangeLine(ec,url,page,row,chartDiv,name){
                	            type:'line',
                	         	smooth: true,
                	            stack: '总量',
-               	        	data:data["valueList"]
+               	        	data:data["valueList"],
+               	        	itemStyle: {
+                                normal: {
+                                    color: '#6cb041',
+                                    lineStyle:{
+                                        width:1//设置线条粗细
+                                    }
+                                }
+                            }
                	        }
                	    ]
                	};

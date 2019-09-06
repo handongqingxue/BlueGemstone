@@ -234,7 +234,6 @@ function initVarTab(){
 			//$(".datagrid-pager").css("background-color","#092378");
 		},
 		rowStyler: function(index, row) {
-	         //此处可以添加条件
 	        return 'background-color:rgba(8,51,94,0.5);';
 	    }
 	});
@@ -253,38 +252,44 @@ function updateWarnRecord(){
 }
 
 function initVarDiv(){
-	showVarLabel("除氧器频率1",415,35);
-	showVarLabel("除氧器频率2",415,62);
-	showVarLabel("除氧器液位",415,97);
-	showVarLabel("除氧器温度",415,122);
-	showVarLabel("上水泵频率1",197,119);
-	showVarLabel("上水泵频率2",197,254);
-	showVarLabel("水泵上水流量",301,119);
-	showVarLabel("过热蒸汽压力",615,108);
-	showVarLabel("过热蒸汽温度",715,108);
-	showVarLabel("蒸汽流量计",790,132);
-	showVarLabel("引风机频率",805,312);
-	showVarLabel("锅炉出口温度",388,333);
-	showVarLabel("床体温度1",388,368);
-	showVarLabel("床体温度2",388,402);
-	showVarLabel("床体温度3",388,437);
-	showVarLabel("床体温度4",388,471);
-	showVarLabel("鼓风机频率",330,550);
-	showVarLabel("二次风频率",330,612);
-	showVarLabel("三次风频率1",330,670);
-	showVarLabel("三次风频率2",330,707);
-	showVarLabel("旋风分离器温度1",708,402);
-	showVarLabel("旋风分离器温度2",708,435);
-	showVarLabel("炉膛差压",691,481);
-	showVarLabel("料层差压",691,517);
-	showVarLabel("含氧量表",691,553);
-	showVarLabel("给煤频率1",691,583);
-	showVarLabel("给煤频率2",691,620);
-	showVarLabel("给煤频率3",691,654);
-	showVarLabel("三次风室压力1",538,575);
-	showVarLabel("三次风室压力2",538,621);
-	showVarLabel("风室压力",538,661);
-	showVarLabel("饱和蒸汽压力",520,202);
+	showVarLabel("除氧器频率2",586,18);
+	showVarLabel("除氧器频率1",586,42);
+	showVarLabel("除氧器液位",586,64);
+	showVarLabel("除氧器温度",586,88);
+	showVarLabel("上水泵频率1",123,92);
+	showVarLabel("上水泵频率2",123,236);
+	showVarLabel("水泵上水流量",397,96);
+	showVarLabel("饱和蒸汽压力",749,131);
+	showVarLabel("过热蒸汽压力",973,72);
+	showVarLabel("过热蒸汽温度",1106,72);
+	showVarLabel("蒸汽流量计",1263,94);
+	showVarLabel("引风机频率",990,268);
+	showVarLabel("鼓风机频率",358,317);
+	showVarLabel("二次风频率",123,365);
+	showVarLabel("三次风频率1",1270,365);
+	showVarLabel("三次风频率2",1270,338);
+
+
+	showVarLabel("风室压力",241,539);
+	showVarLabel("三次风室压力1",241,573);
+	showVarLabel("三次风室压力2",241,604);
+	showVarLabel("炉膛差压",241,636);
+	showVarLabel("料层差压",241,667);
+	
+	showVarLabel("含氧量表",585,539);
+	showVarLabel("给煤频率1",585,571);
+	showVarLabel("给煤频率2",585,604);
+	showVarLabel("给煤频率3",585,637);
+	
+	showVarLabel("床体温度1",910,539);
+	showVarLabel("床体温度2",910,571);
+	showVarLabel("床体温度3",910,602);
+	showVarLabel("床体温度4",910,633);
+	
+	showVarLabel("旋风分离器温度1",1270,539);
+	showVarLabel("旋风分离器温度2",1270,571);
+	showVarLabel("锅炉出口温度",1270,601);
+	
 	setInterval("updateVarLabel()",5000,1000);
 }
 
@@ -373,14 +378,14 @@ function changePageDiv(o,flag){
 	</table>
 </div>
 <div style="margin-top:-1350px;margin-left:600px;">
-	<div style="margin-left:20px;width:1024px;height:768px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
-		<div id="var_div" style="width:1024px;height:768px;background-image: url('<%=basePath %>resource/image/001.png');background-size:101% 101%;">
+	<div style="width:1454px;height:758px;margin-left:20px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
+		<div id="var_div" style="width:1454px;height:758px;background-image: url('<%=basePath %>resource/image/001.png');background-size:101% 101%;">
 			<c:forEach items="${requestScope.varList }" var="item">
 			<span name="${item.name }" style="position: absolute;">${item.value }</span>
 			</c:forEach>
 		</div>
 	</div>
-	<div id="line_div" style="height:570px;margin-top: 10px;margin-left:20px;overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
+	<div id="line_div" style="width:1454px;height:570px;margin-top: 10px;margin-left:20px;overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
     	<div style="color: #fff;font-size: 20px;padding-left: 20px;height: 40px;line-height: 40px;">实时曲线</div>
 		<select id="varType_cbb"></select>
 	</div>

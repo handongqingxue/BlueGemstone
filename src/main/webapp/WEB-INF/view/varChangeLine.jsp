@@ -6,9 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
 <jsp:include page="inc/echarts.jsp"></jsp:include>
 <%@include file="inc/reportJs.jsp"%>
+<body style="background-image: url('<%=basePath %>resource/image/002.png');background-size:100% 100%;">
 实时数据：
 <div id="main" style="width:100%;height:600px;overflow:auto;">
 	<select id="varType_cbb"></select>
