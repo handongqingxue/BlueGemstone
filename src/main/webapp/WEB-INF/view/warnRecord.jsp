@@ -45,7 +45,7 @@ $(function(){
 		pageSize:10,
 		columns:[[
 			{field:"id",title:"序号",formatter:function(value,row,index){
-	            return index;
+	            return index+1;
 	        }},
 			{field:"name",title:"记录点",width:200},
             {field:"value",title:"数值",width:200},
