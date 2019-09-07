@@ -236,7 +236,7 @@ function initVarTab(){
 	        return 'background-color:rgba(8,51,94,0.5);';
 	    }
 	});
-	//setInterval("updateWarnRecord()",10000,1000);
+	setInterval("updateWarnRecord()",10000,1000);
 }
 
 function updateWarnRecord(){
@@ -358,7 +358,8 @@ function changePageDiv(o,flag){
 </head>
 <body style="background-image: url('<%=basePath %>resource/image/002.png');background-size:100% 100%;">
 <div style="color: #fff;height: 50px;line-height: 50px;">
-	<span style="font-size: 20px;float: right;margin-right: 100px;color: #1CBFDE;">青岛蓝宝石酒业有限公司</span>
+	<span style="font-size: 20px;float: left;margin-left: 100px;color: #1CBFDE;">蓝宝石酒业锅炉物联网管理平台</span>
+	<span style="font-size: 20px;float: right;margin-right: 100px;color: #1CBFDE;">青岛华凌科技有限公司诚挚研发</span>
 </div>
 <div style="border: 0.1vw solid;
     border-image: linear-gradient(90deg, rgba(231, 231, 231, 0) 0%,rgba(231, 231, 231, 0) 5%, rgba(231, 231, 231, 0.3) 30%, #ffffff 50%,rgba(231, 231, 231, 0.3) 70%, rgba(231, 231, 231, 0) 95%,rgba(231, 231, 231, 0) 100%) 10 1 stretch;

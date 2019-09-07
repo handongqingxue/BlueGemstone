@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,12 +13,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
+
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
 import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
 import blueGemstone.util.Constant;
+import blueGemstone.util.SiPuCloudAPI;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 @Controller
 @RequestMapping("/main")
@@ -311,6 +318,30 @@ public class MainController {
 		
 		jsonMap.put("message", "ok");
 		
+		return jsonMap;
+	}
+
+	@RequestMapping("/getSiPuCloudAPIRespJson")
+	@ResponseBody
+	public Map<String,Object> getSiPuCloudAPIRespJson() {
+
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		Map<String, Object> map = net.sf.json.JSONObject.fromObject("{\"s\":\"App.OpenAPI.TabelGatewayModelsApi\"}");
+		
+		List<NameValuePair> params=new ArrayList<NameValuePair>();
+		int index=0;
+        for (Entry<String, Object> entry : map.entrySet()) {  
+            //System.out.println(entry.getKey()+"="+entry.getValue());  
+    		params.add(index, new BasicNameValuePair(entry.getKey(), entry.getValue().toString()));
+            index++;
+        }   
+		try {
+			jsonMap=SiPuCloudAPI.getRespJson(params);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return jsonMap;
 	}
 
