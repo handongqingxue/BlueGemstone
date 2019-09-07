@@ -7,17 +7,23 @@
 		select avg(value) value from VarChange where name=#{name} and createTime&lt;#{time} and updated=0
 	</select>
 	<select id="selectVarChangeLineData" resultType="blueGemstone.entity.VarChange">
-		select * from (select convert(varchar(12),CreateTime,108) createTime,value,ROW_NUMBER() over(order by createtime) as rowNumber from VarChange where name=#{name})t where rowNumber between (#{page}-1)*#{row}+1 and #{page}*#{row}+1
+		select * from (select convert(varchar(12),CreateTime,108) createTime,value,ROW_NUMBER() over(order by createtime) as rowNumber from VarChange where name=#{name})t where rowNumber between (#{page}-1)*#{row}+1 and #{page}*#{row}
 	</select>
-	<select id="selectVarChangeReportData" resultType="blueGemstone.entity.VarChange">
-		select top 100 id,name,convert(varchar,CreateTime,120) createTime,value,state from VarChange where createTime between DATEADD(D,-1,createTime) and createTime
+	<select id="getVarChangeReportDataCount" resultType="java.lang.Integer">
+		select count(*) from VarChange where createTime between DATEADD(D,-7,createTime) and createTime
 		<if test="name!=null">
 			and name=#{name}
 		</if>
-		order by name,createtime
+	</select>
+	<select id="selectVarChangeReportData" resultType="blueGemstone.entity.VarChange">
+		select * from (select id,name,convert(varchar,CreateTime,120) createTime,value,state,ROW_NUMBER() over(order by name,createtime) as rowNumber from VarChange where createTime between DATEADD(D,-7,createTime) and createTime
+		<if test="name!=null">
+			and name=#{name}
+		</if>
+		)t where rowNumber between (#{page}-1)*#{rows}+1 and #{page}*#{rows}
 	</select>
 	<select id="selectVarAvgChangeLineData" resultType="blueGemstone.entity.VarAvgChange">
-		select * from (select convert(varchar(12),CreateTime,108) createTime,value,ROW_NUMBER() over(order by createtime) as rowNumber from VarAvgChange where name=#{name})t where rowNumber between (#{page}-1)*#{row}+1 and #{page}*#{row}+1
+		select * from (select convert(varchar(12),CreateTime,108) createTime,value,ROW_NUMBER() over(order by createtime) as rowNumber from VarAvgChange where name=#{name})t where rowNumber between (#{page}-1)*#{row}+1 and #{page}*#{row}
 	</select>
 	<select id="selectWarnRecordReportData" resultType="blueGemstone.entity.WarnRecord">
 		select id,name,convert(varchar,CreateTime,120) createTime,value,state from WarnRecord where 1=1

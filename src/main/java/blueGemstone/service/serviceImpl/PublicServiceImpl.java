@@ -127,10 +127,16 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public List<VarChange> selectVarChangeReportData(String name) {
+	public int getVarChangeReportDataCount(String name) {
+		// TODO Auto-generated method stub
+		return publicDao.getVarChangeReportDataCount(name);
+	}
+
+	@Override
+	public List<VarChange> selectVarChangeReportData(String name, int page, int rows) {
 		// TODO Auto-generated method stub
 		
-		return publicDao.selectVarChangeReportData(name);
+		return publicDao.selectVarChangeReportData(name, page, rows);
 	}
 
 	@Override

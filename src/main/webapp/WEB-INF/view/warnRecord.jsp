@@ -9,7 +9,7 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
-	$.post("selectConstantData",
+	$.post("selectInsertArrData",
 		function(data){
 			nameCbb=$("#name_cbb").combobox({
 				width:300,

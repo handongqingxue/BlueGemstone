@@ -33,6 +33,11 @@ public class MainController {
 	@Autowired
 	private PublicService publicService;
 	
+	/**
+	 * 跳转至首页
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/goMain")
 	public String goMain(HttpServletRequest request) {
 		
@@ -53,6 +58,10 @@ public class MainController {
 		return "main";
 	}
 	
+	/**
+	 * 更新当前的变量值
+	 * @return
+	 */
 	@RequestMapping("/updateCurrentVarValue")
 	@ResponseBody
 	public Map<String,Object> updateCurrentVarValue() {
@@ -67,6 +76,11 @@ public class MainController {
 		return jsonMap;
 	}
 	
+	/**
+	 * 跳转至变量变化曲线页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/goVarChangeLine")
 	public String goVarChange(HttpServletRequest request) {
 		
@@ -93,18 +107,30 @@ public class MainController {
 		return "varChangeLine";
 	}
 	
+	/**
+	 * 跳转至变量变化报表页面
+	 * @return
+	 */
 	@RequestMapping("/goVarChangeReport")
 	public String goVarChangeReport() {
 		
 		return "varChangeReport";
 	}
 	
+	/**
+	 * 跳转至报警记录页面
+	 * @return
+	 */
 	@RequestMapping("/goWarnRecord")
 	public String goWarnRecord() {
 		
 		return "warnRecord";
 	}
 	
+	/**
+	 * 跳转至报警历史记录页面
+	 * @return
+	 */
 	@RequestMapping("/goWarnHistoryRecord")
 	public String goWarnHistoryRecord() {
 		
@@ -117,6 +143,9 @@ public class MainController {
 		return "insertData";
 	}
 	
+	/**
+	 * 获取变量最新数据并插入数据库
+	 */
 	@RequestMapping("/insertVarChange")
 	public void insertVarChange() {
 		
@@ -132,6 +161,9 @@ public class MainController {
 		}
 	}
 	
+	/**
+	 * 获取变量平均数据并插入数据库
+	 */
 	@RequestMapping("/insertVarAvgChange")
 	public void insertVarAvgChange() {
 		
@@ -147,6 +179,13 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * 查询变量数据曲线
+	 * @param name
+	 * @param page
+	 * @param row
+	 * @return
+	 */
 	@RequestMapping("/selectVarChangeLineData")
 	@ResponseBody
 	public Map<String,Object> selectVarChangeLineData(String name,int page,int row) {
@@ -185,20 +224,35 @@ public class MainController {
 		return jsonMap;
 	}
 	
+	/**
+	 * 查询变量变化报表数据
+	 * @param name
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
 	@RequestMapping("/selectVarChangeReportData")
 	@ResponseBody
-	public Map<String,Object> selectVarChangeReportData(String name) {
+	public Map<String,Object> selectVarChangeReportData(String name,int page,int rows) {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		List<VarChange> vcList=publicService.selectVarChangeReportData(name);
+		int count=publicService.getVarChangeReportDataCount(name);
+		List<VarChange> vcList=publicService.selectVarChangeReportData(name,page,rows);
 		
-		jsonMap.put("total", vcList.size());
+		jsonMap.put("total", count);
 		jsonMap.put("rows", vcList);
 		
 		return jsonMap;
 	}
 	
+	/**
+	 * 查询变量平均数据曲线
+	 * @param name
+	 * @param page
+	 * @param row
+	 * @return
+	 */
 	@RequestMapping("/selectVarAvgChangeLineData")
 	@ResponseBody
 	public Map<String,Object> selectVarAvgChangeLineData(String name,int page,int row) {
@@ -220,6 +274,11 @@ public class MainController {
 		return jsonMap;
 	}
 	
+	/**
+	 * 查询报警记录报表数据
+	 * @param name
+	 * @return
+	 */
 	@RequestMapping("/selectWarnRecordReportData")
 	@ResponseBody
 	public Map<String,Object> selectWarnRecordReportData(String name) {
@@ -234,6 +293,11 @@ public class MainController {
 		return jsonMap;
 	}
 	
+	/**
+	 * 查询历史报警记录报表数据
+	 * @param name
+	 * @return
+	 */
 	@RequestMapping("/selectWarnHistoryRecordReportData")
 	@ResponseBody
 	public Map<String,Object> selectWarnHistoryRecordReportData(String name) {
@@ -248,26 +312,10 @@ public class MainController {
 		return jsonMap;
 	}
 	
-	@RequestMapping("/selectConstantData")
-	@ResponseBody
-	public Map<String,Object> selectConstantData() {
-		
-		Map<String,Object> jsonMap=new HashMap<>();
-		
-		List<Map<String,String>> varList=new ArrayList<Map<String,String>>();
-		;
-		for (String var : Constant.INSERT_ARR) {
-			Map<String,String> varMap=new HashMap<>();
-			varMap.put("value", var);
-			varMap.put("text", var);
-			varList.add(varMap);
-		}
-		
-		jsonMap.put("rows", varList);
-		
-		return jsonMap;
-	}
-	
+	/**
+	 * 查询变量类型
+	 * @return
+	 */
 	@RequestMapping("/selectVarTypeData")
 	@ResponseBody
 	public Map<String,Object> selectVarTypeData() {
@@ -288,6 +336,10 @@ public class MainController {
 		return jsonMap;
 	}
 	
+	/**
+	 * 查询32个变量
+	 * @return
+	 */
 	@RequestMapping("/selectInsertArrData")
 	@ResponseBody
 	public Map<String,Object> selectInsertArrData() {
@@ -308,6 +360,10 @@ public class MainController {
 		return jsonMap;
 	}
 	
+	/**
+	 * 更新报警记录
+	 * @return
+	 */
 	@RequestMapping("/updateWarnRecord")
 	@ResponseBody
 	public Map<String,Object> updateWarnRecord() {
@@ -321,6 +377,10 @@ public class MainController {
 		return jsonMap;
 	}
 
+	/**
+	 * 获得思普云接口返回的数据包
+	 * @return
+	 */
 	@RequestMapping("/getSiPuCloudAPIRespJson")
 	@ResponseBody
 	public Map<String,Object> getSiPuCloudAPIRespJson() {

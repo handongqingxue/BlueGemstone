@@ -9,7 +9,7 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 $(function(){
-	$.post("selectConstantData",
+	$.post("selectInsertArrData",
 		function(data){
 			nameCbb=$("#name_cbb").combobox({
 				width:300,
@@ -42,7 +42,7 @@ $(function(){
 		url:"selectVarChangeReportData",
 		toolbar:"#toolbar",
 		pagination:true,
-		pageSize:10,
+		pageSize:50,
 		columns:[[
             {field:"id",title:"序号",
             	formatter:function(value,row,index){
@@ -59,11 +59,6 @@ $(function(){
 						return "color:#f00;";
 				}
 			},
-			{field:"createTime",title:"时间",width:200,
-	            styler:function(value,row,index){//设置样式
-					if(row.state==1||row.state==2)
-						return "color:#f00;";
-				}},
             {field:"value",title:"数值",width:200,
 	            styler:function(value,row,index){//设置样式
 					if(row.state==1||row.state==2)
@@ -81,6 +76,12 @@ $(function(){
 	            		str="下限报警";
 	            	return str;
 	            },
+	            styler:function(value,row,index){//设置样式
+					if(row.state==1||row.state==2)
+						return "color:#f00;";
+				}
+            },
+			{field:"createTime",title:"时间",width:200,
 	            styler:function(value,row,index){//设置样式
 					if(row.state==1||row.state==2)
 						return "color:#f00;";
@@ -108,6 +109,15 @@ $(function(){
 			$(".datagrid-header td").css("border-width","0 0px 1px 0");
 			$(".datagrid-body td").css("border-width","0 0px 1px 0");
 			$(".datagrid-row td").css("border-bottom","0.05vw rgba(255, 255, 255, 0.3) solid");
+			$(".datagrid-pager").css("background-color","#092378");
+			$(".datagrid-pager table").css("color","#fff");
+			$(".datagrid-pager .pagination-page-list").css("color","#fff");
+			$(".datagrid-pager .pagination-page-list").css("background-color","#1A4A8C");
+			$(".datagrid-pager .pagination-page-list").append("<option>100</option>");
+			$(".datagrid-pager .pagination-page-list").append("<option>200</option>");
+			$(".datagrid-pager .pagination-num").css("color","#fff");
+			$(".datagrid-pager .pagination-num").css("background-color","#1A4A8C");
+			$(".datagrid-pager .pagination-info").css("color","#fff");
 		}
 	});
 });
