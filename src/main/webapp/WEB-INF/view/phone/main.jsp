@@ -11,8 +11,55 @@
 <script type="text/javascript">
 $(function(){
 	initVarTab();
-	//initVarDiv();
+	initVarDiv();
 });
+
+function initVarDiv(){
+	showVarLabel("除氧器频率2",586,18);
+	showVarLabel("除氧器频率1",586,42);
+	showVarLabel("除氧器液位",586,64);
+	showVarLabel("除氧器温度",586,88);
+	showVarLabel("上水泵频率1",123,92);
+	showVarLabel("上水泵频率2",123,236);
+	showVarLabel("水泵上水流量",397,96);
+	showVarLabel("饱和蒸汽压力",749,131);
+	showVarLabel("过热蒸汽压力",973,72);
+	showVarLabel("过热蒸汽温度",1106,72);
+	showVarLabel("蒸汽流量计",1263,94);
+	showVarLabel("引风机频率",990,268);
+	showVarLabel("鼓风机频率",358,317);
+	showVarLabel("二次风频率",123,365);
+	showVarLabel("三次风频率1",1270,365);
+	showVarLabel("三次风频率2",1270,338);
+
+
+	showVarLabel("风室压力",241,539);
+	showVarLabel("三次风室压力1",241,573);
+	showVarLabel("三次风室压力2",241,604);
+	showVarLabel("炉膛差压",241,636);
+	showVarLabel("料层差压",241,667);
+	
+	showVarLabel("含氧量表",585,539);
+	showVarLabel("给煤频率1",585,571);
+	showVarLabel("给煤频率2",585,604);
+	showVarLabel("给煤频率3",585,637);
+	
+	showVarLabel("床体温度1",910,539);
+	showVarLabel("床体温度2",910,571);
+	showVarLabel("床体温度3",910,602);
+	showVarLabel("床体温度4",910,633);
+	
+	showVarLabel("旋风分离器温度1",1270,539);
+	showVarLabel("旋风分离器温度2",1270,571);
+	showVarLabel("锅炉出口温度",1270,601);
+	
+	//setInterval("updateVarLabel()",5000,1000);
+}
+
+function showVarLabel(name,left,top){
+	$("span[name='"+name+"']").css("margin-left",left+"px");
+	$("span[name='"+name+"']").css("margin-top",top+"px");
+}
 
 function initVarTab(){
 	warnRecTab=$("#warnRec_tab").datagrid({
@@ -72,12 +119,47 @@ function initVarTab(){
 </script>
 </head>
 <body style="background-image: url('<%=basePath %>resource/image/002.png');background-size:100% 100%;">
-<div style="width: 600px;height: 1350px;margin-top: 10px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
+<div style="width: 100%;margin-top: 10px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
 	<table id="warnRec_tab">
 	</table>
 </div>
-	<div style="width:400px;height:758px;margin-top:10px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
-		<div id="var_div" style="width:1454px;height:758px;">
+	<div style="width:100%;margin-top:10px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
+		<div id="var_div" style="width:100%;height:758px;">
+			<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:67px; color: #fff;font-size: 18px;">
+				风室压力
+				<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:83px; color: #000;padding-left: 10px;">aaa</div>
+				<div style="margin-top: -25px;margin-left:150px;">Mpa</div>
+			</div>
+			<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:10px; color: #fff;font-size: 18px;">
+				1#三次风室压力
+				<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:140px; color: #000;padding-left: 10px;">aaa</div>
+				<div style="margin-top: -25px;margin-left:207px;">Mpa</div>
+			</div>
+			<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:10px; color: #fff;font-size: 18px;">
+				2#三次风室压力
+				<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:140px; color: #000;padding-left: 10px;">aaa</div>
+				<div style="margin-top: -25px;margin-left:207px;">Mpa</div>
+			</div>
+			<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:67px; color: #fff;font-size: 18px;">
+				炉膛差压
+				<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:83px; color: #000;padding-left: 10px;">aaa</div>
+				<div style="margin-top: -25px;margin-left:150px;">Mpa</div>
+			</div>
+			<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:67px; color: #fff;font-size: 18px;">
+				料层差压
+				<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:83px; color: #000;padding-left: 10px;">aaa</div>
+				<div style="margin-top: -25px;margin-left:150px;">Mpa</div>
+			</div>
+			<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:67px; color: #fff;font-size: 18px;">
+				1#含氧量
+				<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:83px; color: #000;padding-left: 10px;">aaa</div>
+				<div style="margin-top: -25px;margin-left:150px;">%</div>
+			</div>
+			<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+				1#给煤频率
+				<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;">aaa</div>
+				<div style="margin-top: -25px;margin-left:170px;">HZ</div>
+			</div>
 			<c:forEach items="${requestScope.varList }" var="item">
 			<span name="${item.name }" style="position: absolute;">${item.value }</span>
 			</c:forEach>
