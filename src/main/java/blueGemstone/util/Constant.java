@@ -265,6 +265,16 @@ public class Constant {
 	
 	public static final String[][] VAR_CHILD_TYPE_NAME=new String[][] {PIN_LV_TYPE_NAME,YA_LI_TYPE_NAME,WEN_DU_TYPE_NAME,LIU_LIANG_TYPE_NAME,YE_WEI_TYPE_NAME,HAN_YANG_LIANG_TYPE_NAME};
 	
+	/**
+	 * PC端常量
+	 */
+	public static final String PC = "pc";
+	
+	/**
+	 * 手机端常量
+	 */
+	public static final String PHONE = "phone";
+	
 	public static void main(String[] args) {
 		System.out.println(INSERT_ARR.length);
 	}

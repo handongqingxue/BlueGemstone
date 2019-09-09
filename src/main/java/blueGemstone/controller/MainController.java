@@ -41,21 +41,26 @@ public class MainController {
 	@RequestMapping("/goMain")
 	public String goMain(HttpServletRequest request) {
 		
+		String device = request.getParameter("device");
+		
 		List<Map<String, Object>> varList=publicService.getCurrentVarValueList();
 		request.setAttribute("varList", varList);
 		
-		StringBuffer sb=new StringBuffer();
-		sb.append("[");
-		for(int i=0;i<Constant.INSERT_ARR.length;i++) {
-			sb.append("{\"name\":\""+Constant.INSERT_ARR[i]+"\"}");
-			if(i<Constant.INSERT_ARR.length-1)
-				sb.append(",");
+		if(Constant.PC.equals(device)) {
+			StringBuffer sb=new StringBuffer();
+			sb.append("[");
+			for(int i=0;i<Constant.INSERT_ARR.length;i++) {
+				sb.append("{\"name\":\""+Constant.INSERT_ARR[i]+"\"}");
+				if(i<Constant.INSERT_ARR.length-1)
+					sb.append(",");
+			}
+			sb.append("]");
+	
+			request.setAttribute("varName", sb.toString());
+			return "pc/main";
 		}
-		sb.append("]");
-
-		request.setAttribute("varName", sb.toString());
-		
-		return "main";
+		else
+			return "phone/main";
 	}
 	
 	/**
@@ -104,7 +109,7 @@ public class MainController {
 		//System.out.println("varType==="+sb.toString());
 		request.setAttribute("varType", sb.toString());
 		
-		return "varChangeLine";
+		return "pc/varChangeLine";
 	}
 	
 	/**
@@ -112,9 +117,13 @@ public class MainController {
 	 * @return
 	 */
 	@RequestMapping("/goVarChangeReport")
-	public String goVarChangeReport() {
+	public String goVarChangeReport(HttpServletRequest request) {
 		
-		return "varChangeReport";
+		String device = request.getParameter("device");
+		if(Constant.PC.equals(device))
+			return "pc/varChangeReport";
+		else
+			return "phone/varChangeReport";
 	}
 	
 	/**
@@ -124,7 +133,7 @@ public class MainController {
 	@RequestMapping("/goWarnRecord")
 	public String goWarnRecord() {
 		
-		return "warnRecord";
+		return "pc/warnRecord";
 	}
 	
 	/**
@@ -132,9 +141,13 @@ public class MainController {
 	 * @return
 	 */
 	@RequestMapping("/goWarnHistoryRecord")
-	public String goWarnHistoryRecord() {
+	public String goWarnHistoryRecord(HttpServletRequest request) {
 		
-		return "warnHistoryRecord";
+		String device = request.getParameter("device");
+		if(Constant.PC.equals(device))
+			return "pc/warnHistoryRecord";
+		else
+			return "phone/warnHistoryRecord";
 	}
 	
 	@RequestMapping("/goInsertData")
