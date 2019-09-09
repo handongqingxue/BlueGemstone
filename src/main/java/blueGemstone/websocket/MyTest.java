@@ -3,6 +3,7 @@ package blueGemstone.websocket;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.channels.NotYetConnectedException;
+import java.util.Date;
 
 import org.java_websocket.WebSocket;
 
@@ -22,7 +23,8 @@ public class MyTest {
 			// 往websocket服务端发送数据
 			myClient.send("{\"token\":\"mkrenbAMWyz9qI25Bsjo\",\"USER_ID\":\"300000495\",\"USER_TYPE\":\"1\"}");
 			myClient.send("{\"BindReal\":[200002144]}");
-			myClient.send("{\"Time\":1552017421,\"LTime\":1552017420,\"Type\":2,\"Ptid\":400000001,\"Did\":200002144,\"PtCycle\":270,\"Delay\":80,\"Message\":{\"K0\":0,\"K1\":0},\"ex\":\"ex_idosp_data\"}");
+			long time = new Date().getTime();
+			myClient.send("{\"Time\":"+time+",\"LTime\":\"+time+\",\"Type\":2,\"Ptid\":400000001,\"Did\":200002144,\"PtCycle\":270,\"Delay\":80,\"Message\":{\"K0\":0,\"K1\":0},\"ex\":\"ex_idosp_data\"}");
 		} catch (NotYetConnectedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
