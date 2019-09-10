@@ -1,10 +1,17 @@
 package blueGemstone.websocket;
 
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 //import org.activiti.engine.impl.util.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import blueGemstone.service.PublicService;
 
 public class MyWebSocketClient extends WebSocketClient {
 
@@ -31,6 +38,7 @@ public class MyWebSocketClient extends WebSocketClient {
 		// TODO Auto-generated method stub
 		logger.info("------ MyWebSocket onError ------");
 		System.out.println("------ MyWebSocket onError ------");
+		arg0.printStackTrace();
 	}
 	
 	@Override
