@@ -17,14 +17,14 @@ public class MyTest {
 			while(!myClient.getReadyState().equals(WebSocket.READYSTATE.OPEN)){
 				System.out.println(myClient.getReadyState());
 				System.out.println("正在连接...");
-		        }
-		       //连接成功,发送信息
+	        }
+	        //连接成功,发送信息
 			//myClient.send("哈喽,连接一下啊");
 			// 往websocket服务端发送数据
-			myClient.send("{\"token\":\"mkrenbAMWyz9qI25Bsjo\",\"USER_ID\":\"300000495\",\"USER_TYPE\":\"1\"}");
+			myClient.send("{\"token\":\"v7tFS8c0isp0NMHD7iDK\",\"USER_ID\":\"300000495\",\"USER_TYPE\":\"1\"}");
 			myClient.send("{\"BindReal\":[200002144]}");
-			long time = new Date().getTime();
-			myClient.send("{\"Time\":"+time+",\"LTime\":\"+time+\",\"Type\":2,\"Ptid\":400000001,\"Did\":200002144,\"PtCycle\":270,\"Delay\":80,\"Message\":{\"K0\":0,\"K1\":0},\"ex\":\"ex_idosp_data\"}");
+			//long time = new Date().getTime();
+			//myClient.send("{\"Time\":"+time+",\"LTime\":"+time+",\"Type\":2,\"Ptid\":400015400,\"Did\":200002144,\"PtCycle\":270,\"Delay\":80,\"Message\":{\"K0\":0,\"K1\":0},\"ex\":\"ex_idosp_data\"}");
 		} catch (NotYetConnectedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
