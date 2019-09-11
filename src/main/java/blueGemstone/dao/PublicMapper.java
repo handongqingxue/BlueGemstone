@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
+import blueGemstone.entity.VarWarnLimit;
 import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 
@@ -42,5 +43,7 @@ public interface PublicMapper {
 	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(@Param("name") String name);
 
 	Float getCurrentVarValue(@Param("name") String name);
+
+	List<VarWarnLimit> selectVarWarnLimitData();
 
 }

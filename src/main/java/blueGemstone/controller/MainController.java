@@ -8,23 +8,22 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
-
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
+import blueGemstone.entity.VarWarnLimit;
 import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
 import blueGemstone.util.Constant;
 import blueGemstone.util.SiPuCloudAPI;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/main")
@@ -42,6 +41,9 @@ public class MainController {
 	public String goMain(HttpServletRequest request) {
 		
 		String device = request.getParameter("device");
+		
+		List<VarWarnLimit> vwlList = publicService.selectVarWarnLimitData();
+		request.getSession().setAttribute("vwlList", vwlList);
 		
 		List<Map<String, Object>> varList=publicService.getCurrentVarValueList();
 		request.setAttribute("varList", varList);
@@ -160,18 +162,14 @@ public class MainController {
 	 * 获取变量最新数据并插入数据库
 	 */
 	@RequestMapping("/insertVarChange")
-	public void insertVarChange() {
+	@ResponseBody
+	public Map<String,Object> insertVarChange(HttpServletRequest request,String pushData) {
 		
-		while (true) {
-			try {
-				Thread.sleep(10*1000);
-				publicService.insertVarChange();
-				//System.out.println("insertVarChange...........");
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		List<VarWarnLimit> vwlList = (List<VarWarnLimit>)request.getSession().getAttribute("vwlList");
+		publicService.insertVarChange(vwlList,pushData);
+		return jsonMap;
 	}
 	
 	/**

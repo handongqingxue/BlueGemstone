@@ -15,11 +15,13 @@ import org.springframework.stereotype.Service;
 import blueGemstone.dao.PublicMapper;
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
+import blueGemstone.entity.VarWarnLimit;
 import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
 import blueGemstone.util.Constant;
 import blueGemstone.util.StringUtils;
+import net.sf.json.JSONObject;
 
 @Service
 public class PublicServiceImpl implements PublicService {
@@ -59,7 +61,42 @@ public class PublicServiceImpl implements PublicService {
     }
 	
 	@Override
-	public Integer insertVarChange() {
+	public Integer insertVarChange(List<VarWarnLimit> vwlList, String pushData) {
+		// TODO Auto-generated method stub
+
+		System.out.println("pushData==="+pushData);
+		JSONObject jsonPushData = JSONObject.fromObject(pushData);
+		JSONObject messageJO = jsonPushData.getJSONObject("Message");
+		System.out.println("Message==="+messageJO);
+		
+		int count=0;
+		String createTime = timeSDF.format(new Date());
+		for (VarWarnLimit varWarnLimit : vwlList) {
+			VarChange varChange=new VarChange();
+			varChange.setId(UUID.randomUUID().toString().replace("-", ""));
+			varChange.setName(varWarnLimit.getName());
+			Float value = Float.valueOf(messageJO.getString(varWarnLimit.getkName()));
+			//System.out.println("value==="+value);
+			varChange.setValue(value);
+			varChange.setCreateTime(createTime);
+			if(value>varWarnLimit.getUpLimit()) {
+				varChange.setState(1);
+				insertWarnRecord(varChange);
+			}
+			else if(value<varWarnLimit.getDownLimit()) {
+				varChange.setState(2);
+				insertWarnRecord(varChange);
+			}
+			else
+				varChange.setState(0);
+			
+			count+=publicDao.insertVarChange(varChange);
+		}
+		return count;
+	}
+	
+	@Override
+	public Integer insertVarChangeTest() {
 		// TODO Auto-generated method stub
 		
 		int count=0;
@@ -210,5 +247,11 @@ public class PublicServiceImpl implements PublicService {
 		}
 		
 		return varList;
+	}
+
+	@Override
+	public List<VarWarnLimit> selectVarWarnLimitData() {
+		// TODO Auto-generated method stub
+		return publicDao.selectVarWarnLimitData();
 	}
 }

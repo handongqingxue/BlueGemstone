@@ -63,7 +63,7 @@ $(function(){
       websocket.onopen = function () {
 
           setMessageInnerHTML("WebSocket连接成功");
-          websocket.send("{\"token\":\"b25moj3VTFyL3eVo2F9g\",\"USER_ID\":\"300000495\",\"USER_TYPE\":\"1\"}");
+          websocket.send("{\"token\":\"OGdvkPM3bv7THiM2wfXG\",\"USER_ID\":\"300000495\",\"USER_TYPE\":\"1\"}");
           websocket.send("{\"BindReal\":[200002144]}");
 
       }

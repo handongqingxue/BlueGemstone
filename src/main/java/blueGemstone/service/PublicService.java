@@ -5,12 +5,15 @@ import java.util.Map;
 
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
+import blueGemstone.entity.VarWarnLimit;
 import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 
 public interface PublicService {
 
-	Integer insertVarChange();
+	Integer insertVarChange(List<VarWarnLimit> vwlList, String pushData);
+	
+	Integer insertVarChangeTest();
 
 	Integer insertVarAvgChange();
 	
@@ -31,5 +34,7 @@ public interface PublicService {
 	Integer updateWarnRecord();
 
 	List<Map<String, Object>> getCurrentVarValueList();
+
+	List<VarWarnLimit> selectVarWarnLimitData();
 
 }
