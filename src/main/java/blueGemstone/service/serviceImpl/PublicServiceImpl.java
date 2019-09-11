@@ -127,7 +127,38 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public Integer insertVarAvgChange() {
+	public Integer insertVarAvgChange(List<VarWarnLimit> vwlList) {
+		// TODO Auto-generated method stub
+
+		int count=0;
+		String time = timeSDF.format(new Date());
+		String createTime = timeSDF.format(new Date());
+		for (VarWarnLimit varWarnLimit : vwlList) {
+			VarAvgChange varAvgChange=new VarAvgChange();
+			varAvgChange.setId(UUID.randomUUID().toString().replace("-", ""));
+			String name = varWarnLimit.getName();
+			varAvgChange.setName(name);
+			float avgValue = publicDao.getVarChangeAvgValue(name,time);
+			System.out.println("avgValue==="+avgValue);
+			varAvgChange.setValue(avgValue);
+			varAvgChange.setCreateTime(createTime);
+			if(avgValue>varWarnLimit.getUpLimit())
+				varAvgChange.setState(1);
+			else if(avgValue<varWarnLimit.getDownLimit())
+				varAvgChange.setState(2);
+			else
+				varAvgChange.setState(0);
+			
+			count+=publicDao.insertVarAvgChange(varAvgChange);
+			if(count>0) {
+				publicDao.updateVarChange(name,time);
+			}
+		}
+		return count;
+	}
+
+	@Override
+	public Integer insertVarAvgChangeTest() {
 		// TODO Auto-generated method stub
 		
 		int count=0;
@@ -141,9 +172,9 @@ public class PublicServiceImpl implements PublicService {
 			System.out.println("avgValue==="+avgValue);
 			varAvgChange.setValue(avgValue);
 			varAvgChange.setCreateTime(createTime);
-			if(avgValue>95)
+			if(avgValue>98)
 				varAvgChange.setState(1);
-			else if(avgValue<5)
+			else if(avgValue<2)
 				varAvgChange.setState(2);
 			else
 				varAvgChange.setState(0);

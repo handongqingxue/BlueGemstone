@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -169,6 +170,7 @@ public class MainController {
 		
 		List<VarWarnLimit> vwlList = (List<VarWarnLimit>)request.getSession().getAttribute("vwlList");
 		publicService.insertVarChange(vwlList,pushData);
+		
 		return jsonMap;
 	}
 	
@@ -176,18 +178,15 @@ public class MainController {
 	 * 获取变量平均数据并插入数据库
 	 */
 	@RequestMapping("/insertVarAvgChange")
-	public void insertVarAvgChange() {
+	@ResponseBody
+	public Map<String,Object> insertVarAvgChange(HttpServletRequest request) {
+
+		Map<String,Object> jsonMap=new HashMap<>();
 		
-		while (true) {
-			try {
-				Thread.sleep(10*60*1000);
-				int i=publicService.insertVarAvgChange();
-				//System.out.println("insertVarAvgChange...........");
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		List<VarWarnLimit> vwlList = (List<VarWarnLimit>)request.getSession().getAttribute("vwlList");
+		publicService.insertVarAvgChange(vwlList);
+		
+		return jsonMap;
 	}
 
 	/**
@@ -394,11 +393,11 @@ public class MainController {
 	 */
 	@RequestMapping("/getSiPuCloudAPIRespJson")
 	@ResponseBody
-	public Map<String,Object> getSiPuCloudAPIRespJson() {
+	public Map<String,Object> getSiPuCloudAPIRespJson(String jsonParam) {
 
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		Map<String, Object> map = net.sf.json.JSONObject.fromObject("{\"s\":\"App.OpenAPI.TabelGatewayModelsApi\"}");
+		Map<String, Object> map = net.sf.json.JSONObject.fromObject(jsonParam);
 		
 		List<NameValuePair> params=new ArrayList<NameValuePair>();
 		int index=0;
@@ -413,6 +412,22 @@ public class MainController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return jsonMap;
+	}
+
+	@RequestMapping("/saveUser")
+	@ResponseBody
+	public Map<String,Object> saveUser(HttpSession session, String USER_ID, String USER_TYPE, String token) {
+
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		System.out.println("token==="+token);
+		session.setAttribute("USER_ID", USER_ID);
+		session.setAttribute("USER_TYPE", USER_TYPE);
+		session.setAttribute("token", token);
+
+		jsonMap.put("message", "ok");
+		
 		return jsonMap;
 	}
 
