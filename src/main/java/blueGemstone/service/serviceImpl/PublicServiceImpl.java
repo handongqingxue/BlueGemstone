@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import blueGemstone.dao.PublicMapper;
+import blueGemstone.entity.LoginRecord;
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
 import blueGemstone.entity.VarWarnLimit;
@@ -284,5 +285,19 @@ public class PublicServiceImpl implements PublicService {
 	public List<VarWarnLimit> selectVarWarnLimitData() {
 		// TODO Auto-generated method stub
 		return publicDao.selectVarWarnLimitData();
+	}
+
+	@Override
+	public Integer insertLoginRecord(LoginRecord loginRecord) {
+		// TODO Auto-generated method stub
+		
+		loginRecord.setCreateTime(timeSDF.format(new Date()));
+		return publicDao.insertLoginRecord(loginRecord);
+	}
+
+	@Override
+	public LoginRecord selectLastLoginRecordByName(String name) {
+		// TODO Auto-generated method stub
+		return publicDao.selectLastLoginRecordByName(name);
 	}
 }

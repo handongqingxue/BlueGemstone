@@ -74,18 +74,20 @@ function initWebSocket(){
 	websocket.onopen = function () {
 
 	  console.log("WebSocket连接成功");
-	  //var token='AJfLRy8hc0gBpomni0Ki';
+	  //var token='KXkItH3vzt6nRN7THv3Q';
 	  var token='${sessionScope.token}';
 	  if(token==""){
-		  login();
-		  return false;
+		  selectLoginData();
 	  }
-	  
-	  alert(token);
-	  //var jsonMsg="{'token':'AJfLRy8hc0gBpomni0Ki','USER_ID':'300000495','USER_TYPE':'1'}";
-	  //jsonMsg=jsonMsg.replace(/'/g,'\\"');
-	  websocket.send("{\"token\":\""+token+"\",\"USER_ID\":\"300000495\",\"USER_TYPE\":\"1\"}");
-	  websocket.send("{\"BindReal\":[200002144]}");
+	  else{
+		  console.log(token);
+		  //var jsonMsg="{'token':'AJfLRy8hc0gBpomni0Ki','USER_ID':'300000495','USER_TYPE':'1'}";
+		  //jsonMsg=jsonMsg.replace(/'/g,'\\"');
+	  	  var USER_ID='${sessionScope.USER_ID}';
+	  	  var USER_TYPE='${sessionScope.USER_TYPE}';
+		  websocket.send("{\"token\":\""+token+"\",\"USER_ID\":\""+USER_ID+"\",\"USER_TYPE\":\""+USER_TYPE+"\"}");
+		  websocket.send("{\"BindReal\":[200002144]}");
+	  }
 
 	}
 
@@ -102,7 +104,7 @@ function initWebSocket(){
 	  else if(jsonData.ex=="ex_idosp_data"){
 		  var pushData=JSON.stringify(event.data);
 		  $.post("insertVarChange",
-			{pushData:pushData},
+			{pushData:pushData.substring(1,pushData.length-1)},
 		    function(){
 			  
 		  	}
@@ -128,13 +130,25 @@ function initWebSocket(){
 	}
 }
 
+function selectLoginData(){
+	$.post("selectLoginData",
+		{name:"13792816022"},
+		function(data){
+			if(data.message=="ok")
+				location.href=location.href;
+			else
+				login();
+		}
+	,"json");
+}
+
 function login(){
 	$.post("getSiPuCloudAPIRespJson",
 		{jsonParam:"{\"s\":\"App/User/Login\",\"USERNAME\":\"13792816022\",\"PASSWORD\":\"12345678\",\"remember\":\"1\"}"},
 		function(result){
 			if(result.ret==200){
 				$.post("saveUser",
-					{USER_ID:result.data.USER_ID,USER_TYPE:result.data.USER_TYPE,token:result.data.token},
+					{USER_ID:result.data.USER_ID,NAME:"13792816022",USER_TYPE:result.data.USER_TYPE,token:result.data.token},
 					function(data){
 						if(data.message=="ok")
 							location.href=location.href;

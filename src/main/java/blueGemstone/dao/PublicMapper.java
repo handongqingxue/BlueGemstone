@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import blueGemstone.entity.LoginRecord;
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
 import blueGemstone.entity.VarWarnLimit;
@@ -45,5 +46,9 @@ public interface PublicMapper {
 	Float getCurrentVarValue(@Param("name") String name);
 
 	List<VarWarnLimit> selectVarWarnLimitData();
+
+	Integer insertLoginRecord(LoginRecord loginRecord);
+
+	LoginRecord selectLastLoginRecordByName(@Param("name") String name);
 
 }

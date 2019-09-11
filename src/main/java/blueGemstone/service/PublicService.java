@@ -3,6 +3,7 @@ package blueGemstone.service;
 import java.util.List;
 import java.util.Map;
 
+import blueGemstone.entity.LoginRecord;
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
 import blueGemstone.entity.VarWarnLimit;
@@ -38,5 +39,9 @@ public interface PublicService {
 	List<Map<String, Object>> getCurrentVarValueList();
 
 	List<VarWarnLimit> selectVarWarnLimitData();
+
+	Integer insertLoginRecord(LoginRecord loginRecord);
+
+	LoginRecord selectLastLoginRecordByName(String name);
 
 }

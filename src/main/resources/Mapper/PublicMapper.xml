@@ -38,6 +38,9 @@
 			and t.name=#{name}
 		</if>
 	</select>
+	<select id="selectLastLoginRecordByName" resultType="blueGemstone.entity.LoginRecord">
+		select top 1 * from LoginRecord where name=#{name} order by createTime desc
+	</select>
 	<select id="getVarStateByName" resultType="java.lang.Integer">
 		select top 1 state from VarChange where name=#{name} order by createTime desc
 	</select>
@@ -58,6 +61,9 @@
 	</insert>
 	<insert id="insertWarnHistoryRecord" parameterType="blueGemstone.entity.WarnHistoryRecord">
 		insert into WarnHistoryRecord (id,name,value,createTime,state,memo) values(#{id},#{name},#{value},#{createTime},#{state},#{memo})
+	</insert>
+	<insert id="insertLoginRecord" parameterType="blueGemstone.entity.LoginRecord">
+		insert into LoginRecord (userId,name,userType,token,createTime) values(#{userId},#{name},#{userType},#{token},#{createTime})
 	</insert>
 	<update id="updateVarChange">
 		update VarChange set updated=1 where name=#{name} and createTime&lt;#{time} and updated=0

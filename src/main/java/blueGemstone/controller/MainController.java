@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import blueGemstone.entity.LoginRecord;
 import blueGemstone.entity.VarAvgChange;
 import blueGemstone.entity.VarChange;
 import blueGemstone.entity.VarWarnLimit;
@@ -168,6 +169,7 @@ public class MainController {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
+		pushData=pushData.replaceAll("\\\\\"", "\"");
 		List<VarWarnLimit> vwlList = (List<VarWarnLimit>)request.getSession().getAttribute("vwlList");
 		publicService.insertVarChange(vwlList,pushData);
 		
@@ -417,7 +419,7 @@ public class MainController {
 
 	@RequestMapping("/saveUser")
 	@ResponseBody
-	public Map<String,Object> saveUser(HttpSession session, String USER_ID, String USER_TYPE, String token) {
+	public Map<String,Object> saveUser(HttpSession session, String USER_ID, String NAME, Integer USER_TYPE, String token) {
 
 		Map<String,Object> jsonMap=new HashMap<>();
 		
@@ -425,8 +427,37 @@ public class MainController {
 		session.setAttribute("USER_ID", USER_ID);
 		session.setAttribute("USER_TYPE", USER_TYPE);
 		session.setAttribute("token", token);
+		
+		LoginRecord loginRecord=new LoginRecord();
+		loginRecord.setUserId(USER_ID);
+		loginRecord.setName(NAME);
+		loginRecord.setUserType(USER_TYPE);
+		loginRecord.setToken(token);
+		int i=publicService.insertLoginRecord(loginRecord);
 
 		jsonMap.put("message", "ok");
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping("/selectLoginData")
+	@ResponseBody
+	public Map<String,Object> selectLoginData(HttpSession session, String name) {
+
+		Map<String,Object> jsonMap=new HashMap<>();
+		
+		LoginRecord loginRecord = publicService.selectLastLoginRecordByName(name);
+
+		if(loginRecord==null) {
+			jsonMap.put("message", "no");
+		}
+		else {
+			session.setAttribute("USER_ID", loginRecord.getUserId());
+			session.setAttribute("USER_TYPE", loginRecord.getUserType());
+			session.setAttribute("token", loginRecord.getToken());
+			
+			jsonMap.put("message", "ok");
+		}
 		
 		return jsonMap;
 	}
