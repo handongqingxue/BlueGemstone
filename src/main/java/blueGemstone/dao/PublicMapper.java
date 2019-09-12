@@ -19,9 +19,9 @@ public interface PublicMapper {
 
 	Integer insertVarAvgChange(VarAvgChange varAvgChange);
 
-	Float getVarChangeAvgValue(@Param("name") String name, @Param("time") String time);
+	Float getVarChangeAvgValue(@Param("name") String name, @Param("time") String time, @Param("timeFlag") Integer timeFlag);
 
-	Integer updateVarChange(@Param("name") String name, @Param("time") String time);
+	Integer updateVarChange(@Param("name") String name, @Param("time") String time, @Param("timeFlag") Integer timeFlag);
 
 	List<VarChange> selectVarChangeLineData(@Param("name") String name, @Param("page") int page, @Param("row") int row);
 

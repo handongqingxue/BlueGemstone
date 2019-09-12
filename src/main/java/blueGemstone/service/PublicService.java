@@ -16,9 +16,9 @@ public interface PublicService {
 	
 	Integer insertVarChangeTest();
 
-	Integer insertVarAvgChange(List<VarWarnLimit> vwlList);
+	Integer insertVarAvgChange(List<VarWarnLimit> vwlList, Integer timeFlag);
 
-	Integer insertVarAvgChangeTest();
+	Integer insertVarAvgChangeTest(Integer timeFlag);
 	
 	Integer insertWarnRecord(VarChange varChange);
 

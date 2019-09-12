@@ -181,12 +181,12 @@ public class MainController {
 	 */
 	@RequestMapping("/insertVarAvgChange")
 	@ResponseBody
-	public Map<String,Object> insertVarAvgChange(HttpServletRequest request) {
+	public Map<String,Object> insertVarAvgChange(HttpServletRequest request, Integer timeFlag) {
 
 		Map<String,Object> jsonMap=new HashMap<>();
 		
 		List<VarWarnLimit> vwlList = (List<VarWarnLimit>)request.getSession().getAttribute("vwlList");
-		publicService.insertVarAvgChange(vwlList);
+		publicService.insertVarAvgChange(vwlList,timeFlag);
 		
 		return jsonMap;
 	}

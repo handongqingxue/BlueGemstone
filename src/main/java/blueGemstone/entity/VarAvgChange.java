@@ -11,6 +11,7 @@ public class VarAvgChange implements Serializable {
 	private String createTime;
 	private Integer state;
 	private String memo;
+	private Integer timeFlag;//间隔了多久插入的历史数据（1.十分钟、2.两小时）
 	public String getId() {
 		return id;
 	}
@@ -46,5 +47,11 @@ public class VarAvgChange implements Serializable {
 	}
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+	public Integer getTimeFlag() {
+		return timeFlag;
+	}
+	public void setTimeFlag(Integer timeFlag) {
+		this.timeFlag = timeFlag;
 	}
 }

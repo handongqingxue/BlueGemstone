@@ -10,12 +10,15 @@
 <%@include file="../inc/reportJs.jsp"%>
 <body style="background-image: url('<%=basePath %>resource/image/002.png');background-size:100% 100%;">
 <div id="tab_div" style="width: 200px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;background-color: #22bddc;cursor: pointer;" onclick="showTabDiv(1);">实时数据</div>
-<div id="tab2_div" style="width: 200px;height: 40px;line-height: 40px;margin-top:-40px;margin-left:200px;color:grey;font-size:20px;text-align:center;background-color: #07345e;cursor: pointer;" onclick="showTabDiv(2);">平均数据</div>
+<div id="tab2_div" style="width: 200px;height: 40px;line-height: 40px;margin-top:-40px;margin-left:200px;color:grey;font-size:20px;text-align:center;background-color: #07345e;cursor: pointer;" onclick="showTabDiv(2);">历史数据</div>
 <div id="main" style="width:99%;height:800px;overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
 	<select id="varType_cbb"></select>
 </div>
 <div id="main2" style="width:99%;height:800px; overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;display: none;">
-	<select id="varType_cbb2"></select>
+	<div style="width: 100%;height: 60px;line-height: 60px;">
+		<span style="color: #fff;font-size:20px;margin-left:10px;">记录点：</span>
+		<select id="varType_cbb2"></select>
+	</div>
 	<!-- 
 	<div id="avgChart_div" style="height:400px;"></div>
 	 -->
@@ -26,7 +29,7 @@ $(function(){
 		function(data){
 			varTypeCbb=$("#varType_cbb").combobox({
 				width:300,
-				height:50,
+				height:30,
 				valueField:"value",
 				textField:"text",
 				data:data.rows,
@@ -40,9 +43,9 @@ $(function(){
 					$(".combo .combo-text").css("background-color","#1A4A8C");
 					$(".combo .combo-text").css("font-size","20px");
 					
-					$(".combobox-item").css("height","50px");
-					$(".combobox-item").css("line-height","50px");
-					$(".combobox-item").css("font-size","20px");
+					$(".combobox-item").css("height","30px");
+					$(".combobox-item").css("line-height","30px");
+					$(".combobox-item").css("font-size","15px");
 					$(".combobox-item").css("color","#fff");
 					$(".combobox-item").css("background-color","#1A4A8C");
 				}
@@ -50,7 +53,7 @@ $(function(){
 			
 			varTypeCbb2=$("#varType_cbb2").combobox({
 				width:300,
-				height:50,
+				height:30,
 				valueField:"value",
 				textField:"text",
 				data:data.rows,
@@ -64,9 +67,9 @@ $(function(){
 					$(".combo .combo-text").css("background-color","#1A4A8C");
 					$(".combo .combo-text").css("font-size","20px");
 					
-					$(".combobox-item").css("height","50px");
-					$(".combobox-item").css("line-height","50px");
-					$(".combobox-item").css("font-size","20px");
+					$(".combobox-item").css("height","30px");
+					$(".combobox-item").css("line-height","30px");
+					$(".combobox-item").css("font-size","15px");
 					$(".combobox-item").css("color","#fff");
 					$(".combobox-item").css("background-color","#1A4A8C");
 				}

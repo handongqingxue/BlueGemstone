@@ -57,6 +57,7 @@ function initVarChangeLine(ec,url,page,row,chartDiv,name){
                	    calculable : true,
                	    xAxis : [
                	        {
+               	        	splitLine:{show:false},//去除网格线
                	            type : 'category',
                	            boundaryGap : false,
                	            //data : ['周一','周二','周三','周四','周五','周六','周日']
@@ -71,6 +72,7 @@ function initVarChangeLine(ec,url,page,row,chartDiv,name){
                	    ],
                	    yAxis : [
                	        {
+               	        	splitLine:{show:false},//去除网格线
                	            type : 'value',
 	               	        axisLabel: {
 	                            show: true,
@@ -93,6 +95,7 @@ function initVarChangeLine(ec,url,page,row,chartDiv,name){
                	    */
                	    series : [
                	        {
+               	        	symbol:"none",
                	            name:name,
                	            type:'line',
                	         	smooth: true,

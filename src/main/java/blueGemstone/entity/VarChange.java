@@ -9,7 +9,8 @@ public class VarChange implements Serializable {
 	private Float value;
 	private String createTime;
 	private Integer state;
-	private Boolean updated;
+	private Boolean updated1;//是否更新了每隔十分钟插入的数据
+	private Boolean updated2;//是否更新了每隔两小时插入的数据
 	private String memo;
 	public String getId() {
 		return id;
@@ -41,11 +42,17 @@ public class VarChange implements Serializable {
 	public void setState(Integer state) {
 		this.state = state;
 	}
-	public Boolean getUpdated() {
-		return updated;
+	public Boolean getUpdated1() {
+		return updated1;
 	}
-	public void setUpdated(Boolean updated) {
-		this.updated = updated;
+	public void setUpdated1(Boolean updated1) {
+		this.updated1 = updated1;
+	}
+	public Boolean getUpdated2() {
+		return updated2;
+	}
+	public void setUpdated2(Boolean updated2) {
+		this.updated2 = updated2;
 	}
 	public String getMemo() {
 		return memo;

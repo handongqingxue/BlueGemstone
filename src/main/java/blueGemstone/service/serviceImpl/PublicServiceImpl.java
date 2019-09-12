@@ -1,5 +1,6 @@
 package blueGemstone.service.serviceImpl;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,7 +22,6 @@ import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
 import blueGemstone.util.Constant;
-import blueGemstone.util.StringUtils;
 import net.sf.json.JSONObject;
 
 @Service
@@ -30,6 +30,7 @@ public class PublicServiceImpl implements PublicService {
 	@Autowired
 	private PublicMapper publicDao;
 	private SimpleDateFormat timeSDF=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private DecimalFormat df1 = new DecimalFormat("0.0");
 	private static final long PERIOD_DAY = 2 * 1000;
     
     static {
@@ -65,10 +66,10 @@ public class PublicServiceImpl implements PublicService {
 	public Integer insertVarChange(List<VarWarnLimit> vwlList, String pushData) {
 		// TODO Auto-generated method stub
 
-		System.out.println("pushData==="+pushData);
+		//System.out.println("pushData==="+pushData);
 		JSONObject jsonPushData = JSONObject.fromObject(pushData);
 		JSONObject messageJO = jsonPushData.getJSONObject("Message");
-		System.out.println("Message==="+messageJO);
+		//System.out.println("Message==="+messageJO);
 		
 		int count=0;
 		String createTime = timeSDF.format(new Date());
@@ -128,7 +129,7 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public Integer insertVarAvgChange(List<VarWarnLimit> vwlList) {
+	public Integer insertVarAvgChange(List<VarWarnLimit> vwlList, Integer timeFlag) {
 		// TODO Auto-generated method stub
 
 		int count=0;
@@ -139,10 +140,11 @@ public class PublicServiceImpl implements PublicService {
 			varAvgChange.setId(UUID.randomUUID().toString().replace("-", ""));
 			String name = varWarnLimit.getName();
 			varAvgChange.setName(name);
-			float avgValue = publicDao.getVarChangeAvgValue(name,time);
+			float avgValue = publicDao.getVarChangeAvgValue(name,time,timeFlag);
 			System.out.println("avgValue==="+avgValue);
 			varAvgChange.setValue(avgValue);
 			varAvgChange.setCreateTime(createTime);
+			varAvgChange.setTimeFlag(timeFlag);
 			if(avgValue>varWarnLimit.getUpLimit())
 				varAvgChange.setState(1);
 			else if(avgValue<varWarnLimit.getDownLimit())
@@ -152,14 +154,14 @@ public class PublicServiceImpl implements PublicService {
 			
 			count+=publicDao.insertVarAvgChange(varAvgChange);
 			if(count>0) {
-				publicDao.updateVarChange(name,time);
+				publicDao.updateVarChange(name,time,timeFlag);
 			}
 		}
 		return count;
 	}
 
 	@Override
-	public Integer insertVarAvgChangeTest() {
+	public Integer insertVarAvgChangeTest(Integer timeFlag) {
 		// TODO Auto-generated method stub
 		
 		int count=0;
@@ -169,10 +171,11 @@ public class PublicServiceImpl implements PublicService {
 			VarAvgChange varAvgChange=new VarAvgChange();
 			varAvgChange.setId(UUID.randomUUID().toString().replace("-", ""));
 			varAvgChange.setName(Constant.INSERT_ARR[i]);
-			float avgValue = publicDao.getVarChangeAvgValue(Constant.INSERT_ARR[i],time);
+			float avgValue = publicDao.getVarChangeAvgValue(Constant.INSERT_ARR[i],time,timeFlag);
 			System.out.println("avgValue==="+avgValue);
 			varAvgChange.setValue(avgValue);
 			varAvgChange.setCreateTime(createTime);
+			varAvgChange.setTimeFlag(timeFlag);
 			if(avgValue>98)
 				varAvgChange.setState(1);
 			else if(avgValue<2)
@@ -182,7 +185,7 @@ public class PublicServiceImpl implements PublicService {
 			
 			count+=publicDao.insertVarAvgChange(varAvgChange);
 			if(count>0) {
-				publicDao.updateVarChange(Constant.INSERT_ARR[i],time);
+				publicDao.updateVarChange(Constant.INSERT_ARR[i],time,timeFlag);
 			}
 		}
 		return count;
@@ -274,7 +277,7 @@ public class PublicServiceImpl implements PublicService {
 			varMap.put("name", Constant.INSERT_ARR[i]);
 			Float value=publicDao.getCurrentVarValue(Constant.INSERT_ARR[i]);
 			//varMap.put("value", (float)1.00);
-			varMap.put("value", value==null?0.0:value);
+			varMap.put("value", value==null?0.0:df1.format(value));
 			varList.add(varMap);
 		}
 		

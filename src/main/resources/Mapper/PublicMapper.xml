@@ -4,7 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blueGemstone.dao.PublicMapper">
 	<select id="getVarChangeAvgValue" resultType="java.lang.Float">
-		select avg(value) value from VarChange where name=#{name} and createTime&lt;#{time} and updated=0
+		select avg(value) value from VarChange where name=#{name} and createTime&lt;#{time}
+		<if test="timeFlag==1">
+		 	and updated1=0
+		</if>
+		<if test="timeFlag==2">
+		 	and updated2=0
+		</if>
 	</select>
 	<select id="selectVarChangeLineData" resultType="blueGemstone.entity.VarChange">
 		select * from (select convert(varchar(12),CreateTime,108) createTime,value,ROW_NUMBER() over(order by createtime) as rowNumber from VarChange where name=#{name})t where rowNumber between (#{page}-1)*#{row}+1 and #{page}*#{row}
@@ -51,10 +57,10 @@
 		select * from VarWarnLimit
 	</select>
 	<insert id="insertVarChange" parameterType="blueGemstone.entity.VarChange">
-		insert into VarChange (id,name,value,createTime,state,updated,memo) values(#{id},#{name},#{value},#{createTime},#{state},0,#{memo})
+		insert into VarChange (id,name,value,createTime,state,updated1,updated2,memo) values(#{id},#{name},#{value},#{createTime},#{state},0,0,#{memo})
 	</insert>
 	<insert id="insertVarAvgChange" parameterType="blueGemstone.entity.VarAvgChange">
-		insert into VarAvgChange (id,name,value,createTime,state,memo) values(#{id},#{name},#{value},#{createTime},#{state},#{memo})
+		insert into VarAvgChange (id,name,value,createTime,state,memo,timeFlag) values(#{id},#{name},#{value},#{createTime},#{state},#{memo},#{timeFlag})
 	</insert>
 	<insert id="insertWarnRecord" parameterType="blueGemstone.entity.WarnRecord">
 		insert into WarnRecord (id,name,value,createTime,state,memo) values(#{id},#{name},#{value},#{createTime},#{state},#{memo})
@@ -66,7 +72,12 @@
 		insert into LoginRecord (userId,name,userType,token,createTime) values(#{userId},#{name},#{userType},#{token},#{createTime})
 	</insert>
 	<update id="updateVarChange">
-		update VarChange set updated=1 where name=#{name} and createTime&lt;#{time} and updated=0
+		<if test="timeFlag==1">
+			update VarChange set updated1=1 where name=#{name} and createTime&lt;#{time} and updated1=0
+		</if>
+		<if test="timeFlag==2">
+			update VarChange set updated2=1 where name=#{name} and createTime&lt;#{time} and updated2=0
+		</if>
 	</update>
 	<delete id="deleteWarnRecordByName">
 		delete from WarnRecord where name=#{name}
