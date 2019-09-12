@@ -28,7 +28,7 @@ public interface PublicService {
 
 	List<VarChange> selectVarChangeReportData(String name, int page, int rows);
 
-	List<VarAvgChange> selectVarAvgChangeLineData(String name, int page, int row);
+	List<VarAvgChange> selectVarAvgChangeLineData(String name, String timeSpace, String startTime, String endTime, int page, int rows);
 
 	List<WarnRecord> selectWarnRecordReportData(String name);
 

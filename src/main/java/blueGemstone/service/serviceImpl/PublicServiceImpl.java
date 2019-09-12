@@ -22,6 +22,7 @@ import blueGemstone.entity.WarnHistoryRecord;
 import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
 import blueGemstone.util.Constant;
+import blueGemstone.util.StringUtils;
 import net.sf.json.JSONObject;
 
 @Service
@@ -30,6 +31,7 @@ public class PublicServiceImpl implements PublicService {
 	@Autowired
 	private PublicMapper publicDao;
 	private SimpleDateFormat timeSDF=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private SimpleDateFormat startTimeSDF=new SimpleDateFormat("yyyy-MM-dd 00:00:00");
 	private DecimalFormat df1 = new DecimalFormat("0.0");
 	private static final long PERIOD_DAY = 2 * 1000;
     
@@ -212,9 +214,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public List<VarAvgChange> selectVarAvgChangeLineData(String name, int page, int row) {
+	public List<VarAvgChange> selectVarAvgChangeLineData(String name, String timeSpace, String startTime, String endTime, int page, int rows) {
 		// TODO Auto-generated method stub
-		return publicDao.selectVarAvgChangeLineData(name, page, row);
+		
+		if(StringUtils.isEmpty(startTime)||StringUtils.isEmpty(endTime)) {
+			Date date = new Date();
+			startTime=startTimeSDF.format(date);
+			endTime=timeSDF.format(date);
+		}
+		return publicDao.selectVarAvgChangeLineData(name, timeSpace, startTime, endTime, page, rows);
 	}
 
 	@Override

@@ -29,7 +29,26 @@
 		)t where rowNumber between (#{page}-1)*#{rows}+1 and #{page}*#{rows}
 	</select>
 	<select id="selectVarAvgChangeLineData" resultType="blueGemstone.entity.VarAvgChange">
-		select * from (select convert(varchar(12),CreateTime,108) createTime,value,ROW_NUMBER() over(order by createtime) as rowNumber from VarAvgChange where name=#{name})t where rowNumber between (#{page}-1)*#{row}+1 and #{page}*#{row}
+		select * from (select convert(varchar(12),CreateTime,108) createTime,value,ROW_NUMBER() over(order by createtime) as rowNumber from VarAvgChange where name=#{name}
+		<if test="timeSpace!=null">
+			<if test="timeSpace==1">
+			 	and createTime between DATEADD(D,-1,createTime) and createTime
+			</if>
+			<if test="timeSpace==2">
+			 	and createTime between DATEADD(D,-7,createTime) and createTime
+			</if>
+			<if test="timeSpace==3">
+			 	and createTime between DATEADD(D,-30,createTime) and createTime
+			</if>
+			<if test="timeSpace==4">
+			 	and createTime between DATEADD(D,-90,createTime) and createTime
+			</if>
+		</if>
+		 )t where rowNumber between (#{page}-1)*#{rows}+1 and #{page}*#{rows}
+	 	<if test="startTime!=null&amp;endTime!=null">
+	 		and t.createTime between #{startTime} and #{endTime}
+	 	</if>
+	
 	</select>
 	<select id="selectWarnRecordReportData" resultType="blueGemstone.entity.WarnRecord">
 		select id,name,convert(varchar,CreateTime,120) createTime,value,state from WarnRecord where 1=1

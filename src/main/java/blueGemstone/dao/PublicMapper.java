@@ -29,7 +29,7 @@ public interface PublicMapper {
 
 	List<VarChange> selectVarChangeReportData(@Param("name") String name, @Param("page") int page, @Param("rows") int rows);
 
-	List<VarAvgChange> selectVarAvgChangeLineData(@Param("name") String name, @Param("page") int page, @Param("row") int row);
+	List<VarAvgChange> selectVarAvgChangeLineData(@Param("name") String name, @Param("timeSpace") String timeSpace, @Param("startTime") String startTime, @Param("endTime") String endTime, @Param("page") int page, @Param("rows") int rows);
 
 	List<WarnRecord> selectWarnRecordReportData(@Param("name") String name);
 

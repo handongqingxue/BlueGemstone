@@ -20,9 +20,9 @@ require.config({
     }
 });
 
-function initVarChangeLine(ec,url,page,row,chartDiv,name){
+function initVarChangeLine(ec,url,page,row,chartDiv,name,otherParam){
    	$.post(url,
-   			{name:name,page:page,row:row},
+   			{name:name,page:page,row:row,otherParam:JSON.stringify(otherParam)},
   			function(data){
 	   			//console.log(data.createTimeList);
 	   			/*

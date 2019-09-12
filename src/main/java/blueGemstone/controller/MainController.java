@@ -267,11 +267,16 @@ public class MainController {
 	 */
 	@RequestMapping("/selectVarAvgChangeLineData")
 	@ResponseBody
-	public Map<String,Object> selectVarAvgChangeLineData(String name,int page,int row) {
+	public Map<String,Object> selectVarAvgChangeLineData(String name,int page,int row,String otherParam) {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		List<VarAvgChange> vacList=publicService.selectVarAvgChangeLineData(name,page,row);
+		System.out.println("otherParam==="+otherParam);
+		JSONObject otherParamJO = JSONObject.fromObject(otherParam);
+		String timeSpace = otherParamJO.getString("timeSpace");
+		String startTime = otherParamJO.getString("startTime");
+		String endTime = otherParamJO.getString("endTime");
+		List<VarAvgChange> vacList=publicService.selectVarAvgChangeLineData(name,timeSpace,startTime,endTime,page,row);
 		
 		List<String> createTimeList=new ArrayList<String>();
 		List<Float> valueList=new ArrayList<Float>();
