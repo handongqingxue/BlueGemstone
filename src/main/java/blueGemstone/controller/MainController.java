@@ -25,8 +25,12 @@ import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
 import blueGemstone.util.Constant;
 import blueGemstone.util.SiPuCloudAPI;
-import blueGemstone.util.StringUtils;
 import net.sf.json.JSONObject;
+
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @Controller
 @RequestMapping("/main")
@@ -34,6 +38,20 @@ public class MainController {
 	
 	@Autowired
 	private PublicService publicService;
+	
+	static {
+		Desktop dt = Desktop.getDesktop();
+		try {
+			dt.browse(new URI("http://120.27.5.36:8080/BlueGemstone/main/goInsertData"));
+			//dt.browse(new URI("http://127.0.0.1:8088/BlueGemstone/main/goInsertData"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Ìø×ªÖÁÊ×Ò³
