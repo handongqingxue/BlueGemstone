@@ -109,6 +109,38 @@ function initVarChangeLine(ec,url,page,row,chartDiv,name,otherParam){
                                     }
                                 }
                             }
+               	        },
+               	        {
+               	        	symbol:"none",
+               	            name:"上限报警",
+               	            type:'line',
+               	         	smooth: true,
+               	            stack: '上限',
+               	        	data:data["upLimitList"],
+               	        	itemStyle: {
+                                normal: {
+                                    color: '#f00',
+                                    lineStyle:{
+                                        width:1//设置线条粗细
+                                    }
+                                }
+                            }
+               	        },
+               	        {
+               	        	symbol:"none",
+               	            name:"下限报警",
+               	            type:'line',
+               	         	smooth: true,
+               	            stack: '下限',
+               	        	data:data["downLimitList"],
+               	        	itemStyle: {
+                                normal: {
+                                    color: '#f00',
+                                    lineStyle:{
+                                        width:1//设置线条粗细
+                                    }
+                                }
+                            }
                	        }
                	    ]
                	};

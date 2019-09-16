@@ -13,7 +13,7 @@
 		</if>
 	</select>
 	<select id="selectVarChangeLineData" resultType="blueGemstone.entity.VarChange">
-		select * from (select convert(varchar(12),CreateTime,108) createTime,value,ROW_NUMBER() over(order by createtime) as rowNumber from VarChange where name=#{name})t where rowNumber between (#{page}-1)*#{row}+1 and #{page}*#{row}
+		select * from (select convert(varchar(12),CreateTime,108) createTime,value,upLimit,downLimit,ROW_NUMBER() over(order by createtime) as rowNumber from VarChange where name=#{name})t where rowNumber between (#{page}-1)*#{row}+1 and #{page}*#{row}
 	</select>
 	<select id="getVarChangeReportDataCount" resultType="java.lang.Integer">
 		select count(*) from VarChange where createTime between DATEADD(D,-7,createTime) and createTime
@@ -29,7 +29,7 @@
 		)t where rowNumber between (#{page}-1)*#{rows}+1 and #{page}*#{rows}
 	</select>
 	<select id="selectVarAvgChangeLineData" resultType="blueGemstone.entity.VarAvgChange">
-		select * from (select convert(varchar,CreateTime,120) createTime1,convert(varchar(12),CreateTime,108) createTime,value,ROW_NUMBER() over(order by createtime) as rowNumber from VarAvgChange where 1=1
+		select * from (select convert(varchar,CreateTime,120) createTime1,convert(varchar(12),CreateTime,108) createTime,value,upLimit,downLimit,ROW_NUMBER() over(order by createtime) as rowNumber from VarAvgChange where 1=1
 		<if test="name!=null&amp;name!=''">
 			and name=#{name}
 		</if>
@@ -77,10 +77,10 @@
 		select * from VarWarnLimit
 	</select>
 	<insert id="insertVarChange" parameterType="blueGemstone.entity.VarChange">
-		insert into VarChange (id,name,value,createTime,state,updated1,updated2,memo) values(#{id},#{name},#{value},#{createTime},#{state},0,0,#{memo})
+		insert into VarChange (id,name,value,upLimit,downLimit,createTime,state,updated1,updated2,memo) values(#{id},#{name},#{value},#{upLimit},#{downLimit},#{createTime},#{state},0,0,#{memo})
 	</insert>
 	<insert id="insertVarAvgChange" parameterType="blueGemstone.entity.VarAvgChange">
-		insert into VarAvgChange (id,name,value,createTime,state,memo,timeFlag) values(#{id},#{name},#{value},#{createTime},#{state},#{memo},#{timeFlag})
+		insert into VarAvgChange (id,name,value,upLimit,downLimit,createTime,state,memo,timeFlag) values(#{id},#{name},#{value},#{upLimit},#{downLimit},#{createTime},#{state},#{memo},#{timeFlag})
 	</insert>
 	<insert id="insertWarnRecord" parameterType="blueGemstone.entity.WarnRecord">
 		insert into WarnRecord (id,name,value,createTime,state,memo) values(#{id},#{name},#{value},#{createTime},#{state},#{memo})

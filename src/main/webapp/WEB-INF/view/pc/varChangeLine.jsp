@@ -222,10 +222,12 @@ function showTabDiv(index){
 		var timeSpace2=timeSpaceCbb2.combobox("getValue");
 		var startTime=startTimeDTB.datetimebox("getValue");
 		var endTime=endTimeDTB.datetimebox("getValue");
+		/*
 		console.log(varType2);
 		console.log(timeSpace2);
 		console.log(startTime);
 		console.log(endTime);
+		*/
 		drawLine2(ec1,varType2,timeSpace2,startTime,endTime);
 	}
 }
@@ -247,7 +249,11 @@ function nextPage2(url,name,i,j,next){
 	else if(next==-1)
 		page--;
 	$("#main2 div[name='"+name+"']").attr("page",page);
-	initVarChangeLine(ec1,url,page,row,"avgChartChild_div"+(i+1)+"_"+(j+1),name);
+	var timeSpace2=timeSpaceCbb2.combobox("getValue");
+	var startTime=startTimeDTB.datetimebox("getValue");
+	var endTime=endTimeDTB.datetimebox("getValue");
+	var otherParam={timeSpace:timeSpace2,startTime:startTime,endTime:endTime};
+	initVarChangeLine(ec1,url,page,row,"avgChartChild_div"+(i+1)+"_"+(j+1),name,otherParam);
 }
 
 function changePageDiv(o,flag){
@@ -268,10 +274,10 @@ function searchByName(){
 	var timeSpace2=timeSpaceCbb2.combobox("getValue");
 	var startTime=startTimeDTB.datetimebox("getValue");
 	var endTime=endTimeDTB.datetimebox("getValue");
-	console.log(varType2);
-	console.log(timeSpace2);
-	console.log(startTime);
-	console.log(endTime);
+	//console.log(varType2);
+	//console.log(timeSpace2);
+	//console.log(startTime);
+	//console.log(endTime);
 	drawLine2(ec1,varType2,timeSpace2,startTime,endTime);
 }
 </script>

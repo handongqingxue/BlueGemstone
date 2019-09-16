@@ -83,11 +83,15 @@ public class PublicServiceImpl implements PublicService {
 			//System.out.println("value==="+value);
 			varChange.setValue(value);
 			varChange.setCreateTime(createTime);
-			if(value>varWarnLimit.getUpLimit()) {
+			Float upLimit = varWarnLimit.getUpLimit();
+			varChange.setUpLimit(upLimit);
+			Float downLimit = varWarnLimit.getDownLimit();
+			varChange.setDownLimit(downLimit);
+			if(value>upLimit) {
 				varChange.setState(1);
 				insertWarnRecord(varChange);
 			}
-			else if(value<varWarnLimit.getDownLimit()) {
+			else if(value<downLimit) {
 				varChange.setState(2);
 				insertWarnRecord(varChange);
 			}
@@ -147,9 +151,13 @@ public class PublicServiceImpl implements PublicService {
 			varAvgChange.setValue(avgValue);
 			varAvgChange.setCreateTime(createTime);
 			varAvgChange.setTimeFlag(timeFlag);
-			if(avgValue>varWarnLimit.getUpLimit())
+			float upLimit = varWarnLimit.getUpLimit();
+			varAvgChange.setUpLimit(upLimit);
+			float downLimit = varWarnLimit.getDownLimit();
+			varAvgChange.setDownLimit(downLimit);
+			if(avgValue>upLimit)
 				varAvgChange.setState(1);
-			else if(avgValue<varWarnLimit.getDownLimit())
+			else if(avgValue<downLimit)
 				varAvgChange.setState(2);
 			else
 				varAvgChange.setState(0);

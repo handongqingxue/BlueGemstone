@@ -8,6 +8,8 @@ public class VarAvgChange implements Serializable {
 	private String id;
 	private String name;
 	private Float value;
+	private Float upLimit;
+	private Float downLimit;
 	private String createTime;
 	private Integer state;
 	private String memo;
@@ -29,6 +31,18 @@ public class VarAvgChange implements Serializable {
 	}
 	public void setValue(Float value) {
 		this.value = value;
+	}
+	public Float getUpLimit() {
+		return upLimit;
+	}
+	public void setUpLimit(Float upLimit) {
+		this.upLimit = upLimit;
+	}
+	public Float getDownLimit() {
+		return downLimit;
+	}
+	public void setDownLimit(Float downLimit) {
+		this.downLimit = downLimit;
 	}
 	public String getCreateTime() {
 		return createTime;

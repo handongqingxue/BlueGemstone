@@ -25,6 +25,7 @@ import blueGemstone.entity.WarnRecord;
 import blueGemstone.service.PublicService;
 import blueGemstone.util.Constant;
 import blueGemstone.util.SiPuCloudAPI;
+import blueGemstone.util.StringUtils;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -171,6 +172,10 @@ public class MainController {
 		
 		pushData=pushData.replaceAll("\\\\\"", "\"");
 		List<VarWarnLimit> vwlList = (List<VarWarnLimit>)request.getSession().getAttribute("vwlList");
+		if(vwlList==null) {
+			vwlList = publicService.selectVarWarnLimitData();
+			request.getSession().setAttribute("vwlList", vwlList);
+		}
 		publicService.insertVarChange(vwlList,pushData);
 		
 		return jsonMap;
@@ -186,6 +191,10 @@ public class MainController {
 		Map<String,Object> jsonMap=new HashMap<>();
 		
 		List<VarWarnLimit> vwlList = (List<VarWarnLimit>)request.getSession().getAttribute("vwlList");
+		if(vwlList==null) {
+			vwlList = publicService.selectVarWarnLimitData();
+			request.getSession().setAttribute("vwlList", vwlList);
+		}
 		publicService.insertVarAvgChange(vwlList,timeFlag);
 		
 		return jsonMap;
@@ -207,13 +216,21 @@ public class MainController {
 		List<VarChange> vcList=publicService.selectVarChangeLineData(name,page,row);
 		List<String> createTimeList=new ArrayList<String>();
 		List<Float> valueList=new ArrayList<Float>();
+		List<Float> upLimitList=new ArrayList<Float>();
+		List<Float> downLimitList=new ArrayList<Float>();
 		for (VarChange varChange : vcList) {
 			createTimeList.add(varChange.getCreateTime());
 			valueList.add(varChange.getValue());
+			Float upLimit = varChange.getUpLimit();
+			upLimitList.add(upLimit==null?(float)0.00:upLimit);
+			Float downLimit = varChange.getDownLimit();
+			downLimitList.add(downLimit==null?(float)0.00:downLimit);
 		}
 		jsonMap.put("createTimeList", createTimeList);
 		jsonMap.put("listSize", createTimeList.size());
 		jsonMap.put("valueList", valueList);
+		jsonMap.put("upLimitList", upLimitList);
+		jsonMap.put("downLimitList", downLimitList);
 		
 		/*
 		if(vcList.size()>0) {
@@ -271,28 +288,38 @@ public class MainController {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		System.out.println("otherParam==="+otherParam);
+		//System.out.println("otherParam==="+otherParam);
 		JSONObject otherParamJO = JSONObject.fromObject(otherParam);
 		String timeSpace = otherParamJO.getString("timeSpace");
 		String startTime = otherParamJO.getString("startTime");
 		String endTime = otherParamJO.getString("endTime");
+		/*
 		System.out.println("name==="+name);
 		System.out.println("page==="+page);
 		System.out.println("row==="+row);
 		System.out.println("timeSpace==="+timeSpace);
 		System.out.println("startTime==="+startTime);
 		System.out.println("endTime==="+endTime);
+		*/
 		List<VarAvgChange> vacList=publicService.selectVarAvgChangeLineData(name,timeSpace,startTime,endTime,page,row);
 		
 		List<String> createTimeList=new ArrayList<String>();
 		List<Float> valueList=new ArrayList<Float>();
+		List<Float> upLimitList=new ArrayList<Float>();
+		List<Float> downLimitList=new ArrayList<Float>();
 		for (VarAvgChange varAvgChange : vacList) {
 			createTimeList.add(varAvgChange.getCreateTime());
 			valueList.add(varAvgChange.getValue());
+			Float upLimit = varAvgChange.getUpLimit();
+			upLimitList.add(upLimit==null?(float)0.00:upLimit);
+			Float downLimit = varAvgChange.getDownLimit();
+			downLimitList.add(downLimit==null?(float)0.00:downLimit);
 		}
 		jsonMap.put("createTimeList", createTimeList);
 		jsonMap.put("listSize", createTimeList.size());
 		jsonMap.put("valueList", valueList);
+		jsonMap.put("upLimitList", upLimitList);
+		jsonMap.put("downLimitList", downLimitList);
 		
 		return jsonMap;
 	}
