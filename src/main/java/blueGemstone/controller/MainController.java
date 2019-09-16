@@ -276,6 +276,12 @@ public class MainController {
 		String timeSpace = otherParamJO.getString("timeSpace");
 		String startTime = otherParamJO.getString("startTime");
 		String endTime = otherParamJO.getString("endTime");
+		System.out.println("name==="+name);
+		System.out.println("page==="+page);
+		System.out.println("row==="+row);
+		System.out.println("timeSpace==="+timeSpace);
+		System.out.println("startTime==="+startTime);
+		System.out.println("endTime==="+endTime);
 		List<VarAvgChange> vacList=publicService.selectVarAvgChangeLineData(name,timeSpace,startTime,endTime,page,row);
 		
 		List<String> createTimeList=new ArrayList<String>();
