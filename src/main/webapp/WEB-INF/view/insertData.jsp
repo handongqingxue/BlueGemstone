@@ -28,7 +28,7 @@ $(function(){
 	  	}
 	  ,"json");
 	},5000,1000);
-	//每十分钟计算一次平均值
+	//每十分钟计算一次平均值，间隔不同，为了方便查询历史记录
 	setInterval(function(){
 		insertVarAvgChange(1);
 	},10*60*1000,1000);
@@ -79,6 +79,7 @@ function initWebSocket(){
 	  console.log("WebSocket连接成功");
 	  //var token='KXkItH3vzt6nRN7THv3Q';
 	  var token='${sessionScope.token}';
+	  //要是token为空，则需要先查询之前用户的登录信息；若用户从未登录过，则需要登录
 	  if(token==""){
 		  selectLoginData();
 	  }
@@ -101,10 +102,10 @@ function initWebSocket(){
 	  //console.log(event.data);
 	  
 	  var jsonData=JSON.parse(event.data);
-	  if(jsonData.Result==101){
+	  if(jsonData.Result==101){//与websocket进行握手后，返回结果数据。若返回的结果是101，说明还未登录，必须登录后再次刷新页面，重新websocket握手，成功了才能收到服务器那边的推送
 		  login();
 	  }
-	  else if(jsonData.ex=="ex_idosp_data"){
+	  else if(jsonData.ex=="ex_idosp_data"){//握手成功后，就能一直收到服务器的推送了，再把思普云平台推送的数据插入到数据库表里
 		  var pushData=JSON.stringify(event.data);
 		  $.post("insertVarChange",
 			{pushData:pushData.substring(1,pushData.length-1)},
@@ -133,23 +134,26 @@ function initWebSocket(){
 	}
 }
 
+//查询用户信息
 function selectLoginData(){
 	$.post("selectLoginData",
 		{name:"13792816022"},
 		function(data){
 			if(data.message=="ok")
 				location.href=location.href;
-			else
+			else//无信息的话，需要登录
 				login();
 		}
 	,"json");
 }
 
+//用户登录
 function login(){
 	$.post("getSiPuCloudAPIRespJson",
 		{jsonParam:"{\"s\":\"App/User/Login\",\"USERNAME\":\"13792816022\",\"PASSWORD\":\"12345678\",\"remember\":\"1\"}"},
 		function(result){
 			if(result.ret==200){
+				//登录成功后，保存用户信息
 				$.post("saveUser",
 					{USER_ID:result.data.USER_ID,NAME:"13792816022",USER_TYPE:result.data.USER_TYPE,token:result.data.token},
 					function(data){

@@ -40,8 +40,18 @@ public interface PublicService {
 
 	List<VarWarnLimit> selectVarWarnLimitData();
 
+	/**
+	 * 添加登录记录
+	 * @param loginRecord
+	 * @return
+	 */
 	Integer insertLoginRecord(LoginRecord loginRecord);
 
+	/**
+	 * 根据用户名查询最后一次登录记录
+	 * @param name
+	 * @return
+	 */
 	LoginRecord selectLastLoginRecordByName(String name);
 
 }

@@ -40,6 +40,7 @@ public class MainController {
 	private PublicService publicService;
 	
 	static {
+		/*
 		Desktop dt = Desktop.getDesktop();
 		try {
 			dt.browse(new URI("http://120.27.5.36:8080/BlueGemstone/main/goInsertData"));
@@ -51,6 +52,7 @@ public class MainController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
 	
 	/**
@@ -473,6 +475,15 @@ public class MainController {
 		return jsonMap;
 	}
 
+	/**
+	 * 保存用户信息
+	 * @param session
+	 * @param USER_ID
+	 * @param NAME
+	 * @param USER_TYPE
+	 * @param token
+	 * @return
+	 */
 	@RequestMapping("/saveUser")
 	@ResponseBody
 	public Map<String,Object> saveUser(HttpSession session, String USER_ID, String NAME, Integer USER_TYPE, String token) {
@@ -496,6 +507,12 @@ public class MainController {
 		return jsonMap;
 	}
 	
+	/**
+	 * 查询用户登录信息，放进session里
+	 * @param session
+	 * @param name
+	 * @return
+	 */
 	@RequestMapping("/selectLoginData")
 	@ResponseBody
 	public Map<String,Object> selectLoginData(HttpSession session, String name) {
