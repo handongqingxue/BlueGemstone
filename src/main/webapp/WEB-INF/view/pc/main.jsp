@@ -271,7 +271,7 @@ function initVarTab(){
 	        return 'background-color:rgba(8,51,94,0.5);';
 	    }
 	});
-	setInterval("updateWarnRecord()",10000,1000);
+	//setInterval("updateWarnRecord()",10000,1000);
 }
 
 function updateWarnRecord(){
@@ -324,7 +324,7 @@ function initVarDiv(){
 	showVarLabel("旋风分离器温度2",1270,571);
 	showVarLabel("锅炉出口温度",1270,601);
 	
-	setInterval("updateVarLabel()",5000,1000);
+	//setInterval("updateVarLabel()",5000,1000);
 }
 
 function updateVarLabel(){
@@ -393,8 +393,8 @@ function changePageDiv(o,flag){
 </head>
 <body style="background-image: url('<%=basePath %>resource/image/002.png');background-size:100% 100%;">
 <div style="color: #fff;height: 50px;line-height: 50px;">
-	<span style="font-size: 28px;float: left;margin-left: 100px;color: #1CBFDE;">青岛蓝宝石酒业锅炉物联网在线监控系统</span>
-	<span style="font-size: 20px;float: right;margin-right: 100px;color: #1CBFDE;">青岛华凌科技有限公司诚挚研发</span>
+	<span style="font-size: 28px;float: left;margin-left: 100px;color: #1CBFDE;">青岛蓝宝石锅炉物联网在线监测系统</span>
+	<span style="font-size: 20px;float: right;margin-right: 100px;color: #1CBFDE;">青岛华凌科技有限公司承制研发</span>
 </div>
 <div style="border: 0.1vw solid;
     border-image: linear-gradient(90deg, rgba(231, 231, 231, 0) 0%,rgba(231, 231, 231, 0) 5%, rgba(231, 231, 231, 0.3) 30%, #ffffff 50%,rgba(231, 231, 231, 0.3) 70%, rgba(231, 231, 231, 0) 95%,rgba(231, 231, 231, 0) 100%) 10 1 stretch;
@@ -402,12 +402,12 @@ function changePageDiv(o,flag){
     border-right: none;
     border-bottom: none;background: -webkit-linear-gradient(left,rgba(11,68,124,0),rgba(11,68,124,1),rgba(11,68,124,0) );">
     <div style="width: 550px;height: 40px;margin: 0 auto;">
-	<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;cursor: pointer;" onclick="initIframe(1);" onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">曲线</div>
-	<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:115px; cursor: pointer;" onclick="initIframe(2);"  onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">报表</div>
+	<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;cursor: pointer;" onclick="initIframe(1);" onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">曲线查询</div>
+	<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:115px; cursor: pointer;" onclick="initIframe(2);"  onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">报警记录</div>
 	<!-- 
 	<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:230px;cursor: pointer;" onclick="initIframe(3);" onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">报警</div>
 	 -->
-	<div class="pageNav" style="width: 200px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:220px;cursor: pointer;" onclick="initIframe(4);" onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">历史报警记录</div>
+	<div class="pageNav" style="width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:230px;cursor: pointer;" onclick="initIframe(4);" onmouseover="changeNavDiv(this,1);" onmouseout="changeNavDiv(this,0);">历史报警</div>
 	</div>
 </div>
 <div style="width: 600px;height: 1350px;margin-top: 10px;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">

@@ -114,26 +114,6 @@ public class MainController {
 	@RequestMapping("/goVarChangeLine")
 	public String goVarChange(HttpServletRequest request) {
 		
-		StringBuffer sb=new StringBuffer();
-		sb.append("[");
-		for(int i=0;i<Constant.VAR_TYPE.length;i++) {
-			sb.append("{\"name\":\""+Constant.VAR_TYPE_NAME[i]+"\",\"childList\":");
-			sb.append("[");
-			for(int j=0;j<Constant.VAR_CHILD_TYPE_NAME[i].length;j++) {
-				sb.append("{\"name\":\""+Constant.VAR_CHILD_TYPE_NAME[i][j]+"\"}");
-				if(j<Constant.VAR_CHILD_TYPE_NAME[i].length-1)
-					sb.append(",");
-			}
-			sb.append("]");
-			sb.append("}");
-			if(i<Constant.VAR_TYPE.length-1)
-				sb.append(",");
-		}
-		sb.append("]");
-
-		//System.out.println("varType==="+sb.toString());
-		request.setAttribute("varType", sb.toString());
-		
 		return "pc/varChangeLine";
 	}
 	

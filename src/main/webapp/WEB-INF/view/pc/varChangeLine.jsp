@@ -13,8 +13,8 @@
 <div id="tab2_div" style="width: 200px;height: 40px;line-height: 40px;margin-top:-40px;margin-left:200px;color:grey;font-size:20px;text-align:center;background-color: #07345e;cursor: pointer;" onclick="showTabDiv(2);">历史数据</div>
 <div id="main" style="width:99%;height:800px;overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
 	<div style="width: 100%;height: 60px;line-height: 60px;">
-		<span style="color: #fff;font-size:20px;margin-left:10px;">类别：</span>
-		<select id="varType_cbb"></select>
+		<span style="color: #fff;font-size:20px;margin-left:10px;">记录点：</span>
+		<select id="insertArr_cbb"></select>
 	</div>
 </div>
 <div id="main2" style="width:99%;height:800px; overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;display: none;">
@@ -35,16 +35,23 @@
 </div>
 <script type="text/javascript">
 $(function(){
-	$.post("selectVarTypeData",
+	$.post("selectInsertArrData",
 		function(data){
-			varTypeCbb=$("#varType_cbb").combobox({
+			insertArrCbb=$("#insertArr_cbb").combobox({
 				width:150,
 				height:40,
 				valueField:"value",
 				textField:"text",
 				data:data.rows,
 				onSelect:function(){
-					resetMainDiv();
+					var name=$(this).combobox("getValue");
+					if(ec1==undefined){
+						setTimeout(function(){
+							drawLine(ec1,name);
+						},"1000");
+					}
+					else
+			    		drawLine(ec1,name);
 				},
 				onLoadSuccess:function(){
 					$(".combo").css("margin-left","50px");
@@ -57,6 +64,9 @@ $(function(){
 					$(".combobox-item").css("font-size","20px");
 					$(".combobox-item").css("color","#fff");
 					$(".combobox-item").css("background-color","#1A4A8C");
+					
+					var data=$(this).combobox("getData");
+					$(this).combobox("select",data[0].value);
 				}
 			});
 			
@@ -102,6 +112,43 @@ $(function(){
 			$(".combobox-item").css("font-size","20px");
 			$(".combobox-item").css("color","#fff");
 			$(".combobox-item").css("background-color","#1A4A8C");
+		},
+		onSelect:function(){
+			var now=new Date();
+			var year=now.getFullYear();
+			var month=now.getMonth()+1;
+			var date=now.getDate();
+			var hours=now.getHours();
+			var minutes=now.getMinutes();
+			var seconds=now.getSeconds();
+			var endTime=year+"-"+(month<10?"0"+month:month)+"-"+date+" "+hours+":"+minutes+":"+seconds;
+			endTimeDTB.datetimebox("setValue",endTime);
+			
+			var timeFlag=$(this).combobox("getValue");
+			var timeSpace;
+			switch(timeFlag){
+				case "1":
+					timeSpace=-1;
+					break;
+				case "2":
+					timeSpace=-7;
+					break;
+				case "3":
+					timeSpace=-30;
+					break;
+				case "4":
+					timeSpace=-90;
+					break;
+			}
+			now=addDate(month+"/"+date+"/"+year,timeSpace);
+			year=now.getFullYear();
+			month=now.getMonth()+1;
+			date=now.getDate();
+			hours=now.getHours();
+			minutes=now.getMinutes();
+			seconds=now.getSeconds();
+			var startTime=year+"-"+(month<10?"0"+month:month)+"-"+date+" "+hours+":"+minutes+":"+seconds;
+			startTimeDTB.datetimebox("setValue",startTime);
 		}
 	});
 	
@@ -118,9 +165,12 @@ $(function(){
 	});
 });
 
-function resetMainDiv(){
-	$("#main div[id^='chart_div']").css("display","none");
-	$("#main div[name='"+varTypeCbb.combobox("getValue")+"']").css("display","block");
+function addDate(dd,dadd){
+	var a = new Date(dd);
+	a = a.valueOf();
+	a = a + dadd * 24 * 60 * 60 * 1000;
+	a = new Date(a);
+	return a;
 }
 
 function resetMain2Div(){
@@ -131,6 +181,7 @@ function resetMain2Div(){
 var page=1;
 var row=100;
 var ec1;
+
 require(
     [
         'echarts',
@@ -139,28 +190,22 @@ require(
     ],
     function (ec) {
    		ec1=ec;
-    	drawLine(ec);
+    	//drawLine(ec);
     }
 );
 
-function drawLine(ec){
-	var varTypeJS=JSON.parse('${requestScope.varType}');
+function drawLine(ec,name){
 	var url1="selectVarChangeLineData";
 	var main=$("#main");
-	for(var i=0;i<varTypeJS.length;i++){
-    	//console.log(varTypeJS[i].name+","+varTypeJS[i].childList.length);
-    	main.append("<div name=\""+varTypeJS[i].name+"\" id=\"chart_div"+(i+1)+"\" style=\"margin-top:10px;\"></div>");
-    	for(var j=0;j<varTypeJS[i].childList.length;j++){
-	    	$("div[name='"+varTypeJS[i].name+"']").append("<div>"
-	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-left:50px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+varTypeJS[i].childList[j].name+"',"+i+","+j+",-1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">上一页</div>"
-	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:155px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+varTypeJS[i].childList[j].name+"',"+i+","+j+",1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">下一页</div>"
-	    			+"</div>");
-	    	$("div[name='"+varTypeJS[i].name+"']").append("<div name=\""+varTypeJS[i].childList[j].name+"\" page=\""+page+"\" id=\"chartChild_div"+(i+1)+"_"+(j+1)+"\" style=\"height:400px;\"></div>");
-	    	//var series=[];
-			//series.push({name:data[seriesArr[i].name],type:'line',stack: '总量',data:data[seriesArr[i].data]});
-		    initVarChangeLine(ec,url1,page,row,"chartChild_div"+(i+1)+"_"+(j+1),varTypeJS[i].childList[j].name);
-    	}
-	}
+	$("#main #chart_div").remove();
+	page=1;
+	main.append("<div id=\"chart_div\" name=\""+name+"\" page=\""+page+"\" style=\"margin-top:10px;\"></div>");
+   	$("div[name='"+name+"']").append("<div>"
+   			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-left:50px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+name+"',-1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">上一页</div>"
+   			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:155px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+name+"',1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">下一页</div>"
+   			+"</div>");
+   	$("div[name='"+name+"']").append("<div id=\"line_div\" style=\"height:400px;\"></div>");
+    initVarChangeLine(ec,url1,page,row,"line_div",name);
 }
 
 function drawLine2(ec,varType,timeSpace,startTime,endTime){
@@ -232,14 +277,14 @@ function showTabDiv(index){
 	}
 }
 
-function nextPage(url,name,i,j,next){
-	var page=$("#main div[name='"+name+"']").attr("page");
+function nextPage(url,name,next){
+	var page=$("#main #chart_div").attr("page");
 	if(next==1)
 		page++;
 	else if(next==-1)
 		page--;
-	$("#main div[name='"+name+"']").attr("page",page);
-	initVarChangeLine(ec1,url,page,row,"chartChild_div"+(i+1)+"_"+(j+1),name);
+	$("#main #chart_div").attr("page",page);
+	initVarChangeLine(ec1,url,page,row,"line_div",name);
 }
 
 function nextPage2(url,name,i,j,next){
