@@ -52,14 +52,21 @@
 	 		and t.createTime1 between #{startTime} and #{endTime}
 	</select>
 	<select id="selectWarnRecordReportData" resultType="blueGemstone.entity.WarnRecord">
-		select id,name,convert(varchar,CreateTime,120) createTime,value,state from WarnRecord where 1=1
+		select * from (select id,name,convert(varchar,CreateTime,120) createTime,value,state,ROW_NUMBER() over(order by name,createtime) as rowNumber from WarnRecord)t where 1=1
 		<if test="name!=null">
 			and name=#{name}
 		</if>
 		order by name,createtime
 	</select>
+	<select id="getWarnHistoryRecordReportDataCount" resultType="java.lang.Integer">
+		select count(*) from WarnHistoryRecord where createTime between DATEADD(D,-7,createTime) and createTime
+		<if test="name!=null">
+			and name=#{name}
+		</if>
+	</select>
 	<select id="selectWarnHistoryRecordReportData" resultType="blueGemstone.entity.WarnHistoryRecord">
-		select * from (select id,name,convert(varchar,CreateTime,120) createTime,value,state,ROW_NUMBER() over(order by name,createtime) as rowNumber from WarnHistoryRecord where createTime between DATEADD(D,-7,createTime) and createTime)t where 1=1
+		select * from (select id,name,convert(varchar,CreateTime,120) createTime,value,state,ROW_NUMBER() over(order by name,createtime) as rowNumber from WarnHistoryRecord where createTime between DATEADD(D,-7,createTime) and createTime)t where 
+		rowNumber between (#{page}-1)*#{rows}+1 and #{page}*#{rows}
 		<if test="name!=null">
 			and t.name=#{name}
 		</if>
@@ -69,6 +76,9 @@
 	</select>
 	<select id="getVarStateByName" resultType="java.lang.Integer">
 		select top 1 state from VarChange where name=#{name} order by createTime desc
+	</select>
+	<select id="getWarnRecordCount" resultType="java.lang.Integer">
+		select count(*) from WarnRecord where state!=0
 	</select>
 	<select id="getCurrentVarValue" resultType="java.lang.Float">
 		select top 1 value from VarChange where name=#{name} order by createTime desc

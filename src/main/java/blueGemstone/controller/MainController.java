@@ -72,16 +72,6 @@ public class MainController {
 		request.setAttribute("varList", varList);
 		
 		if(Constant.PC.equals(device)) {
-			StringBuffer sb=new StringBuffer();
-			sb.append("[");
-			for(int i=0;i<Constant.INSERT_ARR.length;i++) {
-				sb.append("{\"name\":\""+Constant.INSERT_ARR[i]+"\"}");
-				if(i<Constant.INSERT_ARR.length-1)
-					sb.append(",");
-			}
-			sb.append("]");
-	
-			request.setAttribute("varName", sb.toString());
 			return "pc/main";
 		}
 		else
@@ -350,13 +340,14 @@ public class MainController {
 	 */
 	@RequestMapping("/selectWarnHistoryRecordReportData")
 	@ResponseBody
-	public Map<String,Object> selectWarnHistoryRecordReportData(String name) {
+	public Map<String,Object> selectWarnHistoryRecordReportData(String name,int page,int rows) {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
-		List<WarnHistoryRecord> whrList=publicService.selectWarnHistoryRecordReportData(name);
+		int count=publicService.getWarnHistoryRecordReportDataCount(name);
+		List<WarnHistoryRecord> whrList=publicService.selectWarnHistoryRecordReportData(name,page,rows);
 		
-		jsonMap.put("total", whrList.size());
+		jsonMap.put("total", count);
 		jsonMap.put("rows", whrList);
 		
 		return jsonMap;
@@ -422,7 +413,11 @@ public class MainController {
 		
 		publicService.updateWarnRecord();
 		
-		jsonMap.put("message", "ok");
+		int count=publicService.getWarnRecordCount();
+		if(count>0)
+			jsonMap.put("message", "ok");
+		else
+			jsonMap.put("message", "no");
 		
 		return jsonMap;
 	}

@@ -32,7 +32,9 @@ public interface PublicService {
 
 	List<WarnRecord> selectWarnRecordReportData(String name);
 
-	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(String name);
+	int getWarnHistoryRecordReportDataCount(String name);
+
+	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(String name, int page, int rows);
 
 	Integer updateWarnRecord();
 
@@ -53,5 +55,11 @@ public interface PublicService {
 	 * @return
 	 */
 	LoginRecord selectLastLoginRecordByName(String name);
+
+	/**
+	 * 获得报警记录条数
+	 * @return
+	 */
+	int getWarnRecordCount();
 
 }

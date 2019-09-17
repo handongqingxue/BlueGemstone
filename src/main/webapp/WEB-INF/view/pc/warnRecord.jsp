@@ -44,9 +44,7 @@ $(function(){
 		//pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"id",title:"序号",formatter:function(value,row,index){
-	            return index+1;
-	        }},
+			{field:"rowNumber",title:"序号"},
 			{field:"name",title:"记录点",width:200},
             {field:"value",title:"数值",width:200},
             {field:"state",title:"状态",width:200,formatter:function(value,row){
@@ -63,8 +61,8 @@ $(function(){
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
-				$(this).datagrid("appendRow",{id:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"id",colspan:5});
+				$(this).datagrid("appendRow",{rowNumber:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"rowNumber",colspan:5});
 				data.total=0;
 			}
 

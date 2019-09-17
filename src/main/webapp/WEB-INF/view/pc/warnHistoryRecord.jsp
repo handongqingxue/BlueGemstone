@@ -41,12 +41,10 @@ $(function(){
 		title:"报警历史记录报表",
 		url:"selectWarnHistoryRecordReportData",
 		toolbar:"#toolbar",
-		//pagination:true,
-		pageSize:10,
+		pagination:true,
+		pageSize:50,
 		columns:[[
-			{field:"rowNumber",title:"序号",formatter:function(value,row,index){
-	            return index+1;
-	        }},
+			{field:"rowNumber",title:"序号"},
 			{field:"name",title:"记录点",width:200},
             {field:"value",title:"数值",width:200},
             {field:"state",title:"状态",width:200,formatter:function(value,row){

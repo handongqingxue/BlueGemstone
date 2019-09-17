@@ -17,14 +17,21 @@ $(function(){
 function initLineDiv(){
 	$.post("selectInsertArrData",
 		function(data){
-			varTypeCbb=$("#varType_cbb").combobox({
-				width:300,
-				height:50,
+			insertArrCbb=$("#insertArr_cbb").combobox({
+				width:250,
+				height:40,
 				valueField:"value",
 				textField:"text",
 				data:data.rows,
 				onSelect:function(){
-					showLineDiv($(this).combobox("getValue"));
+					var name=$(this).combobox("getValue");
+					if(ec1==undefined){
+						setTimeout(function(){
+							drawLine(ec1,name);
+						},"1000");
+					}
+					else
+			    		drawLine(ec1,name);
 				},
 				onLoadSuccess:function(){
 					var data=$(this).combobox("getData");
@@ -34,25 +41,17 @@ function initLineDiv(){
 					$(".combo").css("margin-left","50px");
 					$(".combo .combo-text").css("color","#fff");
 					$(".combo .combo-text").css("background-color","#1A4A8C");
-					$(".combo .combo-text").css("font-size","20px");
+					$(".combo .combo-text").css("font-size","18px");
 					
-					$(".combobox-item").css("height","50px");
-					$(".combobox-item").css("line-height","50px");
-					$(".combobox-item").css("font-size","20px");
+					$(".combobox-item").css("height","40px");
+					$(".combobox-item").css("line-height","40px");
+					$(".combobox-item").css("font-size","18px");
 					$(".combobox-item").css("color","#fff");
 					$(".combobox-item").css("background-color","#1A4A8C");
 				}
 			});
 		}
 	,"json");
-}
-
-function showLineDiv(name){
-	var varNameJS=JSON.parse('${requestScope.varName}');
-	for(var i=0;i<varNameJS.length;i++){
-		$("#line_div div[name='"+varNameJS[i].name+"']").css("display","none");
-	}
-	$("#line_div div[name='"+name+"']").css("display","block");
 }
 
 var page=1;
@@ -66,21 +65,22 @@ require(
     ],
     function (ec) {
    		ec1=ec;
-    	var varNameJS=JSON.parse('${requestScope.varName}');
-    	var url1="selectVarChangeLineData";
-    	var lineDiv=$("#line_div");
-    	for(var i=0;i<varNameJS.length;i++){
-        	lineDiv.append("<div name=\""+varNameJS[i].name+"\" style=\"margin-top:10px;\"></div>");
-	    	$("div[name='"+varNameJS[i].name+"']").append("<div>"
-	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-left:50px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",-1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">上一页</div>"
-	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:155px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+varNameJS[i].name+"',"+i+",1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">下一页</div>"
-	    			+"</div>");
-	    	$("div[name='"+varNameJS[i].name+"']").append("<div page=\""+page+"\" id=\"chart_div"+(i+1)+"\" style=\"height:400px;\"></div>");
-		    initMainVarChangeLine(ec,url1,page,row,"chart_div"+(i+1),varNameJS[i].name);
-    	}
-		showLineDiv(varTypeCbb.combobox("getValue"));
     }
 );
+
+function drawLine(ec,name){
+	var url1="selectVarChangeLineData";
+	var lineMainDiv=$("#lineMain_div");
+	$("#lineMain_div #chart_div").remove();
+	page=1;
+	lineMainDiv.append("<div id=\"chart_div\" name=\""+name+"\" page=\""+page+"\" style=\"margin-top:10px;\"></div>");
+   	$("#chart_div").append("<div>"
+   			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-left:50px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+name+"',-1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">上一页</div>"
+   			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:155px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+name+"',1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">下一页</div>"
+   			+"</div>");
+   	$("#chart_div").append("<div id=\"line_div\" style=\"height:400px;\"></div>");
+    initMainVarChangeLine(ec,url1,page,row,"line_div",name);
+}
 
 function initMainVarChangeLine(ec,url,page,row,chartDiv,name){
    	$.post(url,
@@ -208,16 +208,17 @@ function initMainVarChangeLine(ec,url,page,row,chartDiv,name){
    	,"json");
 }
 
-function nextPage(url,name,i,next){
-	var page=$("#line_div #chart_div"+(i+1)).attr("page");
+function nextPage(url,name,next){
+	var page=$("#lineMain_div #chart_div").attr("page");
 	if(next==1)
 		page++;
 	else if(next==-1)
 		page--;
-	$("#line_div #chart_div"+(i+1)).attr("page",page);
-	initMainVarChangeLine(ec1,url,page,row,"chart_div"+(i+1),name);
+	$("#lineMain_div #chart_div").attr("page",page);
+	initMainVarChangeLine(ec1,url,page,row,"line_div",name);
 }
 
+var wrTotal=0;
 function initVarTab(){
 	warnRecTab=$("#warnRec_tab").datagrid({
 		title:"报警记录",
@@ -225,9 +226,7 @@ function initVarTab(){
 		//pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"id",title:"序号",formatter:function(value,row,index){
-	            return index;
-	        }},
+			{field:"rowNumber",title:"序号"},
 			{field:"name",title:"记录点",width:150},
             {field:"value",title:"数值",width:80},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
@@ -243,9 +242,10 @@ function initVarTab(){
 			{field:"createTime",title:"时间",width:180}
 	    ]],
         onLoadSuccess:function(data){
+        	wrTotal=data.total;
 			if(data.total==0){
-				$(this).datagrid("appendRow",{id:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"id",colspan:5});
+				$(this).datagrid("appendRow",{rowNumber:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"rowNumber",colspan:5});
 				data.total=0;
 			}
 
@@ -271,14 +271,14 @@ function initVarTab(){
 	        return 'background-color:rgba(8,51,94,0.5);';
 	    }
 	});
-	//setInterval("updateWarnRecord()",10000,1000);
+	setInterval("updateWarnRecord()",10000,1000);
 }
 
 function updateWarnRecord(){
 	$.post("updateWarnRecord",
 		function(data){
-			console.log(data.message);
-			if(data.message=="ok"){
+			//console.log(data.message+","+wrTotal);
+			if(wrTotal>0||data.message=="ok"){
 				warnRecTab.datagrid("reload");
 			}
 		}
@@ -324,7 +324,7 @@ function initVarDiv(){
 	showVarLabel("旋风分离器温度2",1270,571);
 	showVarLabel("锅炉出口温度",1270,601);
 	
-	//setInterval("updateVarLabel()",5000,1000);
+	setInterval("updateVarLabel()",5000,1000);
 }
 
 function updateVarLabel(){
@@ -422,9 +422,9 @@ function changePageDiv(o,flag){
 			</c:forEach>
 		</div>
 	</div>
-	<div id="line_div" style="width:1454px;height:570px;margin-top: 10px;margin-left:20px;overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
+	<div id="lineMain_div" style="width:1454px;height:570px;margin-top: 10px;margin-left:20px;overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
     	<div style="color: #fff;font-size: 20px;padding-left: 20px;height: 40px;line-height: 40px;">实时曲线</div>
-		<select id="varType_cbb"></select>
+		<select id="insertArr_cbb"></select>
 	</div>
 </div>
 <!-- 

@@ -20,14 +20,14 @@
 <div id="main2" style="width:99%;height:800px; overflow:auto;background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;display: none;">
 	<div style="width: 100%;height: 60px;line-height: 60px;">
 		<span style="color: #fff;font-size:20px;margin-left:10px;">类别：</span>
-		<select id="varType_cbb2"></select>
+		<select id="insertArr_cbb2"></select>
 		<span style="color: #fff;font-size:20px;margin-left:10px;">区间：</span>
 		<select id="timeSpace_cbb2"></select>
 		<span style="color: #fff;font-size:20px;margin-left:10px;">开始时间：</span>
 		<input id="startTime_dtb" type="text"/>
 		<span style="color: #fff;font-size:20px;margin-left:10px;">结束时间：</span>
 		<input id="endTime_dtb" type="text"/>
-		<div style="width: 80px;height: 40px;line-height: 40px;margin-top:-50px;margin-left:1190px;color:#fff;font-size:20px;text-align:center; background-color: #1A4A8C;cursor: pointer;border: 0.05vw solid rgba(255,255,255,0.3);border-radius:3px;" onclick="searchByName();" onmouseover="changeButDiv(this,1);" onmouseout="changeButDiv(this,0);">查询</div>
+		<div style="width: 80px;height: 40px;line-height: 40px;margin-top:-50px;margin-left:1290px;color:#fff;font-size:20px;text-align:center; background-color: #1A4A8C;cursor: pointer;border: 0.05vw solid rgba(255,255,255,0.3);border-radius:3px;" onclick="searchByName();" onmouseover="changeButDiv(this,1);" onmouseout="changeButDiv(this,0);">查询</div>
 	</div>
 	<!-- 
 	<div id="avgChart_div" style="height:400px;"></div>
@@ -38,7 +38,7 @@ $(function(){
 	$.post("selectInsertArrData",
 		function(data){
 			insertArrCbb=$("#insertArr_cbb").combobox({
-				width:150,
+				width:250,
 				height:40,
 				valueField:"value",
 				textField:"text",
@@ -57,11 +57,11 @@ $(function(){
 					$(".combo").css("margin-left","50px");
 					$(".combo .combo-text").css("color","#fff");
 					$(".combo .combo-text").css("background-color","#1A4A8C");
-					$(".combo .combo-text").css("font-size","20px");
+					$(".combo .combo-text").css("font-size","18px");
 					
 					$(".combobox-item").css("height","40px");
 					$(".combobox-item").css("line-height","40px");
-					$(".combobox-item").css("font-size","20px");
+					$(".combobox-item").css("font-size","18px");
 					$(".combobox-item").css("color","#fff");
 					$(".combobox-item").css("background-color","#1A4A8C");
 					
@@ -70,26 +70,26 @@ $(function(){
 				}
 			});
 			
-			varTypeCbb2=$("#varType_cbb2").combobox({
-				width:150,
+			insertArrCbb2=$("#insertArr_cbb2").combobox({
+				width:250,
 				height:40,
 				valueField:"value",
 				textField:"text",
 				data:data.rows,
-				onSelect:function(){
-					//resetMain2Div();
-				},
 				onLoadSuccess:function(){
 					$(".combo").css("margin-left","10px");
 					$(".combo .combo-text").css("color","#fff");
 					$(".combo .combo-text").css("background-color","#1A4A8C");
-					$(".combo .combo-text").css("font-size","20px");
+					$(".combo .combo-text").css("font-size","18px");
 					
 					$(".combobox-item").css("height","40px");
 					$(".combobox-item").css("line-height","40px");
-					$(".combobox-item").css("font-size","20px");
+					$(".combobox-item").css("font-size","18px");
 					$(".combobox-item").css("color","#fff");
 					$(".combobox-item").css("background-color","#1A4A8C");
+
+					var data=$(this).combobox("getData");
+					$(this).combobox("select",data[0].value);
 				}
 			});
 		}
@@ -105,11 +105,11 @@ $(function(){
 			$(".combo").css("margin-left","10px");
 			$(".combo .combo-text").css("color","#fff");
 			$(".combo .combo-text").css("background-color","#1A4A8C");
-			$(".combo .combo-text").css("font-size","20px");
+			$(".combo .combo-text").css("font-size","18px");
 			
 			$(".combobox-item").css("height","40px");
 			$(".combobox-item").css("line-height","40px");
-			$(".combobox-item").css("font-size","20px");
+			$(".combobox-item").css("font-size","18px");
 			$(".combobox-item").css("color","#fff");
 			$(".combobox-item").css("background-color","#1A4A8C");
 		},
@@ -173,11 +173,6 @@ function addDate(dd,dadd){
 	return a;
 }
 
-function resetMain2Div(){
-	$("#main2 div[id^='avgChart_div']").css("display","none");
-	$("#main2 div[name='"+varTypeCbb2.combobox("getValue")+"']").css("display","block");
-}
-
 var page=1;
 var row=100;
 var ec1;
@@ -190,7 +185,6 @@ require(
     ],
     function (ec) {
    		ec1=ec;
-    	//drawLine(ec);
     }
 );
 
@@ -200,46 +194,27 @@ function drawLine(ec,name){
 	$("#main #chart_div").remove();
 	page=1;
 	main.append("<div id=\"chart_div\" name=\""+name+"\" page=\""+page+"\" style=\"margin-top:10px;\"></div>");
-   	$("div[name='"+name+"']").append("<div>"
+   	$("#chart_div").append("<div>"
    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-left:50px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+name+"',-1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">上一页</div>"
    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:155px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage('"+url1+"','"+name+"',1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">下一页</div>"
    			+"</div>");
-   	$("div[name='"+name+"']").append("<div id=\"line_div\" style=\"height:400px;\"></div>");
+   	$("#chart_div").append("<div id=\"line_div\" style=\"height:400px;\"></div>");
     initVarChangeLine(ec,url1,page,row,"line_div",name);
 }
 
-function drawLine2(ec,varType,timeSpace,startTime,endTime){
-	var reqVarTypeJS=JSON.parse('${requestScope.varType}');
+function drawLine2(ec,name,timeSpace,startTime,endTime){
 	var url2="selectVarAvgChangeLineData";
 	var main2=$("#main2");
-	var varTypeJS;
-	if(varType=="")
-		varTypeJS=reqVarTypeJS;
-	else{
-		varTypeJS=[];
-		for(var i=0;i<reqVarTypeJS.length;i++){
-			if(reqVarTypeJS[i].name==varType){
-				varTypeJS[0]=reqVarTypeJS[i];
-				break;
-			}
-		}
-	}
-	
 	main2.find("div[id^='avgChart_div']").remove();
+	page=1;
 	var otherParam={timeSpace:timeSpace,startTime:startTime,endTime:endTime};
-	for(var i=0;i<varTypeJS.length;i++){
-    	main2.append("<div name=\""+varTypeJS[i].name+"\" id=\"avgChart_div"+(i+1)+"\" style=\"margin-top:10px;\"></div>");
-    	for(var j=0;j<varTypeJS[i].childList.length;j++){
-	    	$("#main2 div[name='"+varTypeJS[i].name+"']").append("<div>"
-	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-left:50px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage2('"+url2+"','"+varTypeJS[i].childList[j].name+"',"+i+","+j+",-1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">上一页</div>"
-	    			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:155px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage2('"+url2+"','"+varTypeJS[i].childList[j].name+"',"+i+","+j+",1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">下一页</div>"
-	    			+"</div>");
-	    	$("#main2 div[name='"+varTypeJS[i].name+"']").append("<div name=\""+varTypeJS[i].childList[j].name+"\" page=\""+page+"\" id=\"avgChartChild_div"+(i+1)+"_"+(j+1)+"\" style=\"height:400px;\"></div>");
-	    	//var series=[];
-			//series.push({name:data[seriesArr[i].name],type:'line',stack: '总量',data:data[seriesArr[i].data]});
-		    initVarChangeLine(ec,url2,page,row,"avgChartChild_div"+(i+1)+"_"+(j+1),varTypeJS[i].childList[j].name,otherParam);
-    	}
-	}
+   	main2.append("<div id=\"avgChart_div\" name=\""+name+"\" page=\""+page+"\" style=\"margin-top:10px;\"></div>");
+   	$("#avgChart_div").append("<div>"
+   			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-left:50px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage2('"+url2+"','"+name+"',-1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">上一页</div>"
+   			+"<div style=\"width: 100px;height: 40px;line-height: 40px;color:#fff;font-size:20px;text-align:center;margin-top:-40px;margin-left:155px; background-color: #1A4A8C;cursor: pointer;\" onclick=\"nextPage2('"+url2+"','"+name+"',1)\" onmouseover=\"changePageDiv(this,1);\" onmouseout=\"changePageDiv(this,0);\">下一页</div>"
+   			+"</div>");
+   	$("#avgChart_div").append("<div id=\"avgLine_div\" style=\"height:400px;\"></div>");
+    initVarChangeLine(ec,url2,page,row,"avgLine_div",name,otherParam);
 }
 
 function showTabDiv(index){
@@ -263,7 +238,7 @@ function showTabDiv(index){
 		$("#main").css("display","none");
 		$("#main2").css("display","block");
 
-		var varType2=varTypeCbb2.combobox("getValue");
+		var name2=insertArrCbb2.combobox("getValue");
 		var timeSpace2=timeSpaceCbb2.combobox("getValue");
 		var startTime=startTimeDTB.datetimebox("getValue");
 		var endTime=endTimeDTB.datetimebox("getValue");
@@ -273,7 +248,7 @@ function showTabDiv(index){
 		console.log(startTime);
 		console.log(endTime);
 		*/
-		drawLine2(ec1,varType2,timeSpace2,startTime,endTime);
+		drawLine2(ec1,name2,timeSpace2,startTime,endTime);
 	}
 }
 
@@ -287,18 +262,18 @@ function nextPage(url,name,next){
 	initVarChangeLine(ec1,url,page,row,"line_div",name);
 }
 
-function nextPage2(url,name,i,j,next){
-	var page=$("#main2 div[name='"+name+"']").attr("page");
+function nextPage2(url,name,next){
+	var page=$("#main2 #avgChart_div").attr("page");
 	if(next==1)
 		page++;
 	else if(next==-1)
 		page--;
-	$("#main2 div[name='"+name+"']").attr("page",page);
+	$("#main2 #avgChart_div").attr("page",page);
 	var timeSpace2=timeSpaceCbb2.combobox("getValue");
 	var startTime=startTimeDTB.datetimebox("getValue");
 	var endTime=endTimeDTB.datetimebox("getValue");
 	var otherParam={timeSpace:timeSpace2,startTime:startTime,endTime:endTime};
-	initVarChangeLine(ec1,url,page,row,"avgChartChild_div"+(i+1)+"_"+(j+1),name,otherParam);
+	initVarChangeLine(ec1,url,page,row,"avgLine_div",name,otherParam);
 }
 
 function changePageDiv(o,flag){
@@ -315,7 +290,7 @@ function changeButDiv(o,flag){
 }
 
 function searchByName(){
-	var varType2=varTypeCbb2.combobox("getValue");
+	var name2=insertArrCbb2.combobox("getValue");
 	var timeSpace2=timeSpaceCbb2.combobox("getValue");
 	var startTime=startTimeDTB.datetimebox("getValue");
 	var endTime=endTimeDTB.datetimebox("getValue");
@@ -323,7 +298,7 @@ function searchByName(){
 	//console.log(timeSpace2);
 	//console.log(startTime);
 	//console.log(endTime);
-	drawLine2(ec1,varType2,timeSpace2,startTime,endTime);
+	drawLine2(ec1,name2,timeSpace2,startTime,endTime);
 }
 </script>
 </body>

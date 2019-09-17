@@ -10,6 +10,7 @@ public class WarnRecord implements Serializable {
 	private String createTime;
 	private Integer state;
 	private String memo;
+	private Integer rowNumber;
 	public String getId() {
 		return id;
 	}
@@ -45,5 +46,11 @@ public class WarnRecord implements Serializable {
 	}
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+	public Integer getRowNumber() {
+		return rowNumber;
+	}
+	public void setRowNumber(Integer rowNumber) {
+		this.rowNumber = rowNumber;
 	}
 }

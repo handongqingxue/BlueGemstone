@@ -240,9 +240,15 @@ public class PublicServiceImpl implements PublicService {
 	}
 
 	@Override
-	public List<WarnHistoryRecord> selectWarnHistoryRecordReportData(String name) {
+	public int getWarnHistoryRecordReportDataCount(String name) {
 		// TODO Auto-generated method stub
-		return publicDao.selectWarnHistoryRecordReportData(name);
+		return publicDao.getWarnHistoryRecordReportDataCount(name);
+	}
+
+	@Override
+	public List<WarnHistoryRecord> selectWarnHistoryRecordReportData(String name, int page, int rows) {
+		// TODO Auto-generated method stub
+		return publicDao.selectWarnHistoryRecordReportData(name, page, rows);
 	}
 
 	@Override
@@ -266,7 +272,7 @@ public class PublicServiceImpl implements PublicService {
 		
 		for(int i=0;i<Constant.INSERT_ARR.length;i++) {
 			Integer state=publicDao.getVarStateByName(Constant.INSERT_ARR[i]);
-			if(0==state) {
+			if(0==state) {//如果状态是0，说明恢复正常了，就查询出最后一条报警记录来，插入到历史报警记录表里
 				List<WarnRecord> wrList = selectWarnRecordReportData(Constant.INSERT_ARR[i]);
 				for (WarnRecord wr : wrList) {
 					WarnHistoryRecord whr=new WarnHistoryRecord();
@@ -318,5 +324,11 @@ public class PublicServiceImpl implements PublicService {
 	public LoginRecord selectLastLoginRecordByName(String name) {
 		// TODO Auto-generated method stub
 		return publicDao.selectLastLoginRecordByName(name);
+	}
+
+	@Override
+	public int getWarnRecordCount() {
+		// TODO Auto-generated method stub
+		return publicDao.getWarnRecordCount();
 	}
 }

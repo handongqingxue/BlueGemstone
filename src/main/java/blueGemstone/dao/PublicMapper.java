@@ -41,7 +41,9 @@ public interface PublicMapper {
 
 	Integer deleteWarnRecordByName(@Param("name") String name);
 
-	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(@Param("name") String name);
+	int getWarnHistoryRecordReportDataCount(@Param("name") String name);
+
+	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(@Param("name") String name, @Param("page") int page, @Param("rows") int rows);
 
 	Float getCurrentVarValue(@Param("name") String name);
 
@@ -50,5 +52,7 @@ public interface PublicMapper {
 	Integer insertLoginRecord(LoginRecord loginRecord);
 
 	LoginRecord selectLastLoginRecordByName(@Param("name") String name);
+
+	int getWarnRecordCount();
 
 }
