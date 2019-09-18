@@ -163,6 +163,16 @@ $(function(){
 		width:220,
 		height:40
 	});
+	
+	setInterval(function(){
+		var page=$("#main #chart_div").attr("page");
+		refreshData(insertArrCbb,page);
+	},3000,1000);
+	
+	setInterval(function(){
+		var page=$("#main2 #avgChart_div").attr("page");
+		refreshData(insertArrCbb,page);
+	},10*60*1000,1000);
 });
 
 function addDate(dd,dadd){
@@ -176,6 +186,7 @@ function addDate(dd,dadd){
 var page=1;
 var row=100;
 var ec1;
+var myChart;
 
 require(
     [
@@ -227,7 +238,8 @@ function showTabDiv(index){
 		$("#main").css("display","block");
 		$("#main2").css("display","none");
 		
-		drawLine(ec1);
+		var name=insertArrCbb.combobox("getValue");
+		drawLine(ec1,name);
 	}
 	else if(index==2){
 		$("#tab_div").css("color","grey");

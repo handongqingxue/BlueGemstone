@@ -48,6 +48,11 @@ function initLineDiv(){
 					$(".combobox-item").css("font-size","18px");
 					$(".combobox-item").css("color","#fff");
 					$(".combobox-item").css("background-color","#1A4A8C");
+
+					setInterval(function(){
+					  	var page=$("#lineMain_div #chart_div").attr("page");
+						refreshData(insertArrCbb,page);
+					},3000,1000);
 				}
 			});
 		}
@@ -57,6 +62,7 @@ function initLineDiv(){
 var page=1;
 var row=100;
 var ec1;
+var myChart;
 require(
     [
         'echarts',
@@ -86,7 +92,7 @@ function initMainVarChangeLine(ec,url,page,row,chartDiv,name){
    	$.post(url,
    			{name:name,page:page,row:row},
   			function(data){
-               var myChart = ec.init(document.getElementById(chartDiv));
+               myChart = ec.init(document.getElementById(chartDiv));
                option = {
                	    tooltip : {
                	        trigger: 'axis'

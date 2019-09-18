@@ -109,6 +109,7 @@ $(function(){
 			$(".datagrid-header td").css("border-width","0 0px 1px 0");
 			$(".datagrid-body td").css("border-width","0 0px 1px 0");
 			$(".datagrid-row td").css("border-bottom","0.05vw rgba(255, 255, 255, 0.3) solid");
+			
 			$(".datagrid-pager").css("background-color","#092378");
 			$(".datagrid-pager table").css("color","#fff");
 			$(".datagrid-pager .pagination-page-list").css("color","#fff");

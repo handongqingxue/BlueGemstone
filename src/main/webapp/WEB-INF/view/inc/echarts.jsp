@@ -32,7 +32,7 @@ function initVarChangeLine(ec,url,page,row,chartDiv,name,otherParam){
   				}
   	   			console.log(data);
   	   			*/
-               var myChart = ec.init(document.getElementById(chartDiv));
+               myChart = ec.init(document.getElementById(chartDiv));
                option = {
                	    tooltip : {
                	        trigger: 'axis'
@@ -152,6 +152,23 @@ function initVarChangeLine(ec,url,page,row,chartDiv,name,otherParam){
                myChart.setOption(option,true);
    		}
    	,"json");
+}
+
+//刷新数据
+function refreshData(cbb,page){
+  var name=cbb.combobox("getValue");
+  console.log(page);
+  $.post("selectVarChangeLineData",
+  	{name:name,page:page,row:100},
+ 		function(data){
+	   	    var option = myChart.getOption();
+	   	    option.xAxis[0].data = data["createTimeList"];
+	   	    option.series[0].data = data["valueList"];
+	   	    option.series[1].data = data["upLimitList"];
+	   	    option.series[2].data = data["downLimitList"];
+	   	    myChart.setOption(option);
+  	}
+  ,"json");
 }
 </script>
 </body>

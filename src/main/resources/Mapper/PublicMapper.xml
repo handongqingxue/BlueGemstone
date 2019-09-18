@@ -13,7 +13,7 @@
 		</if>
 	</select>
 	<select id="selectVarChangeLineData" resultType="blueGemstone.entity.VarChange">
-		select * from (select convert(varchar(12),CreateTime,108) createTime,value,upLimit,downLimit,ROW_NUMBER() over(order by createtime) as rowNumber from VarChange where name=#{name})t where rowNumber between (#{page}-1)*#{row}+1 and #{page}*#{row}
+		select * from (select convert(varchar(12),CreateTime,108) createTime,value,upLimit,downLimit,ROW_NUMBER() over(order by createtime desc) as rowNumber from VarChange where name=#{name})t where rowNumber between (#{page}-1)*#{row}+1 and #{page}*#{row}
 	</select>
 	<select id="getVarChangeReportDataCount" resultType="java.lang.Integer">
 		select count(*) from VarChange where createTime between DATEADD(D,-7,createTime) and createTime
