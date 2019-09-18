@@ -45,7 +45,7 @@ public interface PublicMapper {
 
 	List<WarnHistoryRecord> selectWarnHistoryRecordReportData(@Param("name") String name, @Param("page") int page, @Param("rows") int rows);
 
-	Float getCurrentVarValue(@Param("name") String name);
+	List<VarChange> getCurrentVar();
 
 	List<VarWarnLimit> selectVarWarnLimitData();
 

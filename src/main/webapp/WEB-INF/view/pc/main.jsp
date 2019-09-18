@@ -331,6 +331,7 @@ function updateVarLabel(){
 	$.post("updateCurrentVarValue",
 		function(data){
 			if(data.message=="ok"){
+				console.log(data.message);
 				var varList=data.varList;
 				for(var i=0;i<varList.length;i++){
 					var name=varList[i].name;

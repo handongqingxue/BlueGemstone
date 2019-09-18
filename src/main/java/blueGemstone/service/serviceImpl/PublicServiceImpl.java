@@ -293,13 +293,17 @@ public class PublicServiceImpl implements PublicService {
 	public List<Map<String, Object>> getCurrentVarValueList() {
 		// TODO Auto-generated method stub
 		
+		List<VarChange> valueList=publicDao.getCurrentVar();
+
 		List<Map<String, Object>> varList=new ArrayList<>();
-		for(int i=0;i<Constant.INSERT_ARR.length;i++) {
+		for(int i=0;i<valueList.size();i++) {
+			VarChange varChange = valueList.get(i);
 			Map<String, Object> varMap=new HashMap<>();
-			varMap.put("name", Constant.INSERT_ARR[i]);
-			Float value=publicDao.getCurrentVarValue(Constant.INSERT_ARR[i]);
+			varMap.put("name", varChange.getName());
 			//varMap.put("value", (float)1.00);
+			Float value = varChange.getValue();
 			varMap.put("value", value==null?0.0:df1.format(value));
+			//System.out.println("name==="+varChange.getName()+",value==="+value);
 			varList.add(varMap);
 		}
 		

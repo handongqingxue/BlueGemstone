@@ -80,8 +80,15 @@
 	<select id="getWarnRecordCount" resultType="java.lang.Integer">
 		select count(*) from WarnRecord where state!=0
 	</select>
-	<select id="getCurrentVarValue" resultType="java.lang.Float">
-		select top 1 value from VarChange where name=#{name} order by createTime desc
+	<select id="getCurrentVar" resultType="blueGemstone.entity.VarChange">
+		select top 32 name,value from VarChange where name in
+		<!-- 
+		<foreach collection="list" item="name" open="(" close=")" separator=",">
+			#{name}
+		</foreach>
+		 -->
+		 (select name from Var where Level=2)
+		 order by createTime,name desc
 	</select>
 	<select id="selectVarWarnLimitData" resultType="blueGemstone.entity.VarWarnLimit">
 		select * from VarWarnLimit

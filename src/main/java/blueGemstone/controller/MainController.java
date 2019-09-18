@@ -65,8 +65,15 @@ public class MainController {
 		
 		String device = request.getParameter("device");
 		
-		List<VarWarnLimit> vwlList = publicService.selectVarWarnLimitData();
-		request.getSession().setAttribute("vwlList", vwlList);
+		/*
+		HttpSession session = request.getSession();
+		List<VarWarnLimit> vwlList=null;//(List<VarWarnLimit>)session.getAttribute("vwlList");
+		if(vwlList==null) {
+			System.out.println("selectVarWarnLimitData....");
+			vwlList = publicService.selectVarWarnLimitData();
+			session.setAttribute("vwlList", vwlList);
+		}
+		*/
 		
 		List<Map<String, Object>> varList=publicService.getCurrentVarValueList();
 		request.setAttribute("varList", varList);
