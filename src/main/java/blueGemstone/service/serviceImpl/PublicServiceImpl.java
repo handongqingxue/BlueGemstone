@@ -147,7 +147,7 @@ public class PublicServiceImpl implements PublicService {
 			String name = varWarnLimit.getName();
 			varAvgChange.setName(name);
 			float avgValue = publicDao.getVarChangeAvgValue(name,time,timeFlag);
-			System.out.println("avgValue==="+avgValue);
+			System.out.println("name==="+name+",avgValue==="+avgValue);
 			varAvgChange.setValue(avgValue);
 			varAvgChange.setCreateTime(createTime);
 			varAvgChange.setTimeFlag(timeFlag);
@@ -198,6 +198,7 @@ public class PublicServiceImpl implements PublicService {
 				publicDao.updateVarChange(Constant.INSERT_ARR[i],time,timeFlag);
 			}
 		}
+		publicDao.deleteVarChange();//删除计算完平均值后的多余的数据
 		return count;
 	}
 

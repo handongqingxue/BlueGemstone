@@ -139,9 +139,9 @@ function searchByName(){
 <body style="background-image: url('<%=basePath %>resource/image/002.png');background-size:100% 100%;">
 <div style="width:99%;height:1000px; background-color: rgba(8,51,94,0.5);border: 2px solid;border-image: linear-gradient(120deg, #4d83b2 0%,#2377a7 40%,#00d6ff 50%,#2377a7 60%,#4d83b2 100%) 10 1 stretch;">
 	<div id="toolbar" style="height:40px;line-height:40px;background-color: rgb(9, 35, 120);">
-		<span style="color: #fff;font-size:20px;margin-left:10px;">记录点：</span>
+		<span style="color: #fff;font-size:15px;margin-left:10px;">记录点：</span>
 		<select id="name_cbb"></select>
-		<div style="width: 50px;height: 30px;line-height: 30px;margin-top:-37px;margin-left:250px;color:#fff;font-size:15px;text-align:center; background-color: #1A4A8C;cursor: pointer;border: 0.2vw solid rgba(255,255,255,0.3);border-radius:3px;" onclick="searchByName();" onmouseover="changeButDiv(this,1);" onmouseout="changeButDiv(this,0);">查询</div>
+		<div style="width: 50px;height: 30px;line-height: 30px;margin-top:-37px;margin-left:250px;color:#fff;font-size:15px;text-align:center; background-color: #1A4A8C;cursor: pointer;border: 0.05vw solid rgba(255,255,255,0.3);border-radius:3px;" onclick="searchByName();" onmouseover="changeButDiv(this,1);" onmouseout="changeButDiv(this,0);">查询</div>
 	</div>
 	<table id="tab1">
 	</table>

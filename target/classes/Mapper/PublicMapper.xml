@@ -88,7 +88,7 @@
 		</foreach>
 		 -->
 		 (select name from Var where Level=2)
-		 order by createTime,name desc
+		 order by createTime desc,name desc
 	</select>
 	<select id="selectVarWarnLimitData" resultType="blueGemstone.entity.VarWarnLimit">
 		select * from VarWarnLimit
@@ -116,6 +116,9 @@
 			update VarChange set updated2=1 where name=#{name} and createTime&lt;#{time} and updated2=0
 		</if>
 	</update>
+	<delete id="deleteVarChange">
+		delete from VarChange where updated1=1 and updated2=1
+	</delete>
 	<delete id="deleteWarnRecordByName">
 		delete from WarnRecord where name=#{name}
 	</delete>

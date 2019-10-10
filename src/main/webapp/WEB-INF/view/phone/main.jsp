@@ -9,80 +9,6 @@
 <jsp:include page="../inc/echarts.jsp"></jsp:include>
 <%@include file="../inc/reportJs.jsp"%>
 <script type="text/javascript">
-var websocket = null;
-
-//判断当前浏览器是否支持WebSocket
-
-if ('WebSocket' in window) {
-
-//建立连接，这里的/websocket ，是ManagerServlet中开头注解中的那个值
-
-    websocket = new WebSocket("ws://iot.idosp.net:1288");
-
-}
-
-else {
-
-    alert('当前浏览器 Not support websocket')
-
-}
-
-//连接发生错误的回调方法
-
-websocket.onerror = function () {
-
-    console.log("WebSocket连接发生错误");
-
-};
-
-//连接成功建立的回调方法
-
-websocket.onopen = function () {
-
-    console.log("WebSocket连接成功");
-    websocket.send("{\"token\":\"OGdvkPM3bv7THiM2wfXG\",\"USER_ID\":\"300000495\",\"USER_TYPE\":\"1\"}");
-    websocket.send("{\"BindReal\":[200002144]}");
-
-}
-
-//接收到消息的回调方法
-
-websocket.onmessage = function (event) {
-
-    console.log(event.data);
-
-    if(event.data=="1"){
-
-        location.reload();
-
-    }
-
-}
-
-//连接关闭的回调方法
-
-websocket.onclose = function () {
-
-    console.log("WebSocket连接关闭");
-
-}
-
-//监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-
-window.onbeforeunload = function () {
-
-    closeWebSocket();
-
-}
-
-//关闭WebSocket连接
-
-function closeWebSocket() {
-
-    websocket.close();
-
-}
-
 $(function(){
 	initVarTab();
 	initVarDiv();
@@ -127,7 +53,22 @@ function initVarDiv(){
 	showVarLabel("旋风分离器温度2",155,1062);
 	showVarLabel("锅炉出口温度",155,1098);
 	
-	//setInterval("updateVarLabel()",5000,1000);
+	setInterval("updateVarLabel()",5000,1000);
+}
+
+function updateVarLabel(){
+	$.post("updateCurrentVarValue",
+		function(data){
+			if(data.message=="ok"){
+				console.log(data.message);
+				var varList=data.varList;
+				for(var i=0;i<varList.length;i++){
+					var name=varList[i].name;
+					$("span[name='"+name+"']").text(varList[i].value);
+				}
+			}
+		}
+	,"json");
 }
 
 function showVarLabel(name,left,top){
@@ -142,9 +83,7 @@ function initVarTab(){
 		//pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"id",title:"序号",formatter:function(value,row,index){
-	            return index;
-	        }},
+			{field:"rowNumber",title:"序号"},
 			{field:"name",title:"记录点",width:150},
             {field:"value",title:"数值",width:80},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
@@ -161,8 +100,8 @@ function initVarTab(){
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
-				$(this).datagrid("appendRow",{id:"<div style=\"text-align:center;\">暂无数据<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"id",colspan:5});
+				$(this).datagrid("appendRow",{rowNumber:"<div style=\"text-align:center;\">暂无数据<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"rowNumber",colspan:5});
 				data.total=0;
 			}
 
@@ -188,9 +127,19 @@ function initVarTab(){
 	        return 'background-color:rgba(8,51,94,0.5);';
 	    }
 	});
-	//setInterval("updateWarnRecord()",10000,1000);
+	setInterval("updateWarnRecord()",10000,1000);
 }
 
+function updateWarnRecord(){
+	$.post("updateWarnRecord",
+		function(data){
+			//console.log(data.message+","+wrTotal);
+			if(wrTotal>0||data.message=="ok"){
+				warnRecTab.datagrid("reload");
+			}
+		}
+	,"json");
+}
 
 function initIframe(flag){
 	if(flag==1){

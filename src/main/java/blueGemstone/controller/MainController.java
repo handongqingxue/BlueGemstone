@@ -43,8 +43,8 @@ public class MainController {
 		/*
 		Desktop dt = Desktop.getDesktop();
 		try {
-			dt.browse(new URI("http://120.27.5.36:8080/BlueGemstone/main/goInsertData"));
-			//dt.browse(new URI("http://127.0.0.1:8088/BlueGemstone/main/goInsertData"));
+			//dt.browse(new URI("http://120.27.5.36:8080/BlueGemstone/main/goInsertData"));
+			dt.browse(new URI("http://127.0.0.1:8088/BlueGemstone/main/goInsertData"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -193,6 +193,8 @@ public class MainController {
 			request.getSession().setAttribute("vwlList", vwlList);
 		}
 		publicService.insertVarAvgChange(vwlList,timeFlag);
+		
+		System.out.println("insertVarAvgChange...");
 		
 		return jsonMap;
 	}

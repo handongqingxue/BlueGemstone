@@ -39,6 +39,8 @@ public interface PublicMapper {
 
 	Integer getVarStateByName(@Param("name") String name);
 
+	Integer deleteVarChange();
+
 	Integer deleteWarnRecordByName(@Param("name") String name);
 
 	int getWarnHistoryRecordReportDataCount(@Param("name") String name);

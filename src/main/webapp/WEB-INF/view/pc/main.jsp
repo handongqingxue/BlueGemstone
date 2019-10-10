@@ -229,6 +229,7 @@ function initVarTab(){
 	warnRecTab=$("#warnRec_tab").datagrid({
 		title:"报警记录",
 		url:"selectWarnRecordReportData",
+		height:1350,
 		//pagination:true,
 		pageSize:10,
 		columns:[[

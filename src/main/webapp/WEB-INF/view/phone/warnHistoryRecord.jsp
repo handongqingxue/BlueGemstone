@@ -42,12 +42,10 @@ $(function(){
 		title:"报警历史记录报表",
 		url:"selectWarnHistoryRecordReportData",
 		toolbar:"#toolbar",
-		//pagination:true,
-		pageSize:10,
+		pagination:true,
+		pageSize:50,
 		columns:[[
-			{field:"rowNumber",title:"序号",formatter:function(value,row,index){
-	            return index+1;
-	        }},
+			{field:"rowNumber",title:"序号"},
 			{field:"name",title:"记录点",width:150},
             {field:"value",title:"数值",width:80},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
@@ -83,6 +81,16 @@ $(function(){
 			$(".datagrid-header td").css("border-width","0 0px 1px 0");
 			$(".datagrid-body td").css("border-width","0 0px 1px 0");
 			$(".datagrid-row td").css("border-bottom","0.05vw rgba(255, 255, 255, 0.3) solid");
+
+			$(".datagrid-pager").css("background-color","#092378");
+			$(".datagrid-pager table").css("color","#fff");
+			$(".datagrid-pager .pagination-page-list").css("color","#fff");
+			$(".datagrid-pager .pagination-page-list").css("background-color","#1A4A8C");
+			$(".datagrid-pager .pagination-page-list").append("<option>100</option>");
+			$(".datagrid-pager .pagination-page-list").append("<option>200</option>");
+			$(".datagrid-pager .pagination-num").css("color","#fff");
+			$(".datagrid-pager .pagination-num").css("background-color","#1A4A8C");
+			$(".datagrid-pager .pagination-info").css("color","#fff");
 		}
 	});
 });
