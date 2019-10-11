@@ -278,7 +278,7 @@ function initVarTab(){
 	        return 'background-color:rgba(8,51,94,0.5);';
 	    }
 	});
-	setInterval("updateWarnRecord()",10000,1000);
+	setInterval("updateWarnRecord()",5*60*1000,1000);
 }
 
 function updateWarnRecord(){

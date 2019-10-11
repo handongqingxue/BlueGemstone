@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class VarChange implements Serializable {
 
-	private String id;
+	private Integer id;
 	private String name;
 	private Float value;
 	private Float upLimit;
@@ -14,10 +14,10 @@ public class VarChange implements Serializable {
 	private Boolean updated1;//是否更新了每隔十分钟插入的数据
 	private Boolean updated2;//是否更新了每隔两小时插入的数据
 	private String memo;
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {

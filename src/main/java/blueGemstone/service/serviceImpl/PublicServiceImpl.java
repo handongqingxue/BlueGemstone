@@ -77,7 +77,6 @@ public class PublicServiceImpl implements PublicService {
 		String createTime = timeSDF.format(new Date());
 		for (VarWarnLimit varWarnLimit : vwlList) {
 			VarChange varChange=new VarChange();
-			varChange.setId(UUID.randomUUID().toString().replace("-", ""));
 			varChange.setName(varWarnLimit.getName());
 			Float value = Float.valueOf(messageJO.getString(varWarnLimit.getkName()));
 			//System.out.println("value==="+value);
@@ -111,7 +110,6 @@ public class PublicServiceImpl implements PublicService {
 		String createTime = timeSDF.format(new Date());
 		for (int i = 0; i < Constant.INSERT_ARR.length; i++) {
 			VarChange varChange=new VarChange();
-			varChange.setId(UUID.randomUUID().toString().replace("-", ""));
 			varChange.setName(Constant.INSERT_ARR[i]);
 			Random random = new Random();
 			float value = random.nextInt(100);
@@ -167,6 +165,7 @@ public class PublicServiceImpl implements PublicService {
 				publicDao.updateVarChange(name,time,timeFlag);
 			}
 		}
+		publicDao.deleteVarChange();//删除计算完平均值后的多余的数据
 		return count;
 	}
 

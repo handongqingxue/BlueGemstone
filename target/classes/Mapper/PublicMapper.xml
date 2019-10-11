@@ -88,13 +88,13 @@
 		</foreach>
 		 -->
 		 (select name from Var where Level=2)
-		 order by createTime desc,name desc
+		 order by id desc
 	</select>
 	<select id="selectVarWarnLimitData" resultType="blueGemstone.entity.VarWarnLimit">
 		select * from VarWarnLimit
 	</select>
 	<insert id="insertVarChange" parameterType="blueGemstone.entity.VarChange">
-		insert into VarChange (id,name,value,upLimit,downLimit,createTime,state,updated1,updated2,memo) values(#{id},#{name},#{value},#{upLimit},#{downLimit},#{createTime},#{state},0,0,#{memo})
+		insert into VarChange (name,value,upLimit,downLimit,createTime,state,updated1,updated2,memo) values(#{name},#{value},#{upLimit},#{downLimit},#{createTime},#{state},0,0,#{memo})
 	</insert>
 	<insert id="insertVarAvgChange" parameterType="blueGemstone.entity.VarAvgChange">
 		insert into VarAvgChange (id,name,value,upLimit,downLimit,createTime,state,memo,timeFlag) values(#{id},#{name},#{value},#{upLimit},#{downLimit},#{createTime},#{state},#{memo},#{timeFlag})
