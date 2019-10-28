@@ -15,43 +15,43 @@ $(function(){
 });
 
 function initVarDiv(){
-	showVarLabel("除氧器频率2",155,11);
-	showVarLabel("除氧器频率1",155,46);
-	showVarLabel("除氧器液位",155,83);
-	showVarLabel("除氧器温度",155,116);
-	showVarLabel("上水泵频率1",155,153);
-	showVarLabel("上水泵频率2",155,188);
-	showVarLabel("水泵上水流量",155,223);
-	showVarLabel("饱和蒸汽压力",155,257);
-	showVarLabel("过热蒸汽压力",155,292);
-	showVarLabel("过热蒸汽温度",155,326);
-	showVarLabel("蒸汽流量计",155,363);
-	showVarLabel("引风机频率",155,397);
-	showVarLabel("鼓风机频率",155,432);
-	showVarLabel("二次风频率",155,468);
-	showVarLabel("三次风频率1",155,502);
-	showVarLabel("三次风频率2",155,537);
+	showVarLabel("除氧器频率2",193,11);
+	showVarLabel("除氧器频率1",193,46);
+	showVarLabel("锅筒液位",193,83);
+	showVarLabel("除氧器温度",193,116);
+	showVarLabel("上水泵频率1",193,153);
+	showVarLabel("上水泵频率2",193,188);
+	showVarLabel("水泵上水流量",193,223);
+	showVarLabel("饱和蒸汽压力",193,257);
+	showVarLabel("过热蒸汽压力",193,292);
+	showVarLabel("过热蒸汽温度",193,326);
+	showVarLabel("蒸汽流量计",193,363);
+	showVarLabel("引风机频率",193,397);
+	showVarLabel("鼓风机频率",193,432);
+	showVarLabel("二次风频率",193,468);
+	showVarLabel("三次风频率1",193,502);
+	showVarLabel("三次风频率2",193,537);
 
 
-	showVarLabel("风室压力",155,573);
-	showVarLabel("三次风室压力1",155,607);
-	showVarLabel("三次风室压力2",155,642);
-	showVarLabel("炉膛差压",155,677);
-	showVarLabel("料层差压",155,712);
+	showVarLabel("风室压力",193,573);
+	showVarLabel("三次风室压力1",193,607);
+	showVarLabel("三次风室压力2",193,642);
+	showVarLabel("炉膛差压",193,677);
+	showVarLabel("料层差压",193,712);
 	
-	showVarLabel("含氧量表",155,747);
-	showVarLabel("给煤频率1",155,782);
-	showVarLabel("给煤频率2",155,816);
-	showVarLabel("给煤频率3",155,852);
+	showVarLabel("含氧量表",193,747);
+	showVarLabel("给煤频率1",194,782);
+	showVarLabel("给煤频率2",194,816);
+	showVarLabel("给煤频率3",194,852);
 	
-	showVarLabel("床体温度1",155,887);
-	showVarLabel("床体温度2",155,922);
-	showVarLabel("床体温度3",155,957);
-	showVarLabel("床体温度4",155,992);
+	showVarLabel("床体温度1",194,887);
+	showVarLabel("床体温度2",194,922);
+	showVarLabel("床体温度3",194,957);
+	showVarLabel("床体温度4",194,992);
 	
-	showVarLabel("旋风分离器温度1",155,1028);
-	showVarLabel("旋风分离器温度2",155,1062);
-	showVarLabel("锅炉出口温度",155,1098);
+	showVarLabel("旋风分离器温度1",193,1028);
+	showVarLabel("旋风分离器温度2",193,1062);
+	showVarLabel("高温过热器前烟气",193,1098);
 	
 	setInterval("updateVarLabel()",5000,1000);
 }
@@ -197,165 +197,165 @@ function showTabDiv(index){
 	<span name="${item.name }" style="position: absolute;">${item.value }</span>
 	</c:forEach>
 	<div id="var_div" style="width:100%;">
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:26px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:53px; color: #fff;font-size: 18px;">
 			除氧器2#频率
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:124px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:191px;">HZ</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:131px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:198px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:26px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:53px; color: #fff;font-size: 18px;">
 			除氧器1#频率
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:124px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:191px;">HZ</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:131px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:198px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
-			除氧器液位
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">HZ</div>
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:94px; color: #fff;font-size: 18px;">
+			锅筒液位
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:90px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:157px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:76px; color: #fff;font-size: 18px;">
 			除氧器温度
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">HZ</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:108px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:175px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:26px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:53px; color: #fff;font-size: 18px;">
 			1#上水泵频率
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:124px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:191px;">HZ</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:131px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:198px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:26px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:53px; color: #fff;font-size: 18px;">
 			2#上水泵频率
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:124px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:191px;">HZ</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:131px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:198px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:33px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:57px; color: #fff;font-size: 18px;">
 			水泵上水流量
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:117px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:184px;">L/S</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:127px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:194px;">L/S</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:33px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:57px; color: #fff;font-size: 18px;">
 			饱和蒸汽压力
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:117px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:184px;">Mpa</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:127px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:194px;">Mpa</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:33px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:57px; color: #fff;font-size: 18px;">
 			过热蒸汽压力
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:117px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:184px;">Mpa</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:127px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:194px;">Mpa</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:33px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:57px; color: #fff;font-size: 18px;">
 			过热蒸汽温度
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:117px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:184px;">℃</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:127px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:194px;">℃</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:76px; color: #fff;font-size: 18px;">
 			蒸汽流量计
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">T/H</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:108px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:175px;">T/H</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:76px; color: #fff;font-size: 18px;">
 			引风机频率
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">HZ</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:108px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:175px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:76px; color: #fff;font-size: 18px;">
 			鼓风机频率
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">HZ</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:108px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:175px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:76px; color: #fff;font-size: 18px;">
 			二次风频率
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">HZ</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:108px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:175px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:33px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:67px; color: #fff;font-size: 18px;">
 			三次风频率1
 			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:117px; color: #000;padding-left: 10px;"></div>
 			<div style="margin-top: -25px;margin-left:184px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:33px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:67px; color: #fff;font-size: 18px;">
 			三次风频率2
 			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:117px; color: #000;padding-left: 10px;"></div>
 			<div style="margin-top: -25px;margin-left:184px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:67px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:96px; color: #fff;font-size: 18px;">
 			风室压力
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:83px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:150px;">Mpa</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:88px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:152px;">Mpa</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:10px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:38px; color: #fff;font-size: 18px;">
 			1#三次风室压力
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:140px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:207px;">Mpa</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:146px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:210px;">Mpa</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:10px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:38px; color: #fff;font-size: 18px;">
 			2#三次风室压力
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:140px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:207px;">Mpa</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:146px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:210px;">Mpa</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:67px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:96px; color: #fff;font-size: 18px;">
 			炉膛差压
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:83px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:150px;">Mpa</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:88px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:152px;">Mpa</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:67px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:96px; color: #fff;font-size: 18px;">
 			料层差压
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:83px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:150px;">Mpa</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:88px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:152px;">Mpa</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:67px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:93px; color: #fff;font-size: 18px;">
 			1#含氧量
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:83px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:150px;">%</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:91px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:155px;">%</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:75px; color: #fff;font-size: 18px;">
 			1#给煤频率
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">HZ</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:109px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:173px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:75px; color: #fff;font-size: 18px;">
 			2#给煤频率
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">HZ</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:109px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:173px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:75px; color: #fff;font-size: 18px;">
 			3#给煤频率
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">HZ</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:109px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:173px;">HZ</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:75px; color: #fff;font-size: 18px;">
 			1#床体温度
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">℃</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:109px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:173px;">℃</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:75px; color: #fff;font-size: 18px;">
 			2#床体温度
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">℃</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:109px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:173px;">℃</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:75px; color: #fff;font-size: 18px;">
 			3#床体温度
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">℃</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:109px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:173px;">℃</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:47px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:75px; color: #fff;font-size: 18px;">
 			4#床体温度
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:103px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:170px;">℃</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:109px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:173px;">℃</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:33px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:61px; color: #fff;font-size: 18px;">
 			右分离器温度
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:117px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:184px;">℃</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:123px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:187px;">℃</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:33px; color: #fff;font-size: 18px;">
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:61px; color: #fff;font-size: 18px;">
 			左分离器温度
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:117px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:184px;">℃</div>
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:123px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:187px;">℃</div>
 		</div>
-		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:33px; color: #fff;font-size: 18px;">
-			锅炉出口温度
-			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:117px; color: #000;padding-left: 10px;"></div>
-			<div style="margin-top: -25px;margin-left:184px;">℃</div>
+		<div style="height: 25px;line-height: 25px;margin-top:10px;margin-left:26px; color: #fff;font-size: 18px;">
+			高温过热器前烟气
+			<div style="background-color: #fff;width: 50px;height: 25px;line-height: 25px;margin-top:-25px;margin-left:158px; color: #000;padding-left: 10px;"></div>
+			<div style="margin-top: -25px;margin-left:222px;">℃</div>
 		</div>
 	</div>
 </div>

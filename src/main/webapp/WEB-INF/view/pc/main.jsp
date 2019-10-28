@@ -293,43 +293,43 @@ function updateWarnRecord(){
 }
 
 function initVarDiv(){
-	showVarLabel("除氧器频率2",586,18);
-	showVarLabel("除氧器频率1",586,42);
-	showVarLabel("除氧器液位",586,64);
-	showVarLabel("除氧器温度",586,88);
-	showVarLabel("上水泵频率1",123,92);
-	showVarLabel("上水泵频率2",123,236);
-	showVarLabel("水泵上水流量",397,96);
-	showVarLabel("饱和蒸汽压力",749,131);
-	showVarLabel("过热蒸汽压力",973,72);
-	showVarLabel("过热蒸汽温度",1106,72);
-	showVarLabel("蒸汽流量计",1263,94);
-	showVarLabel("引风机频率",990,268);
-	showVarLabel("鼓风机频率",358,317);
-	showVarLabel("二次风频率",123,365);
-	showVarLabel("三次风频率1",1270,365);
-	showVarLabel("三次风频率2",1270,338);
+	showVarLabel("除氧器频率2",596,43);
+	showVarLabel("除氧器频率1",596,66);
+	showVarLabel("除氧器温度",596,91);
+	showVarLabel("上水泵频率1",128,94);
+	showVarLabel("上水泵频率2",128,241);
+	showVarLabel("水泵上水流量",405,98);
+	showVarLabel("饱和蒸汽压力",755,134);
+	showVarLabel("过热蒸汽压力",978,74);
+	showVarLabel("过热蒸汽温度",1111,74);
+	showVarLabel("蒸汽流量计",1269,96);
+	showVarLabel("引风机频率",998,272);
+	showVarLabel("鼓风机频率",361,322);
+	showVarLabel("二次风频率",127,371);
+	//showVarLabel("三次风频率1",1287,425);
+	showVarLabel("三次风频率2",1278,370);
 
 
-	showVarLabel("风室压力",241,539);
-	showVarLabel("三次风室压力1",241,573);
-	showVarLabel("三次风室压力2",241,604);
-	showVarLabel("炉膛差压",241,636);
-	showVarLabel("料层差压",241,667);
+	//showVarLabel("风室压力",241,501);
+	//showVarLabel("三次风室压力1",241,573);
+	//showVarLabel("三次风室压力2",241,604);
+	showVarLabel("炉膛差压",227,552);
+	showVarLabel("料层差压",227,584);
+	showVarLabel("锅筒液位",227,616);
 	
-	showVarLabel("含氧量表",585,539);
-	showVarLabel("给煤频率1",585,571);
-	showVarLabel("给煤频率2",585,604);
-	showVarLabel("给煤频率3",585,637);
+	showVarLabel("含氧量表",595,545);
+	showVarLabel("给煤频率1",595,578);
+	showVarLabel("给煤频率2",595,611);
+	showVarLabel("给煤频率3",595,643);
 	
-	showVarLabel("床体温度1",910,539);
-	showVarLabel("床体温度2",910,571);
-	showVarLabel("床体温度3",910,602);
-	showVarLabel("床体温度4",910,633);
+	showVarLabel("床体温度1",920,546);
+	showVarLabel("床体温度2",920,576);
+	showVarLabel("床体温度3",920,607);
+	showVarLabel("床体温度4",920,638);
 	
-	showVarLabel("旋风分离器温度1",1270,539);
-	showVarLabel("旋风分离器温度2",1270,571);
-	showVarLabel("锅炉出口温度",1270,601);
+	showVarLabel("旋风分离器温度1",1281,546);
+	showVarLabel("旋风分离器温度2",1281,576);
+	showVarLabel("高温过热器前烟气",1281,607);
 	
 	setInterval("updateVarLabel()",5000,1000);
 }
