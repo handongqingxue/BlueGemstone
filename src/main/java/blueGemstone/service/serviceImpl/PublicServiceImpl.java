@@ -86,13 +86,18 @@ public class PublicServiceImpl implements PublicService {
 			varChange.setUpLimit(upLimit);
 			Float downLimit = varWarnLimit.getDownLimit();
 			varChange.setDownLimit(downLimit);
-			if(value>upLimit) {
-				varChange.setState(1);
-				insertWarnRecord(varChange);
-			}
-			else if(value<downLimit) {
-				varChange.setState(2);
-				insertWarnRecord(varChange);
+			
+			if(upLimit!=null&&downLimit!=null) {
+				if(value>upLimit) {
+					varChange.setState(1);
+					insertWarnRecord(varChange);
+				}
+				else if(value<downLimit) {
+					varChange.setState(2);
+					insertWarnRecord(varChange);
+				}
+				else
+					varChange.setState(0);
 			}
 			else
 				varChange.setState(0);
@@ -149,14 +154,19 @@ public class PublicServiceImpl implements PublicService {
 			varAvgChange.setValue(avgValue);
 			varAvgChange.setCreateTime(createTime);
 			varAvgChange.setTimeFlag(timeFlag);
-			float upLimit = varWarnLimit.getUpLimit();
+			Float upLimit = varWarnLimit.getUpLimit();
 			varAvgChange.setUpLimit(upLimit);
-			float downLimit = varWarnLimit.getDownLimit();
+			Float downLimit = varWarnLimit.getDownLimit();
 			varAvgChange.setDownLimit(downLimit);
-			if(avgValue>upLimit)
-				varAvgChange.setState(1);
-			else if(avgValue<downLimit)
-				varAvgChange.setState(2);
+			
+			if(upLimit!=null&&downLimit!=null) {
+				if(avgValue>upLimit)
+					varAvgChange.setState(1);
+				else if(avgValue<downLimit)
+					varAvgChange.setState(2);
+				else
+					varAvgChange.setState(0);
+			}
 			else
 				varAvgChange.setState(0);
 			
@@ -334,5 +344,11 @@ public class PublicServiceImpl implements PublicService {
 	public int getWarnRecordCount() {
 		// TODO Auto-generated method stub
 		return publicDao.getWarnRecordCount();
+	}
+
+	@Override
+	public VarWarnLimit getRange(String name) {
+		// TODO Auto-generated method stub
+		return publicDao.getRange(name);
 	}
 }

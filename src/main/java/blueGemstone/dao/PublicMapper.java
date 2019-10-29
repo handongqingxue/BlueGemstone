@@ -57,4 +57,6 @@ public interface PublicMapper {
 
 	int getWarnRecordCount();
 
+	VarWarnLimit getRange(@Param("name") String name);
+
 }

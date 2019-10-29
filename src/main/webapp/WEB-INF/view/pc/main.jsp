@@ -134,6 +134,8 @@ function initMainVarChangeLine(ec,url,page,row,chartDiv,name){
                	        {
                	        	splitLine:{show:false},//去除网格线
                	            type : 'value',
+               	            min:data["min"],
+               	            max:data["max"],
 	               	        axisLabel: {
 	                            show: true,
 	                            textStyle: {

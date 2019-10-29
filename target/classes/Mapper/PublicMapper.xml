@@ -93,6 +93,9 @@
 	<select id="selectVarWarnLimitData" resultType="blueGemstone.entity.VarWarnLimit">
 		select * from VarWarnLimit
 	</select>
+	<select id="getRange" resultType="blueGemstone.entity.VarWarnLimit">
+		select Max,Min from VarWarnLimit where name=#{name}
+	</select>
 	<insert id="insertVarChange" parameterType="blueGemstone.entity.VarChange">
 		insert into VarChange (name,value,upLimit,downLimit,createTime,state,updated1,updated2,memo) values(#{name},#{value},#{upLimit},#{downLimit},#{createTime},#{state},0,0,#{memo})
 	</insert>

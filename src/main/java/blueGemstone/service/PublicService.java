@@ -62,4 +62,11 @@ public interface PublicService {
 	 */
 	int getWarnRecordCount();
 
+	/**
+	 * 获得量程
+	 * @param name
+	 * @return
+	 */
+	VarWarnLimit getRange(String name);
+
 }

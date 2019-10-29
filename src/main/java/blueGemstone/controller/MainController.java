@@ -168,11 +168,7 @@ public class MainController {
 		Map<String,Object> jsonMap=new HashMap<>();
 		
 		pushData=pushData.replaceAll("\\\\\"", "\"");
-		List<VarWarnLimit> vwlList = (List<VarWarnLimit>)request.getSession().getAttribute("vwlList");
-		if(vwlList==null) {
-			vwlList = publicService.selectVarWarnLimitData();
-			request.getSession().setAttribute("vwlList", vwlList);
-		}
+		List<VarWarnLimit> vwlList = publicService.selectVarWarnLimitData();
 		publicService.insertVarChange(vwlList,pushData);
 		
 		return jsonMap;
@@ -212,6 +208,7 @@ public class MainController {
 		
 		Map<String,Object> jsonMap=new HashMap<>();
 		
+		VarWarnLimit rangeVar=publicService.getRange(name);
 		List<VarChange> vcList=publicService.selectVarChangeLineData(name,page,row);
 		List<String> createTimeList=new ArrayList<String>();
 		List<Float> valueList=new ArrayList<Float>();
@@ -221,15 +218,19 @@ public class MainController {
 			createTimeList.add(varChange.getCreateTime());
 			valueList.add(varChange.getValue());
 			Float upLimit = varChange.getUpLimit();
-			upLimitList.add(upLimit==null?(float)0.00:upLimit);
+			//upLimitList.add(upLimit==null?(float)0.00:upLimit);
+			upLimitList.add(upLimit);
 			Float downLimit = varChange.getDownLimit();
-			downLimitList.add(downLimit==null?(float)0.00:downLimit);
+			//downLimitList.add(downLimit==null?(float)0.00:downLimit);
+			downLimitList.add(downLimit);
 		}
 		jsonMap.put("createTimeList", createTimeList);
 		jsonMap.put("listSize", createTimeList.size());
 		jsonMap.put("valueList", valueList);
 		jsonMap.put("upLimitList", upLimitList);
 		jsonMap.put("downLimitList", downLimitList);
+		jsonMap.put("max", rangeVar.getMax());
+		jsonMap.put("min", rangeVar.getMin());
 		
 		/*
 		if(vcList.size()>0) {
